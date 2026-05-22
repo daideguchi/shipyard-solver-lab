@@ -64,6 +64,8 @@ def main() -> None:
         raise SystemExit("official portfolio candidate is not feasible")
     if portfolio["objective_improvement"] <= 0:
         raise SystemExit("official portfolio candidate did not improve the greedy reference")
+    if not portfolio["assignment_search"]["portfolio_matches_static_bound"]:
+        raise SystemExit("official portfolio candidate does not match the public-example static assignment bound")
     if "not leaderboard evidence" not in portfolio_report_path.read_text():
         raise SystemExit("official portfolio report missing claim boundary")
 
@@ -85,6 +87,7 @@ def main() -> None:
     print(f"official_checker_objective={checker['simple_sequential']['objective']}")
     print(f"official_portfolio_objective={portfolio['official_portfolio']['objective']}")
     print(f"official_portfolio_improvement={portfolio['objective_improvement']}")
+    print(f"official_portfolio_matches_static_bound={portfolio['assignment_search']['portfolio_matches_static_bound']}")
 
 
 if __name__ == "__main__":

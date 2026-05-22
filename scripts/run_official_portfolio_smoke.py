@@ -39,6 +39,7 @@ def write_report(payload: dict) -> None:
     portfolio = payload["official_portfolio"]
     greedy = payload["official_greedy_reference"]
     delta = payload["objective_delta_vs_greedy"]
+    assignment = payload["assignment_search"]
     REPORT_PATH.write_text(
         "\n".join(
             [
@@ -71,10 +72,18 @@ def write_report(payload: dict) -> None:
                 f"- Objective delta vs greedy: {delta}",
                 f"- Improvement: {payload['objective_improvement']}",
                 "",
+                "## Assignment Search Proof",
+                "",
+                f"- Candidate assignments evaluated: {assignment['candidate_count']}",
+                f"- Exhaustive for this example: {assignment['exhaustive']}",
+                f"- Best static assignment objective: {assignment['best_static_objective']}",
+                f"- Portfolio matches static bound: {assignment['portfolio_matches_static_bound']}",
+                "",
                 "## Boundary",
                 "",
                 "This is an official-example smoke test, not leaderboard evidence.",
                 "It proves that the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on example_B2_b10.",
+                "The static-bound statement is only for this small public example, where all bay assignments are enumerable.",
                 "",
             ]
         ),
@@ -83,7 +92,7 @@ def write_report(payload: dict) -> None:
 
 
 def normalized_log_head(text: str) -> list[str]:
-    return [re.sub(r"\\s+\\d+\\.\\d+s$", "  <elapsed>", line) for line in text.splitlines()[:14]]
+    return [re.sub(r"\s+\d+\.\d+s$", "  <elapsed>", line) for line in text.splitlines()[:14]]
 
 
 def main() -> None:
@@ -107,6 +116,12 @@ def main() -> None:
             raise SystemExit(json.dumps(greedy_result, indent=2))
 
         module = load_myalgorithm()
+        candidate_assignments = module._candidate_assignments(prob_info, greedy_solution)
+        static_scores = [module._static_assignment_score(prob_info, item) for item in candidate_assignments]
+        best_static = min(static_scores)
+        exhaustive_count = len(prob_info["bays"]) ** len(prob_info["blocks"])
+        exhaustive = len(candidate_assignments) == exhaustive_count
+
         candidate_solution = module.algorithm(prob_info, timelimit=10)
         candidate_result = check_feasibility(prob_info, candidate_solution)
         if not candidate_result.get("feasible"):
@@ -126,6 +141,17 @@ def main() -> None:
             "official_greedy_reference": greedy_result,
             "objective_delta_vs_greedy": round(delta, 6),
             "objective_improvement": round(-delta, 6),
+            "assignment_search": {
+                "candidate_count": len(candidate_assignments),
+                "exhaustive": exhaustive,
+                "exhaustive_count": exhaustive_count,
+                "best_static_objective": round(best_static, 6),
+                "portfolio_matches_static_bound": (
+                    exhaustive
+                    and abs(candidate_result["objective"] - best_static) < 1e-6
+                    and candidate_result["obj1"] == 0
+                ),
+            },
             "greedy_log_head": normalized_log_head(greedy_log.getvalue()),
         }
 
@@ -138,6 +164,8 @@ def main() -> None:
     print(f"portfolio_objective={candidate_result['objective']:.6f}")
     print(f"greedy_objective={greedy_result['objective']:.6f}")
     print(f"objective_improvement={payload['objective_improvement']:.6f}")
+    print(f"assignment_candidates={payload['assignment_search']['candidate_count']}")
+    print(f"portfolio_matches_static_bound={payload['assignment_search']['portfolio_matches_static_bound']}")
     print(f"report={REPORT_PATH.relative_to(ROOT)}")
 
 

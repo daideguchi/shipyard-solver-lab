@@ -248,7 +248,7 @@
       document.querySelector('#officialCheckerText').textContent =
         `Exact official checker PASS on a conservative sequential solution: feasible=${officialChecker.simple_sequential.feasible}, stage ${officialChecker.simple_sequential.stage}. Greedy reference objective ${officialChecker.official_greedy_reference.objective.toFixed(2)}. This proves format integration, not competitiveness.`;
       document.querySelector('#officialPortfolioText').textContent =
-        `Candidate official algorithm PASS: objective ${officialPortfolio.official_portfolio.objective.toFixed(2)} vs greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}, an improvement of ${officialPortfolio.objective_improvement.toFixed(2)} on public example_B2_b10. Not leaderboard evidence.`;
+        `Candidate official algorithm PASS: objective ${officialPortfolio.official_portfolio.objective.toFixed(2)} vs greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}, an improvement of ${officialPortfolio.objective_improvement.toFixed(2)} on public example_B2_b10. It enumerates ${officialPortfolio.assignment_search.candidate_count} bay assignments and matches the static bound. Not leaderboard evidence.`;
     }
 
     function renderYards(instance, solution) {

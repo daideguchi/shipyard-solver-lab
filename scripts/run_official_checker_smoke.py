@@ -138,7 +138,7 @@ def write_report(payload: dict) -> None:
 
 
 def normalized_log_head(text: str) -> list[str]:
-    return [re.sub(r"\\s+\\d+\\.\\d+s$", "  <elapsed>", line) for line in text.splitlines()[:14]]
+    return [re.sub(r"\s+\d+\.\d+s$", "  <elapsed>", line) for line in text.splitlines()[:14]]
 
 
 def main() -> None:

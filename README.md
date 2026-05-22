@@ -107,9 +107,11 @@ portfolio_feasible=True
 portfolio_objective=1022.698826
 greedy_objective=1055.727896
 objective_improvement=33.029071
+assignment_candidates=1024
+portfolio_matches_static_bound=True
 ```
 
-This uses the public OGC baseline example and the official feasibility checker. It is not leaderboard evidence, but it proves the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on `example_B2_b10`.
+This uses the public OGC baseline example and the official feasibility checker. It is not leaderboard evidence, but it proves the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on `example_B2_b10`. Because this public example has only 10 blocks and 2 bays, the smoke test also enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound for the example.
 
 ## What It Does Not Claim
 

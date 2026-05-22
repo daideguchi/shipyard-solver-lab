@@ -27,7 +27,15 @@ This report uses the public OGC 2026 baseline package and official feasibility c
 - Objective delta vs greedy: -33.029071
 - Improvement: 33.029071
 
+## Assignment Search Proof
+
+- Candidate assignments evaluated: 1024
+- Exhaustive for this example: True
+- Best static assignment objective: 1022.698826
+- Portfolio matches static bound: True
+
 ## Boundary
 
 This is an official-example smoke test, not leaderboard evidence.
 It proves that the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on example_B2_b10.
+The static-bound statement is only for this small public example, where all bay assignments are enumerable.

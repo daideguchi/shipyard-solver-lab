@@ -64,6 +64,9 @@ if (!body.includes('Official Checker Smoke') || !body.includes('Exact official c
 if (!body.includes('Official Portfolio Candidate') || !body.includes('Candidate official algorithm PASS')) {
   throw new Error('missing official portfolio candidate proof');
 }
+if (!body.includes('1024 bay assignments') || !body.includes('matches the static bound')) {
+  throw new Error('missing official portfolio static-bound proof');
+}
 
 await page.screenshot({ path: path.join(root, 'media', 'shipyard-solver-lab-full.png'), fullPage: true });
 await browser.close();

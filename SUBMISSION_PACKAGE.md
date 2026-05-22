@@ -34,7 +34,7 @@ After checking the official OGC site, I also added an official-example projectio
 
 I also added an exact official-checker smoke test. It builds a conservative official `operations` solution, runs the public OGC feasibility checker, and verifies `feasible=True` at stage 5. The objective is intentionally poor because only one block is present at a time. That is a feature, not a claim: it proves the submission format and checker integration before optimizing.
 
-The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. It runs the public greedy baseline, then searches bay-assignment candidates and keeps the best official-checker-feasible solution. On the public `example_B2_b10` instance, the candidate improves the official checker objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a working, checker-validated optimization loop on the public example.
+The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. It runs the public greedy baseline, then searches bay-assignment candidates and keeps the best official-checker-feasible solution. On the public `example_B2_b10` instance, the candidate improves the official checker objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. Because the public example has only 10 blocks and 2 bays, the smoke test enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a working, checker-validated optimization loop on the public example.
 
 The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps.
 
@@ -92,4 +92,6 @@ portfolio_feasible=True
 portfolio_objective=1022.698826
 greedy_objective=1055.727896
 objective_improvement=33.029071
+assignment_candidates=1024
+portfolio_matches_static_bound=True
 ```

@@ -93,9 +93,11 @@ portfolio_feasible=True
 portfolio_objective=1022.698826
 greedy_objective=1055.727896
 objective_improvement=33.029071
+assignment_candidates=1024
+portfolio_matches_static_bound=True
 ```
 
-This is measured only on the public `example_B2_b10` example. It is not leaderboard evidence, but it proves the exact official algorithm interface, `operations` format, checker integration, and a real objective improvement over the public greedy reference on the available example.
+This is measured only on the public `example_B2_b10` example. It is not leaderboard evidence, but it proves the exact official algorithm interface, `operations` format, checker integration, and a real objective improvement over the public greedy reference on the available example. For this small public example, all 1,024 bay assignments are enumerable; the candidate matches the static assignment lower bound while remaining official-checker feasible.
 
 ## Boundary
 
