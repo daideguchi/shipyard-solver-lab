@@ -38,14 +38,16 @@ After checking the official OGC site, I added a schema-ingestion smoke test agai
 
 I also added an exact official-checker smoke test. It creates a conservative official `operations` solution and runs the public OGC feasibility checker. The smoke solution passes (`feasible=True`, stage 5), but its objective is intentionally poor because only one block is present at a time. The point is to prove the submission format and checker integration before replacing the placeholder with a stronger official-format algorithm.
 
+The newest build includes that stronger first step: `official_submission/myalgorithm.py`, a candidate official algorithm wrapper. It runs the public greedy reference, searches bay-assignment candidates, checks each candidate with the official feasibility checker, and keeps the best feasible solution. On the public `example_B2_b10` instance, it improves the objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. This is still not leaderboard evidence, but it proves a real checker-validated optimization loop on the official public example.
+
 ## Claim Boundary
 
 This is a preparation workbench. It does not claim official OGC 2026 leaderboard performance, competitive official objective value, or final submission readiness.
 
 ## What's Next
 
-- adapt to the official schema
-- add relocate/swap/rotate local search on top of beam output
+- generalize the candidate official algorithm against official training instances
+- add relocate/swap/rotate local search on top of checker-feasible official solutions
 - add resource and time-window constraints once official rules are published
 - archive best runs by seed and score
 - write the final technical report from real benchmark evidence

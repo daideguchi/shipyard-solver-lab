@@ -1,0 +1,170 @@
+{
+  "operations": {
+    "0": [
+      {
+        "type": "ENTRY",
+        "block_id": 1,
+        "bay_id": 0,
+        "x": 8,
+        "y": 0,
+        "orient_idx": 0
+      }
+    ],
+    "4": [
+      {
+        "type": "ENTRY",
+        "block_id": 2,
+        "bay_id": 0,
+        "x": 7,
+        "y": 0,
+        "orient_idx": 2
+      }
+    ],
+    "7": [
+      {
+        "type": "EXIT",
+        "block_id": 2,
+        "bay_id": 0
+      }
+    ],
+    "8": [
+      {
+        "type": "EXIT",
+        "block_id": 1,
+        "bay_id": 0
+      }
+    ],
+    "10": [
+      {
+        "type": "ENTRY",
+        "block_id": 0,
+        "bay_id": 0,
+        "x": 0,
+        "y": 1,
+        "orient_idx": 0
+      }
+    ],
+    "17": [
+      {
+        "type": "EXIT",
+        "block_id": 0,
+        "bay_id": 0
+      }
+    ],
+    "20": [
+      {
+        "type": "ENTRY",
+        "block_id": 3,
+        "bay_id": 1,
+        "x": 27,
+        "y": 7,
+        "orient_idx": 4
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 4,
+        "bay_id": 1,
+        "x": 9,
+        "y": 1,
+        "orient_idx": 2
+      }
+    ],
+    "21": [
+      {
+        "type": "ENTRY",
+        "block_id": 7,
+        "bay_id": 0,
+        "x": 3,
+        "y": 2,
+        "orient_idx": 7
+      }
+    ],
+    "24": [
+      {
+        "type": "ENTRY",
+        "block_id": 5,
+        "bay_id": 1,
+        "x": 37,
+        "y": 0,
+        "orient_idx": 2
+      }
+    ],
+    "27": [
+      {
+        "type": "EXIT",
+        "block_id": 4,
+        "bay_id": 1
+      },
+      {
+        "type": "EXIT",
+        "block_id": 7,
+        "bay_id": 0
+      }
+    ],
+    "30": [
+      {
+        "type": "EXIT",
+        "block_id": 3,
+        "bay_id": 1
+      }
+    ],
+    "31": [
+      {
+        "type": "ENTRY",
+        "block_id": 8,
+        "bay_id": 0,
+        "x": 6,
+        "y": 6,
+        "orient_idx": 4
+      }
+    ],
+    "32": [
+      {
+        "type": "EXIT",
+        "block_id": 5,
+        "bay_id": 1
+      }
+    ],
+    "35": [
+      {
+        "type": "EXIT",
+        "block_id": 8,
+        "bay_id": 0
+      }
+    ],
+    "39": [
+      {
+        "type": "ENTRY",
+        "block_id": 9,
+        "bay_id": 0,
+        "x": 9,
+        "y": 3,
+        "orient_idx": 3
+      }
+    ],
+    "45": [
+      {
+        "type": "ENTRY",
+        "block_id": 6,
+        "bay_id": 0,
+        "x": 13,
+        "y": 4,
+        "orient_idx": 0
+      }
+    ],
+    "46": [
+      {
+        "type": "EXIT",
+        "block_id": 9,
+        "bay_id": 0
+      }
+    ],
+    "51": [
+      {
+        "type": "EXIT",
+        "block_id": 6,
+        "bay_id": 0
+      }
+    ]
+  }
+}

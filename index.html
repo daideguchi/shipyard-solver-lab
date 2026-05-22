@@ -164,7 +164,7 @@
         </div>
         <div class="card">
           <h3>Next Move</h3>
-          <p>Move from projection smoke testing to the exact official solution format, feasibility checker, and training instances as soon as the official platform opens.</p>
+          <p>Scale the checker-validated candidate algorithm from the public example to official training instances as soon as the official platform opens.</p>
         </div>
         <div class="card">
           <h3>Best Run</h3>
@@ -181,6 +181,10 @@
         <div class="card">
           <h3>Official Checker Smoke</h3>
           <p id="officialCheckerText">Loading exact official checker result.</p>
+        </div>
+        <div class="card">
+          <h3>Official Portfolio Candidate</h3>
+          <p id="officialPortfolioText">Loading official-format candidate algorithm result.</p>
         </div>
       </div>
     </aside>
@@ -214,7 +218,7 @@
       </div>
     </section>
 
-    <p class="footer-note">Claim boundary: this lab demonstrates the solver pipeline on toy data, a public OGC baseline example projection, and an exact official-checker smoke test. It does not claim competitive official OGC 2026 objective value, leaderboard rank, or final submission readiness.</p>
+    <p class="footer-note">Claim boundary: this lab demonstrates the solver pipeline on toy data, a public OGC baseline example projection, an exact official-checker smoke test, and a checker-validated public-example portfolio candidate. It does not claim leaderboard rank, training-instance performance, or final submission readiness.</p>
   </main>
 
   <script>
@@ -226,7 +230,7 @@
       return response.json();
     }
 
-    function renderMetrics(solution, benchmark, officialProjection, officialChecker) {
+    function renderMetrics(solution, benchmark, officialProjection, officialChecker, officialPortfolio) {
       const metrics = solution.metrics;
       document.querySelector('#scoreMetric').textContent = metrics.score;
       document.querySelector('#placedMetric').textContent = metrics.placed_blocks;
@@ -243,6 +247,8 @@
         `Public OGC example_B2_b10 projected into the lab model: ${officialProjection.metrics.placed_blocks} blocks placed, score ${officialProjection.metrics.score}, +${projectionDelta} over projection baseline. Not official feasibility scoring.`;
       document.querySelector('#officialCheckerText').textContent =
         `Exact official checker PASS on a conservative sequential solution: feasible=${officialChecker.simple_sequential.feasible}, stage ${officialChecker.simple_sequential.stage}. Greedy reference objective ${officialChecker.official_greedy_reference.objective.toFixed(2)}. This proves format integration, not competitiveness.`;
+      document.querySelector('#officialPortfolioText').textContent =
+        `Candidate official algorithm PASS: objective ${officialPortfolio.official_portfolio.objective.toFixed(2)} vs greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}, an improvement of ${officialPortfolio.objective_improvement.toFixed(2)} on public example_B2_b10. Not leaderboard evidence.`;
     }
 
     function renderYards(instance, solution) {
@@ -289,14 +295,15 @@
     }
 
     async function main() {
-      const [instance, solution, benchmark, officialProjection, officialChecker] = await Promise.all([
+      const [instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio] = await Promise.all([
         loadJson('data/sample_blocks.json'),
         loadJson('outputs/best_solution.json'),
         loadJson('outputs/benchmark.json'),
         loadJson('outputs/official_example_projection_solution.json'),
         loadJson('outputs/official_checker_smoke_result.json'),
+        loadJson('outputs/official_portfolio_result.json'),
       ]);
-      renderMetrics(solution, benchmark, officialProjection, officialChecker);
+      renderMetrics(solution, benchmark, officialProjection, officialChecker, officialPortfolio);
       renderYards(instance, solution);
       renderTable(solution);
     }

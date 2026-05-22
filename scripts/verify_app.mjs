@@ -61,6 +61,9 @@ if (!body.includes('Official Example Projection') || !body.includes('Not officia
 if (!body.includes('Official Checker Smoke') || !body.includes('Exact official checker PASS')) {
   throw new Error('missing official checker smoke proof');
 }
+if (!body.includes('Official Portfolio Candidate') || !body.includes('Candidate official algorithm PASS')) {
+  throw new Error('missing official portfolio candidate proof');
+}
 
 await page.screenshot({ path: path.join(root, 'media', 'shipyard-solver-lab-full.png'), fullPage: true });
 await browser.close();

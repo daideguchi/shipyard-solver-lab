@@ -17,6 +17,7 @@ Reproducible optimization workbench for packing shipyard blocks.
 - Official readiness notes: `docs/OFFICIAL_READINESS.md`
 - Official example projection report: `outputs/official_example_projection_report.md`
 - Official checker smoke report: `outputs/official_checker_smoke_report.md`
+- Official portfolio smoke report: `outputs/official_portfolio_report.md`
 - Screenshot: `media/shipyard-solver-lab-full.png`
 
 ## 250-500 Word Project Description
@@ -33,6 +34,8 @@ After checking the official OGC site, I also added an official-example projectio
 
 I also added an exact official-checker smoke test. It builds a conservative official `operations` solution, runs the public OGC feasibility checker, and verifies `feasible=True` at stage 5. The objective is intentionally poor because only one block is present at a time. That is a feature, not a claim: it proves the submission format and checker integration before optimizing.
 
+The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. It runs the public greedy baseline, then searches bay-assignment candidates and keeps the best official-checker-feasible solution. On the public `example_B2_b10` instance, the candidate improves the official checker objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a working, checker-validated optimization loop on the public example.
+
 The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps.
 
 This is not claiming official OGC leaderboard performance. It is a contest-ready operating loop: solver, validator, scorer, benchmark archive, dashboard, and report generator. When the official schema and data are available, this repository is ready to swap in the official loader and continue improving the algorithm from a reproducible baseline.
@@ -45,6 +48,7 @@ This is not claiming official OGC leaderboard performance. It is a contest-ready
 - The dashboard currently shows a local toy instance used to prove the workflow.
 - The official-example projection is not official feasibility or official objective scoring.
 - The official checker smoke proves format feasibility only; it is not competitive.
+- The official portfolio smoke is measured only on the public example, not on official training, preliminary, final, or leaderboard instances.
 
 ## Verification
 
@@ -77,4 +81,15 @@ npm run official-checker
 official_checker_smoke_ok
 simple_feasible=True
 greedy_feasible=True
+```
+
+Official portfolio smoke:
+
+```bash
+npm run official-portfolio
+official_portfolio_smoke_ok
+portfolio_feasible=True
+portfolio_objective=1022.698826
+greedy_objective=1055.727896
+objective_improvement=33.029071
 ```

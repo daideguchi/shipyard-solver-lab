@@ -72,14 +72,39 @@ greedy_objective=1055.727896
 
 The simple sequential solution is deliberately not competitive. It proves format and checker integration only.
 
+It now also includes a checker-validated candidate official algorithm:
+
+```bash
+npm run official-portfolio
+```
+
+The candidate lives at:
+
+```text
+official_submission/myalgorithm.py
+```
+
+It runs the public greedy baseline, then searches bay-assignment candidates and keeps the best solution that passes the official feasibility checker.
+
+Current public example result:
+
+```text
+portfolio_feasible=True
+portfolio_objective=1022.698826
+greedy_objective=1055.727896
+objective_improvement=33.029071
+```
+
+This is measured only on the public `example_B2_b10` example. It is not leaderboard evidence, but it proves the exact official algorithm interface, `operations` format, checker integration, and a real objective improvement over the public greedy reference on the available example.
+
 ## Boundary
 
 This projection is not an official OGC solver result. It proves that the lab can ingest the official example schema and run the existing search pipeline over a simplified rectangle projection.
 
 Still required for real competition work:
 
-1. Implement the exact official solution format.
-2. Run the official `utils.check_feasibility`.
-3. Model polygon/layer collisions and crane entry/exit constraints directly.
+1. Generalize the portfolio algorithm against official training and preliminary instances.
+2. Add larger-instance candidate generation that avoids full exponential bay assignment search.
+3. Add relocate/swap/rotate local search on top of checker-feasible official solutions.
 4. Use official training/preliminary instances when released.
 5. Submit through the official OGC platform, not only Devpost.

@@ -54,6 +54,19 @@ def main() -> None:
     if "not competitive" not in checker_report_path.read_text():
         raise SystemExit("official checker smoke report missing claim boundary")
 
+    portfolio_result_path = ROOT / "outputs" / "official_portfolio_result.json"
+    portfolio_report_path = ROOT / "outputs" / "official_portfolio_report.md"
+    portfolio_solution_path = ROOT / "outputs" / "official_portfolio_solution.json"
+    if not portfolio_result_path.exists() or not portfolio_report_path.exists() or not portfolio_solution_path.exists():
+        raise SystemExit("official portfolio outputs missing; run npm run official-portfolio")
+    portfolio = json.loads(portfolio_result_path.read_text())
+    if not portfolio["official_portfolio"]["feasible"]:
+        raise SystemExit("official portfolio candidate is not feasible")
+    if portfolio["objective_improvement"] <= 0:
+        raise SystemExit("official portfolio candidate did not improve the greedy reference")
+    if "not leaderboard evidence" not in portfolio_report_path.read_text():
+        raise SystemExit("official portfolio report missing claim boundary")
+
     report = (ROOT / "outputs" / "sample_report.md").read_text()
     required = [
         "Sample Technical Report",
@@ -70,6 +83,8 @@ def main() -> None:
     print(f"benchmark_best={benchmark['best_score']}")
     print(f"official_projection_score={projection['metrics']['score']}")
     print(f"official_checker_objective={checker['simple_sequential']['objective']}")
+    print(f"official_portfolio_objective={portfolio['official_portfolio']['objective']}")
+    print(f"official_portfolio_improvement={portfolio['objective_improvement']}")
 
 
 if __name__ == "__main__":

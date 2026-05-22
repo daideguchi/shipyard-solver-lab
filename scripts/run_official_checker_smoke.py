@@ -2,6 +2,7 @@ import contextlib
 import io
 import json
 import math
+import re
 import sys
 import tempfile
 import urllib.request
@@ -136,6 +137,10 @@ def write_report(payload: dict) -> None:
     )
 
 
+def normalized_log_head(text: str) -> list[str]:
+    return [re.sub(r"\\s+\\d+\\.\\d+s$", "  <elapsed>", line) for line in text.splitlines()[:14]]
+
+
 def main() -> None:
     zip_path = fetch_baseline_zip()
     with tempfile.TemporaryDirectory(prefix="ogc2026-baseline-") as tmp:
@@ -167,7 +172,7 @@ def main() -> None:
             "simple_sequential": simple_result,
             "official_greedy_reference": greedy_result,
             "objective_gap_vs_greedy": round(simple_result["objective"] - greedy_result["objective"], 6),
-            "greedy_log_head": greedy_log.getvalue().splitlines()[:14],
+            "greedy_log_head": normalized_log_head(greedy_log.getvalue()),
         }
 
     SMOKE_SOLUTION_PATH.write_text(json.dumps(simple_solution, indent=2) + "\n", encoding="utf-8")
