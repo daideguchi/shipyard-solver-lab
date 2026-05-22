@@ -12,7 +12,7 @@ The official challenge is "The Grand Shipyard Puzzle: Pack the Block, Beat the C
 - Public repo: https://github.com/daideguchi/shipyard-solver-lab
 - Public app: https://daideguchi.github.io/shipyard-solver-lab/
 - Official problem files: not attached in this repository yet
-- Current solver: sample-instance multi-start constructive search
+- Current solver: sample-instance beam search plus multi-start constructive baselines
 
 ## Why This Exists
 
@@ -38,6 +38,19 @@ This repository builds that loop before the official data arrives.
 - Runs a 451-candidate benchmark archive.
 - Keeps the best solution JSON.
 - Serves a static dashboard that visualizes the latest sample output.
+- Runs a 1,051-candidate benchmark archive after adding beam search.
+- Shows a scored improvement trail over the baseline.
+
+## Current Sample Result
+
+```text
+best solver: beam_due_date_compact_y_w20
+best score: 1297.33
+baseline score: 1274.36
+delta: +22.97
+valid candidates: 1051 / 1051
+placed blocks: 12 / 12
+```
 
 ## What It Does Not Claim
 
@@ -70,7 +83,7 @@ open index.html
 - `scripts/verify_solver.py` — regression check
 - `outputs/sample_solution.json` — generated baseline output
 - `outputs/best_solution.json` — current best sample output
-- `outputs/benchmark.json` — candidate run archive
+- `outputs/benchmark.json` — candidate run archive with baseline-vs-best delta
 - `outputs/sample_report.md` — generated technical report
 - `outputs/best_report.md` — generated best-run report
 - `index.html` — lightweight dashboard
@@ -78,7 +91,7 @@ open index.html
 ## Next Algorithm Steps
 
 1. Match official input/output schema when published.
-2. Add local search moves: relocate, swap, rotate, yard reassignment.
+2. Add local search moves on top of the current beam output: relocate, swap, rotate, yard reassignment.
 3. Add time-window and crane/resource constraints once official rules are known.
 4. Add official benchmark runner with seed tracking and best-solution archive.
 5. Generate final technical report from official runs only.

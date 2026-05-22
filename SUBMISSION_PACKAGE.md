@@ -1,0 +1,52 @@
+# Submission Package — Shipyard Solver Lab
+
+## Project Name
+
+Shipyard Solver Lab
+
+## Tagline
+
+Reproducible optimization workbench for packing shipyard blocks.
+
+## Public Links
+
+- Live app: https://daideguchi.github.io/shipyard-solver-lab/
+- GitHub repo: https://github.com/daideguchi/shipyard-solver-lab
+- Best report: `outputs/best_report.md`
+- Benchmark archive: `outputs/benchmark.json`
+- Screenshot: `media/shipyard-solver-lab-full.png`
+
+## 250-500 Word Project Description
+
+Shipyard Solver Lab is a preparation workbench for Optimization Grand Challenge 2026 and the Grand Shipyard Puzzle.
+
+The project is built around a practical contest reality: optimization challenges are not won by a pretty UI alone. They are won by a repeatable loop: load the instance, generate a valid solution, score it locally, inspect what failed, improve the algorithm, and document the method clearly enough that another person can reproduce it.
+
+The current public build runs on a toy shipyard-style instance because the official problem files are not included in this repository yet. That boundary is intentional and explicit. The goal of this build is to prove the solver pipeline before the official data arrives.
+
+The solver is written in Python. It includes a baseline, multi-start constructive search, and a beam search that keeps multiple partial layouts at each block step. Candidate placements use contact points, rotation, yard reassignment, boundary checks, overlap validation, and compactness-aware ranking. On the current sample instance, the benchmark validates 1,051 candidates. The best beam-search run scores 1297.33, compared with a baseline score of 1274.36, a +22.97 point improvement.
+
+The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps.
+
+This is not claiming official OGC leaderboard performance. It is a contest-ready operating loop: solver, validator, scorer, benchmark archive, dashboard, and report generator. When the official schema and data are available, this repository is ready to swap in the official loader and continue improving the algorithm from a reproducible baseline.
+
+## Claim Boundary
+
+- This repository does not include or claim official OGC 2026 data.
+- It does not claim leaderboard performance.
+- It does not claim final submission readiness.
+- The dashboard currently shows a local toy instance used to prove the workflow.
+
+## Verification
+
+```bash
+npm run verify
+```
+
+Expected markers:
+
+```text
+shipyard_solver_verify_ok
+shipyard_solver_no_secrets_ok
+shipyard_solver_app_verify_ok
+```

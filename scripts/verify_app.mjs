@@ -48,6 +48,13 @@ const rows = await page.locator('#solutionTable tbody tr').count();
 if (rows < 10) {
   throw new Error(`expected at least 10 solution rows, got ${rows}`);
 }
+const body = await page.locator('body').textContent();
+if (!body.includes('Beam search')) {
+  throw new Error('missing beam search explanation');
+}
+if (!body.includes('candidates validated')) {
+  throw new Error('missing benchmark validation trail');
+}
 
 await page.screenshot({ path: path.join(root, 'media', 'shipyard-solver-lab-full.png'), fullPage: true });
 await browser.close();

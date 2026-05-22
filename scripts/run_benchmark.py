@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from shipyard_solver.scoring import score_solution, validate_solution
-from shipyard_solver.solver import solve_baseline, solve_constructive
+from shipyard_solver.solver import solve_baseline, solve_beam_search, solve_constructive
 from scripts.run_sample import render_report
 
 INSTANCE_PATH = ROOT / "data" / "sample_blocks.json"
@@ -16,9 +16,24 @@ BEST_PATH = OUTPUT_DIR / "best_solution.json"
 BEST_REPORT_PATH = OUTPUT_DIR / "best_report.md"
 
 
-def run_candidate(instance: dict, solver: str, seed: int, order_mode: str = "", placement_mode: str = "") -> dict:
+def run_candidate(
+    instance: dict,
+    solver: str,
+    seed: int,
+    order_mode: str = "",
+    placement_mode: str = "",
+    beam_width: int = 0,
+) -> dict:
     if solver == "baseline":
         solution = solve_baseline(instance)
+    elif solver == "beam":
+        solution = solve_beam_search(
+            instance,
+            seed=seed,
+            order_mode=order_mode,
+            placement_mode=placement_mode,
+            beam_width=beam_width,
+        )
     else:
         solution = solve_constructive(instance, seed=seed, order_mode=order_mode, placement_mode=placement_mode)
     errors = validate_solution(instance, solution)
@@ -28,6 +43,7 @@ def run_candidate(instance: dict, solver: str, seed: int, order_mode: str = "", 
             "seed": seed,
             "order_mode": order_mode,
             "placement_mode": placement_mode,
+            "beam_width": beam_width,
             "valid": False,
             "errors": errors,
             "score": None,
@@ -39,6 +55,7 @@ def run_candidate(instance: dict, solver: str, seed: int, order_mode: str = "", 
         "seed": solution.get("seed", seed),
         "order_mode": solution.get("order_mode", order_mode),
         "placement_mode": solution.get("placement_mode", placement_mode),
+        "beam_width": solution.get("beam_width", beam_width),
         "valid": True,
         "score": metrics["score"],
         "metrics": metrics,
@@ -55,9 +72,15 @@ def main() -> None:
         for order_mode in order_modes:
             for placement_mode in placement_modes:
                 runs.append(run_candidate(instance, "constructive", seed, order_mode, placement_mode))
+    for seed in range(20):
+        for order_mode in order_modes:
+            for placement_mode in placement_modes:
+                for beam_width in [20, 80]:
+                    runs.append(run_candidate(instance, "beam", seed, order_mode, placement_mode, beam_width))
 
     valid_runs = [run for run in runs if run["valid"]]
     best = max(valid_runs, key=lambda run: run["score"])
+    baseline = next(run for run in valid_runs if run["solver"] == "baseline_due_date_first_fit")
     public_runs = [
         {key: value for key, value in run.items() if key != "solution"}
         for run in sorted(valid_runs, key=lambda run: run["score"], reverse=True)
@@ -69,6 +92,8 @@ def main() -> None:
         "best_solver": best["solver"],
         "best_seed": best["seed"],
         "best_score": best["score"],
+        "baseline_score": baseline["score"],
+        "best_vs_baseline_delta": round(best["score"] - baseline["score"], 2),
         "runs": public_runs[:50],
     }
 
@@ -88,4 +113,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

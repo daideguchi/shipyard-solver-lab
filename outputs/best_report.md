@@ -10,38 +10,41 @@ This report is generated from a toy local instance. It is not an official OGC 20
 
 ## Solver
 
-- Baseline: due-date-first first-fit placement
-- Sort key: earliest due date, higher priority, larger area, earlier ready day
-- Placement search: both orientations, all yards, low-top/low-right cost
+- Solver: `beam_due_date_compact_y_w20`
+- Seed: 7
+- Order mode: `due_date`
+- Placement mode: `compact_y`
+- Beam width: 20
+- Search: keeps the best partial layouts at each block step, using contact-point placements, rotation, yard reassignment, overlap checks, and compactness-aware ranking
 
 ## Metrics
 
-- Score: 1289.77
+- Score: 1297.33
 - Coverage: 1.0
 - Yard utilization: 0.5177
-- Packing compactness: 0.9048
+- Packing compactness: 0.9679
 - Placed blocks: 12
 - Unplaced blocks: 0
 - Weighted lateness: 0
 
 ## Placements
 
-- `B09` -> `Y1` at (0, 0) size 14x14 rotated=False
-- `B12` -> `Y1` at (14, 0) size 14x32 rotated=True
-- `B05` -> `Y1` at (0, 14) size 14x24 rotated=True
-- `B11` -> `Y1` at (28, 0) size 12x30 rotated=False
-- `B01` -> `Y2` at (0, 0) size 12x28 rotated=True
-- `B04` -> `Y2` at (12, 0) size 10x34 rotated=True
-- `B07` -> `Y2` at (22, 0) size 18x30 rotated=True
-- `B03` -> `Y2` at (22, 30) size 18x18 rotated=False
-- `B08` -> `Y2` at (0, 34) size 22x12 rotated=False
-- `B10` -> `Y3` at (0, 0) size 20x26 rotated=True
-- `B06` -> `Y3` at (20, 0) size 16x22 rotated=False
-- `B02` -> `Y3` at (36, 0) size 16x20 rotated=True
+- `B03` -> `Y1` at (0, 0) size 18x18 rotated=False
+- `B09` -> `Y1` at (0, 18) size 14x14 rotated=False
+- `B10` -> `Y1` at (18, 0) size 26x20 rotated=False
+- `B11` -> `Y1` at (14, 20) size 30x12 rotated=True
+- `B12` -> `Y1` at (44, 0) size 14x32 rotated=True
+- `B01` -> `Y2` at (0, 0) size 28x12 rotated=False
+- `B04` -> `Y2` at (0, 12) size 34x10 rotated=False
+- `B06` -> `Y2` at (46, 0) size 16x22 rotated=False
+- `B08` -> `Y2` at (34, 0) size 12x22 rotated=True
+- `B02` -> `Y3` at (0, 0) size 20x16 rotated=False
+- `B05` -> `Y3` at (0, 16) size 24x14 rotated=False
+- `B07` -> `Y3` at (24, 0) size 18x30 rotated=True
 
 ## Next Improvements
 
-1. Add randomized multi-start construction.
-2. Add relocate/swap/rotate local search.
-3. Add official time/resource constraints when released.
-4. Track every run by seed and keep the best solution archive.
+1. Match the official OGC input/output schema as soon as problem files are released.
+2. Add relocate, swap, rotate, and yard-reassignment local search on top of the beam output.
+3. Add official time, resource, crane, and precedence constraints when released.
+4. Track every run by seed, beam width, score, and validation errors.

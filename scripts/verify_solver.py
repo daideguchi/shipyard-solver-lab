@@ -27,7 +27,7 @@ def main() -> None:
     if metrics["score"] <= 0:
         raise SystemExit("baseline score should be positive on toy instance")
     benchmark = json.loads((ROOT / "outputs" / "benchmark.json").read_text())
-    if benchmark["valid_run_count"] < 100:
+    if benchmark["valid_run_count"] < 900:
         raise SystemExit("benchmark did not run enough valid candidates")
     if benchmark["best_score"] < metrics["score"]:
         raise SystemExit("benchmark best score is worse than baseline")

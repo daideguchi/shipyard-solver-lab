@@ -15,6 +15,30 @@ REPORT_PATH = OUTPUT_DIR / "sample_report.md"
 
 def render_report(instance: dict, solution: dict, metrics: dict) -> str:
     placements = solution["placements"]
+    solver_name = solution.get("solver", "baseline_due_date_first_fit")
+    if solver_name.startswith("beam_"):
+        solver_lines = [
+            f"- Solver: `{solver_name}`",
+            f"- Seed: {solution.get('seed')}",
+            f"- Order mode: `{solution.get('order_mode')}`",
+            f"- Placement mode: `{solution.get('placement_mode')}`",
+            f"- Beam width: {solution.get('beam_width')}",
+            "- Search: keeps the best partial layouts at each block step, using contact-point placements, rotation, yard reassignment, overlap checks, and compactness-aware ranking",
+        ]
+    elif solver_name.startswith("constructive_"):
+        solver_lines = [
+            f"- Solver: `{solver_name}`",
+            f"- Seed: {solution.get('seed')}",
+            f"- Order mode: `{solution.get('order_mode')}`",
+            f"- Placement mode: `{solution.get('placement_mode')}`",
+            "- Search: randomized constructive placement across both orientations and all yards",
+        ]
+    else:
+        solver_lines = [
+            "- Baseline: due-date-first first-fit placement",
+            "- Sort key: earliest due date, higher priority, larger area, earlier ready day",
+            "- Placement search: both orientations, all yards, low-top/low-right cost",
+        ]
     lines = [
         "# Shipyard Solver Lab — Sample Technical Report",
         "",
@@ -28,9 +52,7 @@ def render_report(instance: dict, solution: dict, metrics: dict) -> str:
         "",
         "## Solver",
         "",
-        "- Baseline: due-date-first first-fit placement",
-        "- Sort key: earliest due date, higher priority, larger area, earlier ready day",
-        "- Placement search: both orientations, all yards, low-top/low-right cost",
+        *solver_lines,
         "",
         "## Metrics",
         "",
@@ -59,10 +81,10 @@ def render_report(instance: dict, solution: dict, metrics: dict) -> str:
             "",
             "## Next Improvements",
             "",
-            "1. Add randomized multi-start construction.",
-            "2. Add relocate/swap/rotate local search.",
-            "3. Add official time/resource constraints when released.",
-            "4. Track every run by seed and keep the best solution archive.",
+            "1. Match the official OGC input/output schema as soon as problem files are released.",
+            "2. Add relocate, swap, rotate, and yard-reassignment local search on top of the beam output.",
+            "3. Add official time, resource, crane, and precedence constraints when released.",
+            "4. Track every run by seed, beam width, score, and validation errors.",
         ]
     )
     return "\n".join(lines) + "\n"

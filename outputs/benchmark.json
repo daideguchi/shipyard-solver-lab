@@ -1,856 +1,908 @@
 {
   "instance_id": "toy_shipyard_001",
-  "run_count": 451,
-  "valid_run_count": 451,
-  "best_solver": "constructive_randomized_compact_x",
-  "best_seed": 1,
-  "best_score": 1289.77,
+  "run_count": 1051,
+  "valid_run_count": 1051,
+  "best_solver": "beam_due_date_compact_y_w20",
+  "best_seed": 7,
+  "best_score": 1297.33,
+  "baseline_score": 1274.36,
+  "best_vs_baseline_delta": 22.97,
   "runs": [
     {
-      "solver": "constructive_randomized_compact_x",
-      "seed": 1,
-      "order_mode": "randomized",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1289.77,
-      "metrics": {
-        "score": 1289.77,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.9048,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_randomized_compact_x",
-      "seed": 28,
-      "order_mode": "randomized",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1289.05,
-      "metrics": {
-        "score": 1289.05,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8988,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_randomized_compact_x",
-      "seed": 14,
-      "order_mode": "randomized",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.98,
-      "metrics": {
-        "score": 1287.98,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.89,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 0,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 1,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 2,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 3,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 4,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 5,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 6,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
+      "solver": "beam_due_date_compact_y_w20",
       "seed": 7,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
+      "order_mode": "due_date",
+      "placement_mode": "compact_y",
+      "beam_width": 20,
       "valid": true,
-      "score": 1287.63,
+      "score": 1297.33,
       "metrics": {
-        "score": 1287.63,
+        "score": 1297.33,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.9679,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 8,
-      "order_mode": "area_first",
+      "solver": "beam_due_date_compact_x_w20",
+      "seed": 7,
+      "order_mode": "due_date",
       "placement_mode": "compact_x",
+      "beam_width": 20,
       "valid": true,
-      "score": 1287.63,
+      "score": 1297.33,
       "metrics": {
-        "score": 1287.63,
+        "score": 1297.33,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.9679,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
+      "solver": "beam_due_date_center_w20",
+      "seed": 7,
+      "order_mode": "due_date",
+      "placement_mode": "center",
+      "beam_width": 20,
+      "valid": true,
+      "score": 1297.33,
+      "metrics": {
+        "score": 1297.33,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.9679,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_due_date_compact_y_w20",
       "seed": 9,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
+      "order_mode": "due_date",
+      "placement_mode": "compact_y",
+      "beam_width": 20,
       "valid": true,
-      "score": 1287.63,
+      "score": 1295.59,
       "metrics": {
-        "score": 1287.63,
+        "score": 1295.59,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.9534,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 10,
-      "order_mode": "area_first",
+      "solver": "beam_due_date_compact_x_w20",
+      "seed": 9,
+      "order_mode": "due_date",
       "placement_mode": "compact_x",
+      "beam_width": 20,
       "valid": true,
-      "score": 1287.63,
+      "score": 1295.59,
       "metrics": {
-        "score": 1287.63,
+        "score": 1295.59,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.9534,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
+      "solver": "beam_due_date_center_w20",
+      "seed": 9,
+      "order_mode": "due_date",
+      "placement_mode": "center",
+      "beam_width": 20,
+      "valid": true,
+      "score": 1295.59,
+      "metrics": {
+        "score": 1295.59,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.9534,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 0,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 0,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 0,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 2,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 2,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 2,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 3,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 3,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 3,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_due_date_compact_y_w80",
+      "seed": 4,
+      "order_mode": "due_date",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_due_date_compact_x_w80",
+      "seed": 4,
+      "order_mode": "due_date",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_due_date_center_w80",
+      "seed": 4,
+      "order_mode": "due_date",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 4,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 4,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 4,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 5,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 5,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 5,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 6,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 6,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 6,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 7,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 7,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 7,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 8,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 8,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 8,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
+      "seed": 9,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 9,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 9,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
       "seed": 11,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
       "valid": true,
-      "score": 1287.63,
+      "score": 1295.19,
       "metrics": {
-        "score": 1287.63,
+        "score": 1295.19,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.95,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 11,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 11,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
       "seed": 12,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
       "valid": true,
-      "score": 1287.63,
+      "score": 1295.19,
       "metrics": {
-        "score": 1287.63,
+        "score": 1295.19,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.95,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 12,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 12,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
       "seed": 13,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
       "valid": true,
-      "score": 1287.63,
+      "score": 1295.19,
       "metrics": {
-        "score": 1287.63,
+        "score": 1295.19,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.95,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 13,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 13,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
       "seed": 14,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
       "valid": true,
-      "score": 1287.63,
+      "score": 1295.19,
       "metrics": {
-        "score": 1287.63,
+        "score": 1295.19,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.95,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 14,
+      "order_mode": "slack_first",
+      "placement_mode": "compact_x",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_center_w80",
+      "seed": 14,
+      "order_mode": "slack_first",
+      "placement_mode": "center",
+      "beam_width": 80,
+      "valid": true,
+      "score": 1295.19,
+      "metrics": {
+        "score": 1295.19,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.95,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "beam_slack_first_compact_y_w80",
       "seed": 15,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
+      "order_mode": "slack_first",
+      "placement_mode": "compact_y",
+      "beam_width": 80,
       "valid": true,
-      "score": 1287.63,
+      "score": 1295.19,
       "metrics": {
-        "score": 1287.63,
+        "score": 1295.19,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
+        "packing_compactness": 0.95,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0
       }
     },
     {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 16,
-      "order_mode": "area_first",
+      "solver": "beam_slack_first_compact_x_w80",
+      "seed": 15,
+      "order_mode": "slack_first",
       "placement_mode": "compact_x",
+      "beam_width": 80,
       "valid": true,
-      "score": 1287.63,
+      "score": 1295.19,
       "metrics": {
-        "score": 1287.63,
+        "score": 1295.19,
         "coverage": 1.0,
         "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 17,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 18,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 19,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 20,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 21,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 22,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 23,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 24,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 25,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 26,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 27,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 28,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_area_first_compact_x",
-      "seed": 29,
-      "order_mode": "area_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.63,
-      "metrics": {
-        "score": 1287.63,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8871,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_randomized_compact_x",
-      "seed": 3,
-      "order_mode": "randomized",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.55,
-      "metrics": {
-        "score": 1287.55,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8863,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_randomized_compact_x",
-      "seed": 4,
-      "order_mode": "randomized",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1287.03,
-      "metrics": {
-        "score": 1287.03,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.882,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_randomized_compact_x",
-      "seed": 6,
-      "order_mode": "randomized",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.77,
-      "metrics": {
-        "score": 1286.77,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8799,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 0,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 1,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 2,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 3,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 4,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 5,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 6,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 7,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 8,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 9,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 10,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 11,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 12,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
-        "placed_blocks": 12,
-        "unplaced_blocks": 0,
-        "weighted_lateness": 0
-      }
-    },
-    {
-      "solver": "constructive_priority_first_compact_x",
-      "seed": 13,
-      "order_mode": "priority_first",
-      "placement_mode": "compact_x",
-      "valid": true,
-      "score": 1286.17,
-      "metrics": {
-        "score": 1286.17,
-        "coverage": 1.0,
-        "yard_utilization": 0.5177,
-        "packing_compactness": 0.8749,
+        "packing_compactness": 0.95,
         "placed_blocks": 12,
         "unplaced_blocks": 0,
         "weighted_lateness": 0

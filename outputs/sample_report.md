@@ -41,7 +41,7 @@ This report is generated from a toy local instance. It is not an official OGC 20
 
 ## Next Improvements
 
-1. Add randomized multi-start construction.
-2. Add relocate/swap/rotate local search.
-3. Add official time/resource constraints when released.
-4. Track every run by seed and keep the best solution archive.
+1. Match the official OGC input/output schema as soon as problem files are released.
+2. Add relocate, swap, rotate, and yard-reassignment local search on top of the beam output.
+3. Add official time, resource, crane, and precedence constraints when released.
+4. Track every run by seed, beam width, score, and validation errors.
