@@ -50,6 +50,13 @@ Judge signal:
 This is not a decorative dashboard. It is an operating loop that proves the team can iterate quickly and keep the official checker green.
 ```
 
+## 30-Second Review Path
+
+1. Read the one-sentence pitch to understand the solve-validate-package loop.
+2. Open the live app and scan the top proof cards.
+3. Check the official checker, portfolio candidate, and package proof cards.
+4. Confirm the boundary: this is readiness proof on sample and public example data, not a final leaderboard claim.
+
 ## Why This Exists
 
 Optimization contests are won by iteration speed:
