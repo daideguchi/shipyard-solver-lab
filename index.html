@@ -64,7 +64,7 @@
     .hero {
       grid-column: 1 / -1;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 10px;
     }
     .metric, .panel, .card {
@@ -144,6 +144,7 @@
       <div class="metric"><strong id="coverageMetric">--</strong><span>block coverage</span></div>
       <div class="metric"><strong id="utilMetric">--</strong><span>compactness</span></div>
       <div class="metric"><strong id="lateMetric">--</strong><span>benchmark runs</span></div>
+      <div class="metric"><strong id="officialMetric">--</strong><span>official example projection</span></div>
     </section>
 
     <aside class="panel">
@@ -163,7 +164,7 @@
         </div>
         <div class="card">
           <h3>Next Move</h3>
-          <p>Replace the toy schema with the official schema when published, then add local search and official resource constraints.</p>
+          <p>Move from projection smoke testing to the exact official solution format, feasibility checker, and training instances as soon as the official platform opens.</p>
         </div>
         <div class="card">
           <h3>Best Run</h3>
@@ -172,6 +173,10 @@
         <div class="card">
           <h3>Improvement Trail</h3>
           <p id="improvementText">Loading baseline comparison.</p>
+        </div>
+        <div class="card">
+          <h3>Official Example Projection</h3>
+          <p id="officialProjectionText">Loading official baseline example projection.</p>
         </div>
       </div>
     </aside>
@@ -205,7 +210,7 @@
       </div>
     </section>
 
-    <p class="footer-note">Claim boundary: this lab currently demonstrates the solver pipeline on toy data. It does not claim official OGC 2026 performance, leaderboard rank, or final submission readiness.</p>
+    <p class="footer-note">Claim boundary: this lab demonstrates the solver pipeline on toy data and a public OGC baseline example projection. It does not claim official OGC 2026 feasibility, objective value, leaderboard rank, or final submission readiness.</p>
   </main>
 
   <script>
@@ -217,17 +222,21 @@
       return response.json();
     }
 
-    function renderMetrics(solution, benchmark) {
+    function renderMetrics(solution, benchmark, officialProjection) {
       const metrics = solution.metrics;
       document.querySelector('#scoreMetric').textContent = metrics.score;
       document.querySelector('#placedMetric').textContent = metrics.placed_blocks;
       document.querySelector('#coverageMetric').textContent = `${Math.round(metrics.coverage * 100)}%`;
       document.querySelector('#utilMetric').textContent = `${Math.round(metrics.packing_compactness * 100)}%`;
       document.querySelector('#lateMetric').textContent = benchmark.run_count;
+      document.querySelector('#officialMetric').textContent = officialProjection.metrics.placed_blocks;
       document.querySelector('#bestRunText').textContent = `${benchmark.best_solver}, seed ${benchmark.best_seed}, score ${benchmark.best_score}.`;
       const delta = Number.isFinite(benchmark.best_vs_baseline_delta) ? benchmark.best_vs_baseline_delta.toFixed(2) : 'n/a';
       document.querySelector('#improvementText').textContent =
         `Best run is +${delta} points over the baseline. ${benchmark.valid_run_count} / ${benchmark.run_count} candidates validated.`;
+      const projectionDelta = Number(officialProjection.metrics.score - officialProjection.baseline_projection_score).toFixed(2);
+      document.querySelector('#officialProjectionText').textContent =
+        `Public OGC example_B2_b10 projected into the lab model: ${officialProjection.metrics.placed_blocks} blocks placed, score ${officialProjection.metrics.score}, +${projectionDelta} over projection baseline. Not official feasibility scoring.`;
     }
 
     function renderYards(instance, solution) {
@@ -274,12 +283,13 @@
     }
 
     async function main() {
-      const [instance, solution, benchmark] = await Promise.all([
+      const [instance, solution, benchmark, officialProjection] = await Promise.all([
         loadJson('data/sample_blocks.json'),
         loadJson('outputs/best_solution.json'),
         loadJson('outputs/benchmark.json'),
+        loadJson('outputs/official_example_projection_solution.json'),
       ]);
-      renderMetrics(solution, benchmark);
+      renderMetrics(solution, benchmark, officialProjection);
       renderYards(instance, solution);
       renderTable(solution);
     }

@@ -1,0 +1,242 @@
+{
+  "instance_id": "example_B2_b10",
+  "projection_boundary": "Official OGC polygon/layer data projected to rectangles for schema-ingestion smoke testing only; not official feasibility or leaderboard scoring.",
+  "yards": [
+    {
+      "id": "bay_0",
+      "width": 85,
+      "height": 20,
+      "crane_capacity": 1
+    },
+    {
+      "id": "bay_1",
+      "width": 71,
+      "height": 22,
+      "crane_capacity": 1
+    }
+  ],
+  "blocks": [
+    {
+      "id": "block_0",
+      "width": 15,
+      "height": 6,
+      "ready_day": 10,
+      "due_day": 17,
+      "processing_time": 7,
+      "priority": 37
+    },
+    {
+      "id": "block_1",
+      "width": 12,
+      "height": 10,
+      "ready_day": 0,
+      "due_day": 11,
+      "processing_time": 8,
+      "priority": 43
+    },
+    {
+      "id": "block_2",
+      "width": 4,
+      "height": 7,
+      "ready_day": 4,
+      "due_day": 7,
+      "processing_time": 3,
+      "priority": 19
+    },
+    {
+      "id": "block_3",
+      "width": 18,
+      "height": 7,
+      "ready_day": 20,
+      "due_day": 32,
+      "processing_time": 10,
+      "priority": 123
+    },
+    {
+      "id": "block_4",
+      "width": 6,
+      "height": 9,
+      "ready_day": 20,
+      "due_day": 27,
+      "processing_time": 7,
+      "priority": 19
+    },
+    {
+      "id": "block_5",
+      "width": 10,
+      "height": 11,
+      "ready_day": 24,
+      "due_day": 35,
+      "processing_time": 8,
+      "priority": 99
+    },
+    {
+      "id": "block_6",
+      "width": 13,
+      "height": 7,
+      "ready_day": 45,
+      "due_day": 52,
+      "processing_time": 6,
+      "priority": 19
+    },
+    {
+      "id": "block_7",
+      "width": 8,
+      "height": 9,
+      "ready_day": 21,
+      "due_day": 28,
+      "processing_time": 6,
+      "priority": 82
+    },
+    {
+      "id": "block_8",
+      "width": 9,
+      "height": 6,
+      "ready_day": 31,
+      "due_day": 36,
+      "processing_time": 4,
+      "priority": 18
+    },
+    {
+      "id": "block_9",
+      "width": 9,
+      "height": 10,
+      "ready_day": 39,
+      "due_day": 47,
+      "processing_time": 7,
+      "priority": 29
+    }
+  ],
+  "official_projection": [
+    {
+      "block_id": "block_0",
+      "official_index": 0,
+      "chosen_orientation": 0,
+      "projected_size": [
+        15,
+        6
+      ],
+      "release_time": 10,
+      "due_date": 17,
+      "processing_time": 7,
+      "workload": 37
+    },
+    {
+      "block_id": "block_1",
+      "official_index": 1,
+      "chosen_orientation": 0,
+      "projected_size": [
+        12,
+        10
+      ],
+      "release_time": 0,
+      "due_date": 11,
+      "processing_time": 8,
+      "workload": 43
+    },
+    {
+      "block_id": "block_2",
+      "official_index": 2,
+      "chosen_orientation": 0,
+      "projected_size": [
+        4,
+        7
+      ],
+      "release_time": 4,
+      "due_date": 7,
+      "processing_time": 3,
+      "workload": 19
+    },
+    {
+      "block_id": "block_3",
+      "official_index": 3,
+      "chosen_orientation": 0,
+      "projected_size": [
+        18,
+        7
+      ],
+      "release_time": 20,
+      "due_date": 32,
+      "processing_time": 10,
+      "workload": 123
+    },
+    {
+      "block_id": "block_4",
+      "official_index": 4,
+      "chosen_orientation": 0,
+      "projected_size": [
+        6,
+        9
+      ],
+      "release_time": 20,
+      "due_date": 27,
+      "processing_time": 7,
+      "workload": 19
+    },
+    {
+      "block_id": "block_5",
+      "official_index": 5,
+      "chosen_orientation": 0,
+      "projected_size": [
+        10,
+        11
+      ],
+      "release_time": 24,
+      "due_date": 35,
+      "processing_time": 8,
+      "workload": 99
+    },
+    {
+      "block_id": "block_6",
+      "official_index": 6,
+      "chosen_orientation": 0,
+      "projected_size": [
+        13,
+        7
+      ],
+      "release_time": 45,
+      "due_date": 52,
+      "processing_time": 6,
+      "workload": 19
+    },
+    {
+      "block_id": "block_7",
+      "official_index": 7,
+      "chosen_orientation": 0,
+      "projected_size": [
+        8,
+        9
+      ],
+      "release_time": 21,
+      "due_date": 28,
+      "processing_time": 6,
+      "workload": 82
+    },
+    {
+      "block_id": "block_8",
+      "official_index": 8,
+      "chosen_orientation": 0,
+      "projected_size": [
+        9,
+        6
+      ],
+      "release_time": 31,
+      "due_date": 36,
+      "processing_time": 4,
+      "workload": 18
+    },
+    {
+      "block_id": "block_9",
+      "official_index": 9,
+      "chosen_orientation": 0,
+      "projected_size": [
+        9,
+        10
+      ],
+      "release_time": 39,
+      "due_date": 47,
+      "processing_time": 7,
+      "workload": 29
+    }
+  ]
+}

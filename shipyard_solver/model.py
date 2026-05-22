@@ -16,6 +16,7 @@ class Block:
     height: int
     ready_day: int
     due_day: int
+    processing_time: int = 1
     priority: int = 1
 
 
@@ -34,4 +35,3 @@ class Placement:
     @property
     def area(self) -> int:
         return self.width * self.height
-

@@ -42,7 +42,10 @@ def render_report(instance: dict, solution: dict, metrics: dict) -> str:
     lines = [
         "# Shipyard Solver Lab — Sample Technical Report",
         "",
-        "This report is generated from a toy local instance. It is not an official OGC 2026 result.",
+        instance.get(
+            "projection_boundary",
+            "This report is generated from a toy local instance. It is not an official OGC 2026 result.",
+        ),
         "",
         "## Instance",
         "",

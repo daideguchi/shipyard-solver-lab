@@ -32,6 +32,16 @@ def main() -> None:
     if benchmark["best_score"] < metrics["score"]:
         raise SystemExit("benchmark best score is worse than baseline")
 
+    projection_path = ROOT / "outputs" / "official_example_projection_solution.json"
+    projection_report_path = ROOT / "outputs" / "official_example_projection_report.md"
+    if not projection_path.exists() or not projection_report_path.exists():
+        raise SystemExit("official example projection outputs missing; run npm run official-smoke")
+    projection = json.loads(projection_path.read_text())
+    if projection.get("metrics", {}).get("placed_blocks") != 10:
+        raise SystemExit("official example projection did not place 10 projected blocks")
+    if "not official feasibility" not in projection_report_path.read_text():
+        raise SystemExit("official projection report missing claim boundary")
+
     report = (ROOT / "outputs" / "sample_report.md").read_text()
     required = [
         "Sample Technical Report",
@@ -46,6 +56,7 @@ def main() -> None:
     print(f"score={metrics['score']}")
     print(f"placed_blocks={metrics['placed_blocks']}")
     print(f"benchmark_best={benchmark['best_score']}")
+    print(f"official_projection_score={projection['metrics']['score']}")
 
 
 if __name__ == "__main__":

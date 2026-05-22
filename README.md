@@ -11,8 +11,9 @@ The official challenge is "The Grand Shipyard Puzzle: Pack the Block, Beat the C
 - Official site: https://www.optichallenge.com/
 - Public repo: https://github.com/daideguchi/shipyard-solver-lab
 - Public app: https://daideguchi.github.io/shipyard-solver-lab/
-- Official problem files: not attached in this repository yet
-- Current solver: sample-instance beam search plus multi-start constructive baselines
+- Official problem statement and baseline package: publicly released on optichallenge.com
+- Official training instances: not released yet
+- Current solver: sample-instance beam search plus official-example projection smoke test
 
 ## Why This Exists
 
@@ -40,6 +41,8 @@ This repository builds that loop before the official data arrives.
 - Serves a static dashboard that visualizes the latest sample output.
 - Runs a 1,051-candidate benchmark archive after adding beam search.
 - Shows a scored improvement trail over the baseline.
+- Downloads the public OGC baseline package and ingests `example_B2_b10.json` as a projection smoke test.
+- Projects official polygon/layer blocks into rectangles for early schema-readiness testing.
 
 ## Current Sample Result
 
@@ -52,18 +55,38 @@ valid candidates: 1051 / 1051
 placed blocks: 12 / 12
 ```
 
+## Official Example Projection Smoke Test
+
+```bash
+python3 scripts/run_official_example_projection.py
+```
+
+Current result:
+
+```text
+official_name=example_B2_b10
+projected_blocks=10
+baseline_score=1195.74
+beam_score=1204.76
+delta=+9.02
+```
+
+This is not official scoring. It is an ingestion-readiness test against the public OGC baseline example. See [Official OGC Readiness Notes](docs/OFFICIAL_READINESS.md).
+
 ## What It Does Not Claim
 
 - It does not solve the official OGC 2026 instance yet.
 - It does not claim leaderboard performance.
 - It does not use private or unreleased problem data.
 - It does not claim eligibility or final submission readiness.
+- The official-example projection does not claim official feasibility or official objective value.
 
 ## Run
 
 ```bash
 python3 scripts/run_sample.py
 python3 scripts/run_benchmark.py
+python3 scripts/run_official_example_projection.py
 python3 scripts/verify_solver.py
 ```
 
@@ -80,12 +103,14 @@ open index.html
 - `shipyard_solver/scoring.py` — validity and score logic
 - `scripts/run_sample.py` — generate solution and report
 - `scripts/run_benchmark.py` — run multi-start solver candidates
+- `scripts/run_official_example_projection.py` — download public OGC baseline example and run schema projection smoke test
 - `scripts/verify_solver.py` — regression check
 - `outputs/sample_solution.json` — generated baseline output
 - `outputs/best_solution.json` — current best sample output
 - `outputs/benchmark.json` — candidate run archive with baseline-vs-best delta
 - `outputs/sample_report.md` — generated technical report
 - `outputs/best_report.md` — generated best-run report
+- `outputs/official_example_projection_report.md` — public OGC example projection smoke-test report
 - `index.html` — lightweight dashboard
 
 ## Next Algorithm Steps

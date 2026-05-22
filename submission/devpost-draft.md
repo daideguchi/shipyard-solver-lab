@@ -34,9 +34,11 @@ On the current toy instance, the benchmark validates 1,051 candidates. The best 
 
 The current solver intentionally stays schema-flexible because official OGC data is not attached here yet. The value is the structure: when official input/output schemas are available, the loader, scorer, benchmark runner, and report generator can be adapted quickly.
 
+After checking the official OGC site, I added a schema-ingestion smoke test against the public baseline package. The script downloads the official baseline zip, reads `example_B2_b10.json`, projects polygon/layer block geometry into this lab's rectangle model, and runs the beam solver. On that projection, the beam run scores 1204.76 versus a baseline projection score of 1195.74, a +9.02 point delta. This is not official scoring; it is a readiness proof that the pipeline can read the official-style example and produce a validated internal projection.
+
 ## Claim Boundary
 
-This is a preparation workbench. It does not claim official OGC 2026 leaderboard performance, official data access, or final submission readiness.
+This is a preparation workbench. It does not claim official OGC 2026 leaderboard performance, official feasibility, official objective value, or final submission readiness.
 
 ## What's Next
 

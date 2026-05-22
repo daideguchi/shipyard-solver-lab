@@ -55,6 +55,9 @@ if (!body.includes('Beam search')) {
 if (!body.includes('candidates validated')) {
   throw new Error('missing benchmark validation trail');
 }
+if (!body.includes('Official Example Projection') || !body.includes('Not official feasibility scoring')) {
+  throw new Error('missing official example projection boundary');
+}
 
 await page.screenshot({ path: path.join(root, 'media', 'shipyard-solver-lab-full.png'), fullPage: true });
 await browser.close();

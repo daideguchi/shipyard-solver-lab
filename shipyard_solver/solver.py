@@ -171,7 +171,7 @@ def solve_beam_search(
                             width=width,
                             height=height,
                             start_day=block.ready_day,
-                            finish_day=block.ready_day + 1,
+                            finish_day=block.ready_day + block.processing_time,
                             rotated=rotated,
                         )
                         if not fits(candidate, yard, placed_by_yard[yard.id]):
@@ -234,7 +234,6 @@ def solve_constructive(raw: dict, seed: int = 0, order_mode: str = "due_date", p
                 if width > yard.width or height > yard.height:
                     continue
                 for x, y in candidate_positions(yard, width, height):
-                    finish_day = block.ready_day + 1
                     candidate = Placement(
                         block_id=block.id,
                         yard_id=yard.id,
@@ -243,7 +242,7 @@ def solve_constructive(raw: dict, seed: int = 0, order_mode: str = "due_date", p
                         width=width,
                         height=height,
                         start_day=block.ready_day,
-                        finish_day=finish_day,
+                        finish_day=block.ready_day + block.processing_time,
                         rotated=rotated,
                     )
                     if not fits(candidate, yard, placed_by_yard[yard.id]):
