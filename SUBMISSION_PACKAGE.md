@@ -21,6 +21,8 @@ Reproducible optimization workbench for packing shipyard blocks.
 - Candidate official package: `outputs/official_submission_candidate.zip`
 - Candidate package manifest: `outputs/official_submission_manifest.json`
 - Screenshot: `media/shipyard-solver-lab-full.png`
+- Narrated demo video: `media/shipyard-solver-lab-demo-narrated.mp4`
+- Demo thumbnail: `media/shipyard-solver-lab-demo-thumb.png`
 
 ## 250-500 Word Project Description
 
@@ -40,7 +42,7 @@ The latest step replaces that placeholder with a real candidate official algorit
 
 The repository also builds `outputs/official_submission_candidate.zip`, a candidate package with `myalgorithm.py` at the archive root. This is not submitted yet; it is a readiness artifact for when the official platform opens.
 
-The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps.
+The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps. For review, the repository includes a 118 second narrated demo video with video, audio, and subtitle streams. The demo walks through the dashboard, official-example projection, official checker smoke, official portfolio candidate, official package proof, yard layout, and solution table. It is a walkthrough of the reproducible workflow, not leaderboard evidence.
 
 This is not claiming official OGC leaderboard performance. It is a contest-ready operating loop: solver, validator, scorer, benchmark archive, dashboard, and report generator. When the official schema and data are available, this repository is ready to swap in the official loader and continue improving the algorithm from a reproducible baseline.
 
@@ -54,6 +56,7 @@ This is not claiming official OGC leaderboard performance. It is a contest-ready
 - The official checker smoke proves format feasibility only; it is not competitive.
 - The official portfolio smoke is measured only on the public example, not on official training, preliminary, final, or leaderboard instances.
 - The official submission zip is a candidate package only and has not been uploaded to the official OGC platform.
+- The narrated demo is a product walkthrough only; it does not add any leaderboard claim.
 
 ## Verification
 
@@ -64,9 +67,14 @@ npm run verify
 Expected markers:
 
 ```text
+official_example_projection_ok
+official_checker_smoke_ok
+official_portfolio_smoke_ok
+official_submission_package_ok
 shipyard_solver_verify_ok
 shipyard_solver_no_secrets_ok
 shipyard_solver_app_verify_ok
+shipyard_solver_demo_assets_ok
 ```
 
 Official projection smoke test:
@@ -108,4 +116,14 @@ npm run official-package
 official_submission_package_ok
 zip=outputs/official_submission_candidate.zip
 manifest=outputs/official_submission_manifest.json
+```
+
+Demo video:
+
+```bash
+npm run demo:narrated
+python3 scripts/verify_demo_assets.py
+shipyard_solver_demo_assets_ok
+duration=118.48
+streams=audio,subtitle,video
 ```

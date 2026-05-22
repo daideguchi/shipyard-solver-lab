@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:12,000
+Shipyard Solver Lab is a preparation workbench for the Optimization Grand Challenge.
+
+2
+00:00:12,000 --> 00:00:26,000
+The goal is a repeatable contest loop: load, solve, validate, score, inspect, and improve.
+
+3
+00:00:26,000 --> 00:00:38,000
+The first panel keeps the claim boundary visible. This is toy data plus a public OGC example, not leaderboard evidence.
+
+4
+00:00:38,000 --> 00:00:51,000
+The official example projection proves that the repository can ingest the public OGC baseline package.
+
+5
+00:00:51,000 --> 00:01:05,000
+The official checker smoke test proves exact operations format and public feasibility checker integration.
+
+6
+00:01:05,000 --> 00:01:22,000
+The portfolio candidate wraps the public greedy baseline, searches bay assignments, and keeps the best feasible solution.
+
+7
+00:01:22,000 --> 00:01:39,000
+On the public example, it improves the greedy reference and matches the static assignment lower bound after 1,024 assignments.
+
+8
+00:01:39,000 --> 00:01:51,000
+The package panel shows the next artifact: an official candidate zip with myalgorithm.py at the archive root.
+
+9
+00:01:51,000 --> 00:02:04,000
+The yard layout and table are generated from JSON outputs, so the dashboard is tied to real solver artifacts.
+
+10
+00:02:04,000 --> 00:02:20,000
+When the official platform opens, this project can continue from evidence instead of starting from scratch.

@@ -1,0 +1,19 @@
+Shipyard Solver Lab is a preparation workbench for the Optimization Grand Challenge.
+
+The goal is not to show a decorative dashboard. The goal is to prove the repeatable loop that an optimization contest needs: load an instance, generate a solution, validate it, score it, inspect the result, and keep improving.
+
+The first panel keeps the claim boundary visible. This public dashboard uses toy data and a public OGC example. It does not claim leaderboard performance.
+
+The official example projection checks that the repository can ingest the public OGC baseline package and run an internal solver smoke test against example B two, B ten.
+
+The official checker smoke test is more important than it looks. It proves the exact operations format and the public feasibility checker before any competitive claim is made.
+
+The strongest proof is the official portfolio candidate. The candidate algorithm wraps the public greedy baseline, searches bay assignments, keeps the best feasible official solution, and improves the public greedy reference on the example.
+
+For this small public example, the search enumerates one thousand twenty four bay assignments and matches the static assignment lower bound. That is not leaderboard evidence, but it is real checker-validated algorithm work.
+
+The package panel shows the next submission artifact: an official candidate zip with myalgorithm.py at the archive root.
+
+The yard layout and solution table are generated from JSON outputs, so the visual dashboard is tied to actual solver artifacts rather than mock data.
+
+The result is a contest-ready operating loop: solver, checker, benchmark archive, dashboard, report, and candidate package. When the official platform opens, this project is ready to continue from evidence instead of starting from scratch.
