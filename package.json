@@ -7,7 +7,7 @@
     "official-package": "python3 scripts/build_official_submission_package.py",
     "official-portfolio": "uv run --with shapely python scripts/run_official_portfolio_smoke.py",
     "official-smoke": "python3 scripts/run_official_example_projection.py",
-    "verify": "python3 scripts/run_official_example_projection.py && uv run --with shapely python scripts/run_official_checker_smoke.py && uv run --with shapely python scripts/run_official_portfolio_smoke.py && python3 scripts/build_official_submission_package.py && python3 scripts/verify_solver.py && python3 scripts/verify_no_secrets.py && node scripts/verify_app.mjs && python3 scripts/verify_demo_assets.py"
+    "verify": "python3 scripts/run_official_example_projection.py && uv run --with shapely python scripts/run_official_checker_smoke.py && uv run --with shapely python scripts/run_official_portfolio_smoke.py && python3 scripts/build_official_submission_package.py && python3 scripts/verify_solver.py && python3 scripts/verify_no_secrets.py && node scripts/verify_app.mjs && python3 scripts/verify_demo_assets.py && python3 scripts/verify_japanese_support.py"
   },
   "dependencies": {
     "playwright": "^1.55.0"

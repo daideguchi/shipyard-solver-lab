@@ -11,6 +11,7 @@ The official challenge is "The Grand Shipyard Puzzle: Pack the Block, Beat the C
 - Official site: https://www.optichallenge.com/
 - Public repo: https://github.com/daideguchi/shipyard-solver-lab
 - Public app: https://daideguchi.github.io/shipyard-solver-lab/
+- Japanese README: [README.ja.md](README.ja.md)
 - Narrated demo video: `media/shipyard-solver-lab-demo-narrated.mp4`
 - Demo thumbnail: `media/shipyard-solver-lab-demo-thumb.png`
 - Official problem statement and baseline package: publicly released on optichallenge.com

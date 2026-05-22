@@ -74,6 +74,22 @@ if (!body.includes('Official Package') || !body.includes('outputs/official_submi
   throw new Error('missing official submission package proof');
 }
 
+await page.getByRole('button', { name: '日本語' }).click();
+const japaneseBody = await page.locator('body').innerText();
+if (!japaneseBody.includes('造船所ソルバーラボ') || !japaneseBody.includes('解く・検証する・提出パッケージ化する')) {
+  throw new Error('Japanese UI toggle failed');
+}
+for (const marker of ['最高実行はベースラインより', '公式チェッカーがPASSしました', '公式形式の候補アルゴリズムがPASSしました', 'いいえ']) {
+  if (!japaneseBody.includes(marker)) {
+    throw new Error(`Japanese dynamic UI missing marker: ${marker}`);
+  }
+}
+for (const leaked of ['candidates validated', 'Exact official checker PASS', 'Candidate official algorithm PASS', '>yes<']) {
+  if (japaneseBody.includes(leaked)) {
+    throw new Error(`Japanese UI leaked English dynamic text: ${leaked}`);
+  }
+}
+
 await page.screenshot({ path: path.join(root, 'media', 'shipyard-solver-lab-full.png'), fullPage: true });
 await browser.close();
 server.close();

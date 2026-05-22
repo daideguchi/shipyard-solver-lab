@@ -55,6 +55,35 @@
       font-weight: 700;
       white-space: nowrap;
     }
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .lang-toggle {
+      display: inline-flex;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f9fbfc;
+    }
+    .lang-toggle button {
+      width: auto;
+      min-height: 28px;
+      padding: 4px 8px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .lang-toggle button.active { background: var(--brand); color: #fff; }
     main {
       display: grid;
       grid-template-columns: 360px minmax(0, 1fr);
@@ -138,6 +167,7 @@
     }
     @media (max-width: 920px) {
       header { flex-direction: column; }
+      .header-actions { justify-content: flex-start; }
       main, .hero, .grid-2, .grid-3 { grid-template-columns: 1fr; }
     }
   </style>
@@ -148,7 +178,13 @@
       <h1>Shipyard Solver Lab</h1>
       <p class="tagline">A reproducible optimization workbench for packing shipyard blocks, validating placements, scoring runs, and generating the technical report trail.</p>
     </div>
-    <span class="badge">OGC 2026 prep lane</span>
+    <div class="header-actions">
+      <span class="badge">OGC 2026 prep lane</span>
+      <div class="lang-toggle" aria-label="Language">
+        <button type="button" class="active" data-lang-button="en">EN</button>
+        <button type="button" data-lang-button="ja">日本語</button>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -253,7 +289,87 @@
   </main>
 
   <script>
+    let currentLang = 'en';
+    const translations = {
+      ja: {
+        'Shipyard Solver Lab': '造船所ソルバーラボ',
+        'A reproducible optimization workbench for packing shipyard blocks, validating placements, scoring runs, and generating the technical report trail.': '造船ブロックの配置、検証、スコア計算、技術レポート作成を一つにした、再現可能な最適化ワークベンチです。',
+        'OGC 2026 prep lane': 'OGC 2026準備レーン',
+        'best sample score': 'サンプル最高スコア',
+        'placed blocks': '配置済みブロック',
+        'block coverage': 'ブロックカバー率',
+        'compactness': '密度',
+        'benchmark runs': 'ベンチマーク回数',
+        'official example projection': '公式例の投影',
+        'One-Sentence Pitch': '一言でいうと',
+        'judge hook': '審査員向けの刺しどころ',
+        'For optimization competitors who need proof before official data opens, Shipyard Solver Lab turns the shipyard puzzle into a reproducible solve-validate-package loop.': '公式データ公開前から証拠を積みたい最適化コンテスト参加者のために、造船所パズルを「解く・検証する・提出パッケージ化する」再現可能なループにします。',
+        'Who': '誰のため',
+        'Builders entering OGC who need a working algorithm pipeline before the official scoring window starts.': '公式採点期間が始まる前に、動くアルゴリズムパイプラインを作りたいOGC参加者のためです。',
+        'Pain': '困りごと',
+        'Optimization entries fail when the solver, checker, benchmark, report, and submission zip are not reproducible.': 'ソルバー、チェッカー、ベンチマーク、レポート、提出zipが再現できないと、最適化コンテストの信頼を失います。',
+        'Judge Signal': '勝ち筋',
+        'This project already runs the public official checker, improves the public greedy example, and builds the candidate package.': '公開公式チェッカーを実行し、公開greedy例を改善し、候補提出パッケージまで作っています。',
+        'Run Boundary': '実行範囲',
+        'not official data': '公式データではありません',
+        'This dashboard shows the local toy instance only. It proves the solver loop: load, solve, validate, score, visualize, report.': 'この画面はローカルの小さな例だけを表示します。読み込み、解く、検証、採点、可視化、レポート化のループを証明します。',
+        'Current Algorithm': '現在のアルゴリズム',
+        'Competition Fit': 'コンテスト適合性',
+        'Next Move': '次の一手',
+        'Best Run': '最高実行',
+        'Improvement Trail': '改善の履歴',
+        'Official Example Projection': '公式例の投影',
+        'Official Checker Smoke': '公式チェッカー確認',
+        'Official Portfolio Candidate': '公式形式の候補',
+        'Official Package': '公式パッケージ',
+        'Yard Layout': 'ヤード配置',
+        'valid placement proof': '有効配置の証拠',
+        'Solution Table': '解テーブル',
+        'generated from JSON': 'JSONから生成',
+        'Block': 'ブロック',
+        'Yard': 'ヤード',
+        'Position': '位置',
+        'Size': 'サイズ',
+        'Rotated': '回転',
+        'Beam search plus multi-start constructive baselines. The solver keeps multiple partial layouts, then ranks them by placement coverage, lateness, compactness, and validation status.': 'ビームサーチと複数初期値の構成的ベースラインを使います。ソルバーは複数の途中配置を保持し、配置カバー率、遅れ、密度、検証状態で順位付けします。',
+        'OGC rewards algorithm performance, report quality, and code quality. This workbench is built around those three judging surfaces.': 'OGCは、アルゴリズム性能、レポート品質、コード品質を評価します。このワークベンチは、その3つの審査面を中心に作っています。',
+        'Scale the checker-validated candidate algorithm from the public example to official training instances as soon as the official platform opens.': '公式プラットフォームが開いたら、チェッカーで検証済みの候補アルゴリズムを、公開例から公式訓練インスタンスへ広げます。',
+        'Loading benchmark archive.': 'ベンチマーク記録を読み込み中。',
+        'Loading baseline comparison.': 'ベースライン比較を読み込み中。',
+        'Loading official baseline example projection.': '公式ベースライン例の投影を読み込み中。',
+        'Loading exact official checker result.': '公式チェッカー結果を読み込み中。',
+        'Loading official-format candidate algorithm result.': '公式形式の候補アルゴリズム結果を読み込み中。',
+        'Candidate zip is generated at outputs/official_submission_candidate.zip with myalgorithm.py at the archive root. Not submitted yet.': '候補zipは outputs/official_submission_candidate.zip に生成済みで、アーカイブ直下に myalgorithm.py を入れています。まだ提出はしていません。',
+        'Claim boundary: this lab demonstrates the solver pipeline on toy data, a public OGC baseline example projection, an exact official-checker smoke test, and a checker-validated public-example portfolio candidate. It does not claim leaderboard rank, training-instance performance, or final submission readiness.': '主張の境界: このラボは、トイデータ、公開OGCベースライン例の投影、公式チェッカー確認、チェッカーで検証した公開例候補でソルバーパイプラインを示します。リーダーボード順位、訓練インスタンス性能、最終提出準備完了は主張しません。'
+      }
+    };
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang === 'ja' ? 'ja' : 'en';
+      document.querySelectorAll('[data-lang-button]').forEach((button) => {
+        button.classList.toggle('active', button.dataset.langButton === lang);
+      });
+      const map = translations[lang] || {};
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      for (const node of nodes) {
+        const parent = node.parentElement;
+        if (!parent || ['SCRIPT', 'STYLE'].includes(parent.tagName)) continue;
+        if (!node.datasetOriginalText) node.datasetOriginalText = node.nodeValue;
+        const original = node.datasetOriginalText.trim();
+        if (!original) continue;
+        node.nodeValue = node.datasetOriginalText.replace(original, map[original] || original);
+      }
+    }
+
+    function yesNo(value) {
+      return currentLang === 'ja' ? (value ? 'はい' : 'いいえ') : (value ? 'yes' : 'no');
+    }
+
     const colors = ['#1f6f8b', '#2f8f65', '#9a641f', '#714ea8', '#b84c4c', '#4d7899', '#7b8b32'];
+    let appState = null;
 
     async function loadJson(path) {
       const response = await fetch(path);
@@ -269,17 +385,23 @@
       document.querySelector('#utilMetric').textContent = `${Math.round(metrics.packing_compactness * 100)}%`;
       document.querySelector('#lateMetric').textContent = benchmark.run_count;
       document.querySelector('#officialMetric').textContent = officialProjection.metrics.placed_blocks;
-      document.querySelector('#bestRunText').textContent = `${benchmark.best_solver}, seed ${benchmark.best_seed}, score ${benchmark.best_score}.`;
+      document.querySelector('#bestRunText').textContent = currentLang === 'ja'
+        ? `${benchmark.best_solver}、seed ${benchmark.best_seed}、スコア ${benchmark.best_score}。`
+        : `${benchmark.best_solver}, seed ${benchmark.best_seed}, score ${benchmark.best_score}.`;
       const delta = Number.isFinite(benchmark.best_vs_baseline_delta) ? benchmark.best_vs_baseline_delta.toFixed(2) : 'n/a';
-      document.querySelector('#improvementText').textContent =
-        `Best run is +${delta} points over the baseline. ${benchmark.valid_run_count} / ${benchmark.run_count} candidates validated.`;
+      document.querySelector('#improvementText').textContent = currentLang === 'ja'
+        ? `最高実行はベースラインより +${delta} 点です。${benchmark.run_count} 件中 ${benchmark.valid_run_count} 件の候補を検証しました。`
+        : `Best run is +${delta} points over the baseline. ${benchmark.valid_run_count} / ${benchmark.run_count} candidates validated.`;
       const projectionDelta = Number(officialProjection.metrics.score - officialProjection.baseline_projection_score).toFixed(2);
-      document.querySelector('#officialProjectionText').textContent =
-        `Public OGC example_B2_b10 projected into the lab model: ${officialProjection.metrics.placed_blocks} blocks placed, score ${officialProjection.metrics.score}, +${projectionDelta} over projection baseline. Not official feasibility scoring.`;
-      document.querySelector('#officialCheckerText').textContent =
-        `Exact official checker PASS on a conservative sequential solution: feasible=${officialChecker.simple_sequential.feasible}, stage ${officialChecker.simple_sequential.stage}. Greedy reference objective ${officialChecker.official_greedy_reference.objective.toFixed(2)}. This proves format integration, not competitiveness.`;
-      document.querySelector('#officialPortfolioText').textContent =
-        `Candidate official algorithm PASS: objective ${officialPortfolio.official_portfolio.objective.toFixed(2)} vs greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}, an improvement of ${officialPortfolio.objective_improvement.toFixed(2)} on public example_B2_b10. It enumerates ${officialPortfolio.assignment_search.candidate_count} bay assignments and matches the static bound. Not leaderboard evidence.`;
+      document.querySelector('#officialProjectionText').textContent = currentLang === 'ja'
+        ? `公開OGC example_B2_b10 をラボモデルに投影しました。配置済みブロック ${officialProjection.metrics.placed_blocks}、スコア ${officialProjection.metrics.score}、投影ベースライン比 +${projectionDelta}。公式の実現可能性スコアとは主張しません。`
+        : `Public OGC example_B2_b10 projected into the lab model: ${officialProjection.metrics.placed_blocks} blocks placed, score ${officialProjection.metrics.score}, +${projectionDelta} over projection baseline. Not official feasibility scoring.`;
+      document.querySelector('#officialCheckerText').textContent = currentLang === 'ja'
+        ? `保守的な順次解で公式チェッカーがPASSしました。feasible=${officialChecker.simple_sequential.feasible}、stage ${officialChecker.simple_sequential.stage}。greedy参照目的値は ${officialChecker.official_greedy_reference.objective.toFixed(2)}。これは形式統合の証拠であり、競争力の主張ではありません。`
+        : `Exact official checker PASS on a conservative sequential solution: feasible=${officialChecker.simple_sequential.feasible}, stage ${officialChecker.simple_sequential.stage}. Greedy reference objective ${officialChecker.official_greedy_reference.objective.toFixed(2)}. This proves format integration, not competitiveness.`;
+      document.querySelector('#officialPortfolioText').textContent = currentLang === 'ja'
+        ? `公式形式の候補アルゴリズムがPASSしました。目的値 ${officialPortfolio.official_portfolio.objective.toFixed(2)}、greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)} に対して、公開 example_B2_b10 で ${officialPortfolio.objective_improvement.toFixed(2)} 改善。${officialPortfolio.assignment_search.candidate_count} 件のベイ割当を列挙し、静的上限と一致します。リーダーボード証拠ではありません。`
+        : `Candidate official algorithm PASS: objective ${officialPortfolio.official_portfolio.objective.toFixed(2)} vs greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}, an improvement of ${officialPortfolio.objective_improvement.toFixed(2)} on public example_B2_b10. It enumerates ${officialPortfolio.assignment_search.candidate_count} bay assignments and matches the static bound. Not leaderboard evidence.`;
     }
 
     function renderYards(instance, solution) {
@@ -303,7 +425,7 @@
         return `
           <div class="yard">
             <div class="yard-header"><strong>${yard.id}</strong><span>${yard.width} x ${yard.height}</span></div>
-            <svg viewBox="0 0 ${yard.width} ${yard.height}" role="img" aria-label="${yard.id} placement map">
+            <svg viewBox="0 0 ${yard.width} ${yard.height}" role="img" aria-label="${currentLang === 'ja' ? `${yard.id} 配置図` : `${yard.id} placement map`}">
               <rect x="0" y="0" width="${yard.width}" height="${yard.height}" fill="#edf4f6"></rect>
               ${rects}
             </svg>
@@ -320,9 +442,18 @@
           <td>${p.yard_id}</td>
           <td>(${p.x}, ${p.y})</td>
           <td>${p.width} x ${p.height}</td>
-          <td>${p.rotated ? 'yes' : 'no'}</td>
+          <td>${yesNo(p.rotated)}</td>
         </tr>
       `).join('');
+    }
+
+    function renderAll() {
+      if (!appState) return;
+      const { instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio } = appState;
+      renderMetrics(solution, benchmark, officialProjection, officialChecker, officialPortfolio);
+      renderYards(instance, solution);
+      renderTable(solution);
+      applyLanguage(currentLang);
     }
 
     async function main() {
@@ -334,14 +465,21 @@
         loadJson('outputs/official_checker_smoke_result.json'),
         loadJson('outputs/official_portfolio_result.json'),
       ]);
-      renderMetrics(solution, benchmark, officialProjection, officialChecker, officialPortfolio);
-      renderYards(instance, solution);
-      renderTable(solution);
+      appState = { instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio };
+      renderAll();
     }
+
+    document.querySelectorAll('[data-lang-button]').forEach((button) => {
+      button.addEventListener('click', () => {
+        currentLang = button.dataset.langButton;
+        renderAll();
+      });
+    });
 
     main().catch((error) => {
       document.body.insertAdjacentHTML('beforeend', `<pre>${error.message}</pre>`);
     });
+    applyLanguage('en');
   </script>
 </body>
 </html>
