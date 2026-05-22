@@ -1,0 +1,147 @@
+{
+  "instance_id": "toy_shipyard_001",
+  "solver": "baseline_due_date_first_fit",
+  "placements": [
+    {
+      "block_id": "B02",
+      "yard_id": "Y1",
+      "x": 0,
+      "y": 0,
+      "width": 20,
+      "height": 16,
+      "start_day": 0,
+      "finish_day": 1,
+      "rotated": false
+    },
+    {
+      "block_id": "B08",
+      "yard_id": "Y1",
+      "x": 20,
+      "y": 0,
+      "width": 22,
+      "height": 12,
+      "start_day": 3,
+      "finish_day": 4,
+      "rotated": false
+    },
+    {
+      "block_id": "B05",
+      "yard_id": "Y1",
+      "x": 42,
+      "y": 0,
+      "width": 24,
+      "height": 14,
+      "start_day": 2,
+      "finish_day": 3,
+      "rotated": false
+    },
+    {
+      "block_id": "B12",
+      "yard_id": "Y1",
+      "x": 20,
+      "y": 14,
+      "width": 32,
+      "height": 14,
+      "start_day": 5,
+      "finish_day": 6,
+      "rotated": false
+    },
+    {
+      "block_id": "B01",
+      "yard_id": "Y2",
+      "x": 0,
+      "y": 0,
+      "width": 28,
+      "height": 12,
+      "start_day": 0,
+      "finish_day": 1,
+      "rotated": false
+    },
+    {
+      "block_id": "B06",
+      "yard_id": "Y2",
+      "x": 28,
+      "y": 0,
+      "width": 22,
+      "height": 16,
+      "start_day": 2,
+      "finish_day": 3,
+      "rotated": true
+    },
+    {
+      "block_id": "B09",
+      "yard_id": "Y2",
+      "x": 50,
+      "y": 0,
+      "width": 14,
+      "height": 14,
+      "start_day": 4,
+      "finish_day": 5,
+      "rotated": false
+    },
+    {
+      "block_id": "B10",
+      "yard_id": "Y2",
+      "x": 0,
+      "y": 12,
+      "width": 26,
+      "height": 20,
+      "start_day": 4,
+      "finish_day": 5,
+      "rotated": false
+    },
+    {
+      "block_id": "B11",
+      "yard_id": "Y2",
+      "x": 26,
+      "y": 16,
+      "width": 30,
+      "height": 12,
+      "start_day": 5,
+      "finish_day": 6,
+      "rotated": true
+    },
+    {
+      "block_id": "B03",
+      "yard_id": "Y3",
+      "x": 0,
+      "y": 0,
+      "width": 18,
+      "height": 18,
+      "start_day": 1,
+      "finish_day": 2,
+      "rotated": false
+    },
+    {
+      "block_id": "B04",
+      "yard_id": "Y3",
+      "x": 18,
+      "y": 0,
+      "width": 34,
+      "height": 10,
+      "start_day": 1,
+      "finish_day": 2,
+      "rotated": false
+    },
+    {
+      "block_id": "B07",
+      "yard_id": "Y3",
+      "x": 18,
+      "y": 10,
+      "width": 30,
+      "height": 18,
+      "start_day": 3,
+      "finish_day": 4,
+      "rotated": false
+    }
+  ],
+  "unplaced": [],
+  "metrics": {
+    "score": 1181.18,
+    "coverage": 1.0,
+    "yard_utilization": 0.5177,
+    "placed_blocks": 12,
+    "unplaced_blocks": 0,
+    "weighted_lateness": 0
+  }
+}

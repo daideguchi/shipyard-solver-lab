@@ -1,0 +1,58 @@
+import { chromium } from 'playwright';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import http from 'http';
+import fs from 'fs/promises';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const contentTypes = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.png': 'image/png',
+};
+
+const server = http.createServer(async (req, res) => {
+  const url = new URL(req.url || '/', 'http://localhost');
+  const relative = url.pathname === '/' ? '/index.html' : url.pathname;
+  const filePath = path.normalize(path.join(root, relative));
+  if (!filePath.startsWith(root)) {
+    res.writeHead(403);
+    res.end('forbidden');
+    return;
+  }
+  try {
+    const body = await fs.readFile(filePath);
+    res.writeHead(200, { 'content-type': contentTypes[path.extname(filePath)] || 'text/plain' });
+    res.end(body);
+  } catch {
+    res.writeHead(404);
+    res.end('not found');
+  }
+});
+await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+const { port } = server.address();
+
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1440, height: 1080 } });
+
+await page.goto(`http://127.0.0.1:${port}/`);
+await page.waitForSelector('text=Shipyard Solver Lab');
+await page.waitForSelector('#solutionTable tbody tr');
+const title = await page.title();
+if (!title.includes('Shipyard Solver Lab')) {
+  throw new Error(`unexpected title: ${title}`);
+}
+
+const rows = await page.locator('#solutionTable tbody tr').count();
+if (rows < 10) {
+  throw new Error(`expected at least 10 solution rows, got ${rows}`);
+}
+
+await page.screenshot({ path: path.join(root, 'media', 'shipyard-solver-lab-full.png'), fullPage: true });
+await browser.close();
+server.close();
+
+console.log('shipyard_solver_app_verify_ok');
+console.log(`rows=${rows}`);
+console.log('screenshot=media/shipyard-solver-lab-full.png');

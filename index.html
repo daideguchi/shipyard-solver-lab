@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shipyard Solver Lab</title>
+  <style>
+    :root {
+      --bg: #f5f7f8;
+      --surface: #ffffff;
+      --ink: #172026;
+      --muted: #63717c;
+      --line: #d8e0e5;
+      --brand: #1f6f8b;
+      --brand-soft: #e3f2f7;
+      --good: #217a4b;
+      --warn: #9a641f;
+      --risk: #a23434;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    header, main {
+      width: min(1220px, calc(100vw - 40px));
+      margin: 0 auto;
+    }
+    header {
+      padding: 32px 0 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: 34px; margin-bottom: 8px; letter-spacing: 0; }
+    h2 { font-size: 17px; margin-bottom: 10px; }
+    h3 { font-size: 14px; margin-bottom: 6px; }
+    p, li, td, th { color: var(--muted); line-height: 1.55; }
+    .tagline { max-width: 760px; font-size: 16px; margin-bottom: 0; }
+    .badge, .pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--brand);
+      border-radius: 999px;
+      min-height: 30px;
+      padding: 0 12px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    main {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 18px;
+      padding-bottom: 40px;
+    }
+    .hero {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .metric, .panel, .card {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(20, 37, 48, 0.04);
+    }
+    .metric { padding: 16px; }
+    .metric strong { display: block; font-size: 24px; color: var(--ink); }
+    .metric span { color: var(--muted); font-size: 13px; }
+    .panel { padding: 18px; }
+    .stack { display: grid; gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .card { padding: 15px; }
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .pill.good { color: var(--good); background: #e8f5ee; border-color: #b9dfca; }
+    .pill.warn { color: var(--warn); background: #fff2dc; border-color: #f0c987; }
+    .pill.risk { color: var(--risk); background: #fbe9e9; border-color: #eabcbc; }
+    .yard {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fdfefe;
+    }
+    .yard-header {
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    svg { width: 100%; height: auto; display: block; background: #edf4f6; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 9px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+    th { color: var(--ink); background: #f9fbfc; }
+    code {
+      color: var(--brand);
+      background: var(--brand-soft);
+      border-radius: 5px;
+      padding: 2px 5px;
+      font-size: 12px;
+    }
+    .footer-note {
+      grid-column: 1 / -1;
+      margin: 0;
+      padding: 14px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    @media (max-width: 920px) {
+      header { flex-direction: column; }
+      main, .hero, .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Shipyard Solver Lab</h1>
+      <p class="tagline">A reproducible optimization workbench for packing shipyard blocks, validating placements, scoring runs, and generating the technical report trail.</p>
+    </div>
+    <span class="badge">OGC 2026 prep lane</span>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="solver metrics">
+      <div class="metric"><strong id="scoreMetric">--</strong><span>sample score</span></div>
+      <div class="metric"><strong id="placedMetric">--</strong><span>placed blocks</span></div>
+      <div class="metric"><strong id="coverageMetric">--</strong><span>block coverage</span></div>
+      <div class="metric"><strong id="utilMetric">--</strong><span>yard utilization</span></div>
+      <div class="metric"><strong id="lateMetric">--</strong><span>weighted lateness</span></div>
+    </section>
+
+    <aside class="panel">
+      <div class="panel-title">
+        <h2>Run Boundary</h2>
+        <span class="pill warn">not official data</span>
+      </div>
+      <div class="stack">
+        <p>This dashboard shows the local toy instance only. It proves the solver loop: load, solve, validate, score, visualize, report.</p>
+        <div class="card">
+          <h3>Current Algorithm</h3>
+          <p>Due-date-first first-fit search with rotation, yard assignment, boundary checks, and overlap validation.</p>
+        </div>
+        <div class="card">
+          <h3>Competition Fit</h3>
+          <p>OGC rewards algorithm performance, report quality, and code quality. This workbench is built around those three judging surfaces.</p>
+        </div>
+        <div class="card">
+          <h3>Next Move</h3>
+          <p>Replace the toy schema with the official schema when published, then add randomized multi-start and local search.</p>
+        </div>
+      </div>
+    </aside>
+
+    <section class="stack">
+      <div class="panel">
+        <div class="panel-title">
+          <h2>Yard Layout</h2>
+          <span class="pill good">valid placement proof</span>
+        </div>
+        <div class="grid-2" id="yardGrid"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <h2>Solution Table</h2>
+          <span class="pill">generated from JSON</span>
+        </div>
+        <table id="solutionTable">
+          <thead>
+            <tr>
+              <th>Block</th>
+              <th>Yard</th>
+              <th>Position</th>
+              <th>Size</th>
+              <th>Rotated</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="footer-note">Claim boundary: this lab currently demonstrates the solver pipeline on toy data. It does not claim official OGC 2026 performance, leaderboard rank, or final submission readiness.</p>
+  </main>
+
+  <script>
+    const colors = ['#1f6f8b', '#2f8f65', '#9a641f', '#714ea8', '#b84c4c', '#4d7899', '#7b8b32'];
+
+    async function loadJson(path) {
+      const response = await fetch(path);
+      if (!response.ok) throw new Error(`Failed to load ${path}`);
+      return response.json();
+    }
+
+    function renderMetrics(solution) {
+      const metrics = solution.metrics;
+      document.querySelector('#scoreMetric').textContent = metrics.score;
+      document.querySelector('#placedMetric').textContent = metrics.placed_blocks;
+      document.querySelector('#coverageMetric').textContent = `${Math.round(metrics.coverage * 100)}%`;
+      document.querySelector('#utilMetric').textContent = `${Math.round(metrics.yard_utilization * 100)}%`;
+      document.querySelector('#lateMetric').textContent = metrics.weighted_lateness;
+    }
+
+    function renderYards(instance, solution) {
+      const grid = document.querySelector('#yardGrid');
+      const placementsByYard = new Map();
+      for (const placement of solution.placements) {
+        if (!placementsByYard.has(placement.yard_id)) placementsByYard.set(placement.yard_id, []);
+        placementsByYard.get(placement.yard_id).push(placement);
+      }
+      grid.innerHTML = instance.yards.map((yard, yardIdx) => {
+        const placements = placementsByYard.get(yard.id) || [];
+        const rects = placements.map((p, idx) => {
+          const color = colors[(idx + yardIdx) % colors.length];
+          return `
+            <g>
+              <rect x="${p.x}" y="${p.y}" width="${p.width}" height="${p.height}" fill="${color}" opacity="0.82" rx="1"></rect>
+              <text x="${p.x + 2}" y="${p.y + 8}" font-size="5" fill="white">${p.block_id}</text>
+            </g>
+          `;
+        }).join('');
+        return `
+          <div class="yard">
+            <div class="yard-header"><strong>${yard.id}</strong><span>${yard.width} x ${yard.height}</span></div>
+            <svg viewBox="0 0 ${yard.width} ${yard.height}" role="img" aria-label="${yard.id} placement map">
+              <rect x="0" y="0" width="${yard.width}" height="${yard.height}" fill="#edf4f6"></rect>
+              ${rects}
+            </svg>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderTable(solution) {
+      const body = document.querySelector('#solutionTable tbody');
+      body.innerHTML = solution.placements.map((p) => `
+        <tr>
+          <td><code>${p.block_id}</code></td>
+          <td>${p.yard_id}</td>
+          <td>(${p.x}, ${p.y})</td>
+          <td>${p.width} x ${p.height}</td>
+          <td>${p.rotated ? 'yes' : 'no'}</td>
+        </tr>
+      `).join('');
+    }
+
+    async function main() {
+      const [instance, solution] = await Promise.all([
+        loadJson('data/sample_blocks.json'),
+        loadJson('outputs/sample_solution.json'),
+      ]);
+      renderMetrics(solution);
+      renderYards(instance, solution);
+      renderTable(solution);
+    }
+
+    main().catch((error) => {
+      document.body.insertAdjacentHTML('beforeend', `<pre>${error.message}</pre>`);
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,24 @@
+{
+  "instance_id": "toy_shipyard_001",
+  "description": "Toy instance for OGC-style solver pipeline rehearsal. Not official OGC data.",
+  "yards": [
+    { "id": "Y1", "width": 80, "height": 42, "crane_capacity": 2 },
+    { "id": "Y2", "width": 64, "height": 48, "crane_capacity": 1 },
+    { "id": "Y3", "width": 54, "height": 36, "crane_capacity": 1 }
+  ],
+  "blocks": [
+    { "id": "B01", "width": 28, "height": 12, "ready_day": 0, "due_day": 5, "priority": 5 },
+    { "id": "B02", "width": 20, "height": 16, "ready_day": 0, "due_day": 4, "priority": 4 },
+    { "id": "B03", "width": 18, "height": 18, "ready_day": 1, "due_day": 6, "priority": 3 },
+    { "id": "B04", "width": 34, "height": 10, "ready_day": 1, "due_day": 7, "priority": 4 },
+    { "id": "B05", "width": 24, "height": 14, "ready_day": 2, "due_day": 8, "priority": 2 },
+    { "id": "B06", "width": 16, "height": 22, "ready_day": 2, "due_day": 8, "priority": 2 },
+    { "id": "B07", "width": 30, "height": 18, "ready_day": 3, "due_day": 9, "priority": 5 },
+    { "id": "B08", "width": 22, "height": 12, "ready_day": 3, "due_day": 7, "priority": 3 },
+    { "id": "B09", "width": 14, "height": 14, "ready_day": 4, "due_day": 10, "priority": 1 },
+    { "id": "B10", "width": 26, "height": 20, "ready_day": 4, "due_day": 11, "priority": 5 },
+    { "id": "B11", "width": 12, "height": 30, "ready_day": 5, "due_day": 12, "priority": 2 },
+    { "id": "B12", "width": 32, "height": 14, "ready_day": 5, "due_day": 12, "priority": 4 }
+  ]
+}
+

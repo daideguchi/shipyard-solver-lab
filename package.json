@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "verify": "python3 scripts/verify_solver.py && python3 scripts/verify_no_secrets.py && node scripts/verify_app.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  },
+  "devDependencies": {}
+}
+
