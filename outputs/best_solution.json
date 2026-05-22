@@ -1,0 +1,151 @@
+{
+  "instance_id": "toy_shipyard_001",
+  "solver": "constructive_randomized_compact_x",
+  "seed": 1,
+  "order_mode": "randomized",
+  "placement_mode": "compact_x",
+  "placements": [
+    {
+      "block_id": "B09",
+      "yard_id": "Y1",
+      "x": 0,
+      "y": 0,
+      "width": 14,
+      "height": 14,
+      "start_day": 4,
+      "finish_day": 5,
+      "rotated": false
+    },
+    {
+      "block_id": "B12",
+      "yard_id": "Y1",
+      "x": 14,
+      "y": 0,
+      "width": 14,
+      "height": 32,
+      "start_day": 5,
+      "finish_day": 6,
+      "rotated": true
+    },
+    {
+      "block_id": "B05",
+      "yard_id": "Y1",
+      "x": 0,
+      "y": 14,
+      "width": 14,
+      "height": 24,
+      "start_day": 2,
+      "finish_day": 3,
+      "rotated": true
+    },
+    {
+      "block_id": "B11",
+      "yard_id": "Y1",
+      "x": 28,
+      "y": 0,
+      "width": 12,
+      "height": 30,
+      "start_day": 5,
+      "finish_day": 6,
+      "rotated": false
+    },
+    {
+      "block_id": "B01",
+      "yard_id": "Y2",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 28,
+      "start_day": 0,
+      "finish_day": 1,
+      "rotated": true
+    },
+    {
+      "block_id": "B04",
+      "yard_id": "Y2",
+      "x": 12,
+      "y": 0,
+      "width": 10,
+      "height": 34,
+      "start_day": 1,
+      "finish_day": 2,
+      "rotated": true
+    },
+    {
+      "block_id": "B07",
+      "yard_id": "Y2",
+      "x": 22,
+      "y": 0,
+      "width": 18,
+      "height": 30,
+      "start_day": 3,
+      "finish_day": 4,
+      "rotated": true
+    },
+    {
+      "block_id": "B03",
+      "yard_id": "Y2",
+      "x": 22,
+      "y": 30,
+      "width": 18,
+      "height": 18,
+      "start_day": 1,
+      "finish_day": 2,
+      "rotated": false
+    },
+    {
+      "block_id": "B08",
+      "yard_id": "Y2",
+      "x": 0,
+      "y": 34,
+      "width": 22,
+      "height": 12,
+      "start_day": 3,
+      "finish_day": 4,
+      "rotated": false
+    },
+    {
+      "block_id": "B10",
+      "yard_id": "Y3",
+      "x": 0,
+      "y": 0,
+      "width": 20,
+      "height": 26,
+      "start_day": 4,
+      "finish_day": 5,
+      "rotated": true
+    },
+    {
+      "block_id": "B06",
+      "yard_id": "Y3",
+      "x": 20,
+      "y": 0,
+      "width": 16,
+      "height": 22,
+      "start_day": 2,
+      "finish_day": 3,
+      "rotated": false
+    },
+    {
+      "block_id": "B02",
+      "yard_id": "Y3",
+      "x": 36,
+      "y": 0,
+      "width": 16,
+      "height": 20,
+      "start_day": 0,
+      "finish_day": 1,
+      "rotated": true
+    }
+  ],
+  "unplaced": [],
+  "metrics": {
+    "score": 1289.77,
+    "coverage": 1.0,
+    "yard_utilization": 0.5177,
+    "packing_compactness": 0.9048,
+    "placed_blocks": 12,
+    "unplaced_blocks": 0,
+    "weighted_lateness": 0
+  }
+}

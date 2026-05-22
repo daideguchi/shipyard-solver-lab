@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+import random
 
 from .model import Block, Placement, Yard
 
@@ -47,14 +48,48 @@ def candidate_positions(yard: Yard, width: int, height: int) -> list[tuple[int, 
     return positions
 
 
-def solve_baseline(raw: dict) -> dict:
+def block_order_key(block: Block, mode: str, rng: random.Random) -> tuple:
+    jitter = rng.random()
+    area = block.width * block.height
+    if mode == "area_first":
+        return (-area, block.due_day, -block.priority, jitter)
+    if mode == "priority_first":
+        return (-block.priority, block.due_day, -area, jitter)
+    if mode == "slack_first":
+        slack = block.due_day - block.ready_day
+        return (slack, -block.priority, -area, jitter)
+    if mode == "randomized":
+        return (jitter,)
+    return (block.due_day, -block.priority, -area, block.ready_day, jitter)
+
+
+def placement_cost(candidate: Placement, yard: Yard, block: Block, mode: str) -> tuple:
+    top = candidate.y + candidate.height
+    right = candidate.x + candidate.width
+    lateness = max(0, candidate.finish_day - block.due_day)
+    waste_right = yard.width - right
+    waste_top = yard.height - top
+    if mode == "compact_x":
+        return (lateness, right, top, waste_top, yard.id)
+    if mode == "compact_y":
+        return (lateness, top, right, waste_right, yard.id)
+    if mode == "center":
+        cx = candidate.x + candidate.width / 2
+        cy = candidate.y + candidate.height / 2
+        center_cost = abs(cx - yard.width / 2) + abs(cy - yard.height / 2)
+        return (lateness, center_cost, top, right, yard.id)
+    return (lateness, top, right, yard.id)
+
+
+def solve_constructive(raw: dict, seed: int = 0, order_mode: str = "due_date", placement_mode: str = "compact_y") -> dict:
     yards, blocks = parse_instance(raw)
+    rng = random.Random(seed)
     placed_by_yard: dict[str, list[Placement]] = defaultdict(list)
     unplaced: list[str] = []
 
     ordered = sorted(
         blocks,
-        key=lambda b: (b.due_day, -b.priority, -(b.width * b.height), b.ready_day),
+        key=lambda b: block_order_key(b, order_mode, rng),
     )
 
     for block in ordered:
@@ -79,10 +114,7 @@ def solve_baseline(raw: dict) -> dict:
                     )
                     if not fits(candidate, yard, placed_by_yard[yard.id]):
                         continue
-                    top = y + height
-                    right = x + width
-                    lateness = max(0, finish_day - block.due_day)
-                    cost = (lateness, top, right, yard.id)
+                    cost = placement_cost(candidate, yard, block, placement_mode)
                     if best is None or cost < best_cost:
                         best = candidate
                         best_cost = cost
@@ -94,8 +126,16 @@ def solve_baseline(raw: dict) -> dict:
     placements = [p for yard_id in sorted(placed_by_yard) for p in placed_by_yard[yard_id]]
     return {
         "instance_id": raw.get("instance_id", "unknown"),
-        "solver": "baseline_due_date_first_fit",
+        "solver": f"constructive_{order_mode}_{placement_mode}",
+        "seed": seed,
+        "order_mode": order_mode,
+        "placement_mode": placement_mode,
         "placements": [p.__dict__ for p in placements],
         "unplaced": unplaced,
     }
 
+
+def solve_baseline(raw: dict) -> dict:
+    solution = solve_constructive(raw, seed=0, order_mode="due_date", placement_mode="compact_y")
+    solution["solver"] = "baseline_due_date_first_fit"
+    return solution

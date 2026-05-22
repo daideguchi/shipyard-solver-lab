@@ -12,7 +12,7 @@ The official challenge is "The Grand Shipyard Puzzle: Pack the Block, Beat the C
 - Public repo: https://github.com/daideguchi/shipyard-solver-lab
 - Public app: https://daideguchi.github.io/shipyard-solver-lab/
 - Official problem files: not attached in this repository yet
-- Current solver: sample-instance baseline only
+- Current solver: sample-instance multi-start constructive search
 
 ## Why This Exists
 
@@ -35,6 +35,8 @@ This repository builds that loop before the official data arrives.
 - Scores utilization, lateness, and unplaced blocks.
 - Writes a solution JSON.
 - Writes a technical report draft.
+- Runs a 451-candidate benchmark archive.
+- Keeps the best solution JSON.
 - Serves a static dashboard that visualizes the latest sample output.
 
 ## What It Does Not Claim
@@ -48,6 +50,7 @@ This repository builds that loop before the official data arrives.
 
 ```bash
 python3 scripts/run_sample.py
+python3 scripts/run_benchmark.py
 python3 scripts/verify_solver.py
 ```
 
@@ -63,15 +66,19 @@ open index.html
 - `shipyard_solver/solver.py` — baseline placement algorithm
 - `shipyard_solver/scoring.py` — validity and score logic
 - `scripts/run_sample.py` — generate solution and report
+- `scripts/run_benchmark.py` — run multi-start solver candidates
 - `scripts/verify_solver.py` — regression check
 - `outputs/sample_solution.json` — generated baseline output
+- `outputs/best_solution.json` — current best sample output
+- `outputs/benchmark.json` — candidate run archive
 - `outputs/sample_report.md` — generated technical report
+- `outputs/best_report.md` — generated best-run report
 - `index.html` — lightweight dashboard
 
 ## Next Algorithm Steps
 
 1. Match official input/output schema when published.
-2. Add multi-start randomized constructive heuristics.
-3. Add local search moves: relocate, swap, rotate, yard reassignment.
-4. Add time-window and crane/resource constraints once official rules are known.
-5. Add benchmark runner with seed tracking and best-solution archive.
+2. Add local search moves: relocate, swap, rotate, yard reassignment.
+3. Add time-window and crane/resource constraints once official rules are known.
+4. Add official benchmark runner with seed tracking and best-solution archive.
+5. Generate final technical report from official runs only.

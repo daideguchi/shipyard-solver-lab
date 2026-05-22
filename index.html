@@ -139,11 +139,11 @@
 
   <main>
     <section class="hero" aria-label="solver metrics">
-      <div class="metric"><strong id="scoreMetric">--</strong><span>sample score</span></div>
+      <div class="metric"><strong id="scoreMetric">--</strong><span>best sample score</span></div>
       <div class="metric"><strong id="placedMetric">--</strong><span>placed blocks</span></div>
       <div class="metric"><strong id="coverageMetric">--</strong><span>block coverage</span></div>
-      <div class="metric"><strong id="utilMetric">--</strong><span>yard utilization</span></div>
-      <div class="metric"><strong id="lateMetric">--</strong><span>weighted lateness</span></div>
+      <div class="metric"><strong id="utilMetric">--</strong><span>compactness</span></div>
+      <div class="metric"><strong id="lateMetric">--</strong><span>benchmark runs</span></div>
     </section>
 
     <aside class="panel">
@@ -155,7 +155,7 @@
         <p>This dashboard shows the local toy instance only. It proves the solver loop: load, solve, validate, score, visualize, report.</p>
         <div class="card">
           <h3>Current Algorithm</h3>
-          <p>Due-date-first first-fit search with rotation, yard assignment, boundary checks, and overlap validation.</p>
+          <p>Multi-start constructive search with rotation, yard assignment, boundary checks, overlap validation, and best-solution archive.</p>
         </div>
         <div class="card">
           <h3>Competition Fit</h3>
@@ -163,7 +163,11 @@
         </div>
         <div class="card">
           <h3>Next Move</h3>
-          <p>Replace the toy schema with the official schema when published, then add randomized multi-start and local search.</p>
+          <p>Replace the toy schema with the official schema when published, then add local search and official resource constraints.</p>
+        </div>
+        <div class="card">
+          <h3>Best Run</h3>
+          <p id="bestRunText">Loading benchmark archive.</p>
         </div>
       </div>
     </aside>
@@ -209,13 +213,14 @@
       return response.json();
     }
 
-    function renderMetrics(solution) {
+    function renderMetrics(solution, benchmark) {
       const metrics = solution.metrics;
       document.querySelector('#scoreMetric').textContent = metrics.score;
       document.querySelector('#placedMetric').textContent = metrics.placed_blocks;
       document.querySelector('#coverageMetric').textContent = `${Math.round(metrics.coverage * 100)}%`;
-      document.querySelector('#utilMetric').textContent = `${Math.round(metrics.yard_utilization * 100)}%`;
-      document.querySelector('#lateMetric').textContent = metrics.weighted_lateness;
+      document.querySelector('#utilMetric').textContent = `${Math.round(metrics.packing_compactness * 100)}%`;
+      document.querySelector('#lateMetric').textContent = benchmark.run_count;
+      document.querySelector('#bestRunText').textContent = `${benchmark.best_solver}, seed ${benchmark.best_seed}, score ${benchmark.best_score}.`;
     }
 
     function renderYards(instance, solution) {
@@ -262,11 +267,12 @@
     }
 
     async function main() {
-      const [instance, solution] = await Promise.all([
+      const [instance, solution, benchmark] = await Promise.all([
         loadJson('data/sample_blocks.json'),
-        loadJson('outputs/sample_solution.json'),
+        loadJson('outputs/best_solution.json'),
+        loadJson('outputs/benchmark.json'),
       ]);
-      renderMetrics(solution);
+      renderMetrics(solution, benchmark);
       renderYards(instance, solution);
       renderTable(solution);
     }
@@ -277,4 +283,3 @@
   </script>
 </body>
 </html>
-

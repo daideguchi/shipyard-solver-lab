@@ -20,13 +20,15 @@ The current version runs on a toy local instance and demonstrates the full loop:
 - score coverage, utilization, lateness, and unplaced blocks
 - generate a solution JSON
 - generate a technical report draft
+- run a multi-start benchmark archive
+- keep the best sample solution
 - visualize the solution in a browser dashboard
 
 ## How I Built It
 
-The solver is written in Python with a simple due-date-first first-fit heuristic. The dashboard is a static HTML/JavaScript visualizer that reads the generated JSON output.
+The solver is written in Python. It now includes a baseline plus multi-start constructive search across ordering and placement strategies. The dashboard is a static HTML/JavaScript visualizer that reads the generated best-solution JSON and benchmark archive.
 
-The current baseline intentionally stays simple. The value is the structure: when official input/output schemas are available, the loader, scorer, benchmark runner, and report generator can be adapted quickly.
+The current solver intentionally stays schema-flexible because official OGC data is not attached here yet. The value is the structure: when official input/output schemas are available, the loader, scorer, benchmark runner, and report generator can be adapted quickly.
 
 ## Claim Boundary
 

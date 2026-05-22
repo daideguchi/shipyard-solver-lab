@@ -1,0 +1,860 @@
+{
+  "instance_id": "toy_shipyard_001",
+  "run_count": 451,
+  "valid_run_count": 451,
+  "best_solver": "constructive_randomized_compact_x",
+  "best_seed": 1,
+  "best_score": 1289.77,
+  "runs": [
+    {
+      "solver": "constructive_randomized_compact_x",
+      "seed": 1,
+      "order_mode": "randomized",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1289.77,
+      "metrics": {
+        "score": 1289.77,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.9048,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_randomized_compact_x",
+      "seed": 28,
+      "order_mode": "randomized",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1289.05,
+      "metrics": {
+        "score": 1289.05,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8988,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_randomized_compact_x",
+      "seed": 14,
+      "order_mode": "randomized",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.98,
+      "metrics": {
+        "score": 1287.98,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.89,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 0,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 1,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 2,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 3,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 4,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 5,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 6,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 7,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 8,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 9,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 10,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 11,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 12,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 13,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 14,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 15,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 16,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 17,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 18,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 19,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 20,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 21,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 22,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 23,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 24,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 25,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 26,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 27,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 28,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_area_first_compact_x",
+      "seed": 29,
+      "order_mode": "area_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.63,
+      "metrics": {
+        "score": 1287.63,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8871,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_randomized_compact_x",
+      "seed": 3,
+      "order_mode": "randomized",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.55,
+      "metrics": {
+        "score": 1287.55,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8863,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_randomized_compact_x",
+      "seed": 4,
+      "order_mode": "randomized",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1287.03,
+      "metrics": {
+        "score": 1287.03,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.882,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_randomized_compact_x",
+      "seed": 6,
+      "order_mode": "randomized",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.77,
+      "metrics": {
+        "score": 1286.77,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8799,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 0,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 1,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 2,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 3,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 4,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 5,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 6,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 7,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 8,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 9,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 10,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 11,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 12,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    },
+    {
+      "solver": "constructive_priority_first_compact_x",
+      "seed": 13,
+      "order_mode": "priority_first",
+      "placement_mode": "compact_x",
+      "valid": true,
+      "score": 1286.17,
+      "metrics": {
+        "score": 1286.17,
+        "coverage": 1.0,
+        "yard_utilization": 0.5177,
+        "packing_compactness": 0.8749,
+        "placed_blocks": 12,
+        "unplaced_blocks": 0,
+        "weighted_lateness": 0
+      }
+    }
+  ]
+}

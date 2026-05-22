@@ -37,6 +37,7 @@ def render_report(instance: dict, solution: dict, metrics: dict) -> str:
         f"- Score: {metrics['score']}",
         f"- Coverage: {metrics['coverage']}",
         f"- Yard utilization: {metrics['yard_utilization']}",
+        f"- Packing compactness: {metrics.get('packing_compactness', 'n/a')}",
         f"- Placed blocks: {metrics['placed_blocks']}",
         f"- Unplaced blocks: {metrics['unplaced_blocks']}",
         f"- Weighted lateness: {metrics['weighted_lateness']}",

@@ -53,14 +53,23 @@ def score_solution(instance: dict, solution: dict) -> dict:
 
     utilization = placed_area / yard_area if yard_area else 0
     coverage = placed_area / total_block_area if total_block_area else 0
-    score = round(1000 * coverage + 350 * utilization - 35 * weighted_lateness - 180 * unplaced, 2)
+    bounding_area = 0
+    for yard in instance["yards"]:
+        yard_placements = [p for p in placements if p.yard_id == yard["id"]]
+        if not yard_placements:
+            continue
+        max_x = max(p.x + p.width for p in yard_placements)
+        max_y = max(p.y + p.height for p in yard_placements)
+        bounding_area += max_x * max_y
+    compactness = placed_area / bounding_area if bounding_area else 0
+    score = round(1000 * coverage + 350 * utilization + 120 * compactness - 35 * weighted_lateness - 180 * unplaced, 2)
 
     return {
         "score": score,
         "coverage": round(coverage, 4),
         "yard_utilization": round(utilization, 4),
+        "packing_compactness": round(compactness, 4),
         "placed_blocks": len(placements),
         "unplaced_blocks": unplaced,
         "weighted_lateness": weighted_lateness,
     }
-

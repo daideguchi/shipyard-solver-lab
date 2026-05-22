@@ -10,6 +10,7 @@ from shipyard_solver.scoring import score_solution, validate_solution
 
 def main() -> None:
     subprocess.run(["python3", "scripts/run_sample.py"], cwd=ROOT, check=True)
+    subprocess.run(["python3", "scripts/run_benchmark.py"], cwd=ROOT, check=True)
 
     instance = json.loads((ROOT / "data" / "sample_blocks.json").read_text())
     solution = json.loads((ROOT / "outputs" / "sample_solution.json").read_text())
@@ -25,6 +26,11 @@ def main() -> None:
         raise SystemExit("baseline placed too few blocks")
     if metrics["score"] <= 0:
         raise SystemExit("baseline score should be positive on toy instance")
+    benchmark = json.loads((ROOT / "outputs" / "benchmark.json").read_text())
+    if benchmark["valid_run_count"] < 100:
+        raise SystemExit("benchmark did not run enough valid candidates")
+    if benchmark["best_score"] < metrics["score"]:
+        raise SystemExit("benchmark best score is worse than baseline")
 
     report = (ROOT / "outputs" / "sample_report.md").read_text()
     required = [
@@ -39,6 +45,7 @@ def main() -> None:
     print("shipyard_solver_verify_ok")
     print(f"score={metrics['score']}")
     print(f"placed_blocks={metrics['placed_blocks']}")
+    print(f"benchmark_best={benchmark['best_score']}")
 
 
 if __name__ == "__main__":
