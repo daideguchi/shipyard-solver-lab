@@ -17,6 +17,38 @@ The official challenge is "The Grand Shipyard Puzzle: Pack the Block, Beat the C
 - Official training instances: not released yet
 - Current solver: sample-instance beam search plus official-example projection smoke test plus a checker-validated official-format portfolio candidate
 
+## Judge Quick Read
+
+One-sentence pitch:
+
+```text
+For optimization competitors who need proof before official data opens, Shipyard Solver Lab turns the shipyard puzzle into a reproducible solve-validate-package loop.
+```
+
+Who it helps:
+
+```text
+Contest builders who need a solver, checker, benchmark, report, and submission package to move together.
+```
+
+Problem:
+
+```text
+An optimization idea is not enough. If the checker fails, the benchmark is not reproducible, or the package shape is wrong, the entry loses trust before scoring begins.
+```
+
+How it solves the problem:
+
+```text
+The repo connects solver output, official-example ingestion, official checker smoke tests, public-example portfolio search, reports, screenshots, narrated demo assets, and a candidate submission zip.
+```
+
+Judge signal:
+
+```text
+This is not a decorative dashboard. It is an operating loop that proves the team can iterate quickly and keep the official checker green.
+```
+
 ## Why This Exists
 
 Optimization contests are won by iteration speed:

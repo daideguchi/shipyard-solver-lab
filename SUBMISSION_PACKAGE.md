@@ -8,6 +8,16 @@ Shipyard Solver Lab
 
 Reproducible optimization workbench for packing shipyard blocks.
 
+## One-Sentence Pitch
+
+For optimization competitors who need proof before official data opens, Shipyard Solver Lab turns the shipyard puzzle into a reproducible solve-validate-package loop.
+
+## Who / Problem / How
+
+- Who: OGC builders who need solver progress, checker proof, benchmarks, reports, and package readiness in one loop.
+- Problem: an algorithm idea is not enough if the checker fails, outputs are not reproducible, or the submission package is shaped wrong.
+- How: the repo runs solver benchmarks, official-example projection, official checker smoke, public-example portfolio search, generated reports, screenshots, narrated demo assets, and a candidate official zip.
+
 ## Public Links
 
 - Live app: https://daideguchi.github.io/shipyard-solver-lab/

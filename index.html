@@ -67,6 +67,20 @@
       grid-template-columns: repeat(6, 1fr);
       gap: 10px;
     }
+    .pitch-strip {
+      grid-column: 1 / -1;
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+    .pitch-line {
+      margin-bottom: 0;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+      max-width: 1120px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .metric, .panel, .card {
       border: 1px solid var(--line);
       background: var(--surface);
@@ -124,7 +138,7 @@
     }
     @media (max-width: 920px) {
       header { flex-direction: column; }
-      main, .hero, .grid-2 { grid-template-columns: 1fr; }
+      main, .hero, .grid-2, .grid-3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -145,6 +159,19 @@
       <div class="metric"><strong id="utilMetric">--</strong><span>compactness</span></div>
       <div class="metric"><strong id="lateMetric">--</strong><span>benchmark runs</span></div>
       <div class="metric"><strong id="officialMetric">--</strong><span>official example projection</span></div>
+    </section>
+
+    <section class="panel pitch-strip" aria-label="one sentence pitch">
+      <div class="panel-title">
+        <h2>One-Sentence Pitch</h2>
+        <span class="pill good">judge hook</span>
+      </div>
+      <p class="pitch-line">For optimization competitors who need proof before official data opens, Shipyard Solver Lab turns the shipyard puzzle into a reproducible solve-validate-package loop.</p>
+      <div class="grid-3">
+        <div class="card"><h3>Who</h3><p>Builders entering OGC who need a working algorithm pipeline before the official scoring window starts.</p></div>
+        <div class="card"><h3>Pain</h3><p>Optimization entries fail when the solver, checker, benchmark, report, and submission zip are not reproducible.</p></div>
+        <div class="card"><h3>Judge Signal</h3><p>This project already runs the public official checker, improves the public greedy example, and builds the candidate package.</p></div>
+      </div>
     </section>
 
     <aside class="panel">

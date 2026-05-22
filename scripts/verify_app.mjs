@@ -49,6 +49,9 @@ if (rows < 10) {
   throw new Error(`expected at least 10 solution rows, got ${rows}`);
 }
 const body = await page.locator('body').textContent();
+if (!body.includes('One-Sentence Pitch') || !body.includes('solve-validate-package loop') || !body.includes('Judge Signal')) {
+  throw new Error('missing one-sentence judge hook');
+}
 if (!body.includes('Beam search')) {
   throw new Error('missing beam search explanation');
 }
