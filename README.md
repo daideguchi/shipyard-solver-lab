@@ -9,8 +9,8 @@ The official challenge is "The Grand Shipyard Puzzle: Pack the Block, Beat the C
 - Challenge: Optimization Grand Challenge 2026
 - Official Devpost: https://ogc2026.devpost.com/
 - Official site: https://www.optichallenge.com/
-- Public repo: pending
-- Public app: pending
+- Public repo: https://github.com/daideguchi/shipyard-solver-lab
+- Public app: https://daideguchi.github.io/shipyard-solver-lab/
 - Official problem files: not attached in this repository yet
 - Current solver: sample-instance baseline only
 
@@ -75,4 +75,3 @@ open index.html
 3. Add local search moves: relocate, swap, rotate, yard reassignment.
 4. Add time-window and crane/resource constraints once official rules are known.
 5. Add benchmark runner with seed tracking and best-solution archive.
-

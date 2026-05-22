@@ -1,5 +1,9 @@
 # Devpost Draft — Shipyard Solver Lab
 
+Live app: https://daideguchi.github.io/shipyard-solver-lab/
+
+Source code: https://github.com/daideguchi/shipyard-solver-lab
+
 ## Inspiration
 
 Optimization challenges are not won by a beautiful UI. They are won by a fast, honest loop: load the instance, generate a valid solution, score it, inspect what failed, improve the algorithm, and document the method.
@@ -36,4 +40,3 @@ This is a preparation workbench. It does not claim official OGC 2026 leaderboard
 - add resource and time-window constraints once official rules are published
 - archive best runs by seed and score
 - write the final technical report from real benchmark evidence
-
