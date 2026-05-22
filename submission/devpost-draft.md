@@ -40,6 +40,8 @@ I also added an exact official-checker smoke test. It creates a conservative off
 
 The newest build includes that stronger first step: `official_submission/myalgorithm.py`, a candidate official algorithm wrapper. It runs the public greedy reference, searches bay-assignment candidates, checks each candidate with the official feasibility checker, and keeps the best feasible solution. On the public `example_B2_b10` instance, it improves the objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. Because this public example is small, the smoke test enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound while staying official-checker feasible. This is still not leaderboard evidence, but it proves a real checker-validated optimization loop on the official public example.
 
+I also added a candidate official package builder. It creates `outputs/official_submission_candidate.zip` with `myalgorithm.py` at the archive root, plus a manifest with hashes, so the next step on the official platform is operational rather than manual.
+
 ## Claim Boundary
 
 This is a preparation workbench. It does not claim official OGC 2026 leaderboard performance, competitive official objective value, or final submission readiness.

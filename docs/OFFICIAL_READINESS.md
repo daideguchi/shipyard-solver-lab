@@ -99,6 +99,21 @@ portfolio_matches_static_bound=True
 
 This is measured only on the public `example_B2_b10` example. It is not leaderboard evidence, but it proves the exact official algorithm interface, `operations` format, checker integration, and a real objective improvement over the public greedy reference on the available example. For this small public example, all 1,024 bay assignments are enumerable; the candidate matches the static assignment lower bound while remaining official-checker feasible.
 
+The repository can also build a candidate package for the official platform:
+
+```bash
+npm run official-package
+```
+
+Outputs:
+
+```text
+outputs/official_submission_candidate.zip
+outputs/official_submission_manifest.json
+```
+
+The zip contains `myalgorithm.py` at the archive root. This is a readiness package only; it has not been uploaded to the official OGC platform.
+
 ## Boundary
 
 This projection is not an official OGC solver result. It proves that the lab can ingest the official example schema and run the existing search pipeline over a simplified rectangle projection.

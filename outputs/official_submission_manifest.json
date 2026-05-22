@@ -1,0 +1,13 @@
+{
+  "boundary": "candidate package for official OGC platform readiness; not submitted yet",
+  "zip_path": "outputs/official_submission_candidate.zip",
+  "zip_size_bytes": 2267,
+  "zip_sha256": "ae3c337d0db26687c1bee13754d11fda2f532333c7e1fb3efb37eb4b9d6f548e",
+  "files": [
+    {
+      "archive_path": "myalgorithm.py",
+      "source_path": "official_submission/myalgorithm.py",
+      "source_sha256": "4fc381c8a4b2495e43fef6721fbb26bbe90775e85705840f6e5b26da0ae4d4f6"
+    }
+  ]
+}

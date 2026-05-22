@@ -45,6 +45,7 @@ This repository builds that loop before the official data arrives.
 - Runs the public official feasibility checker through a conservative official-format smoke solution.
 - Includes `official_submission/myalgorithm.py`, a candidate official algorithm wrapper.
 - Runs an official-example portfolio smoke test that improves over the public greedy reference while staying checker-feasible.
+- Builds an official-platform candidate zip containing `myalgorithm.py`.
 
 ## Current Sample Result
 
@@ -113,6 +114,21 @@ portfolio_matches_static_bound=True
 
 This uses the public OGC baseline example and the official feasibility checker. It is not leaderboard evidence, but it proves the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on `example_B2_b10`. Because this public example has only 10 blocks and 2 bays, the smoke test also enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound for the example.
 
+## Official Submission Package
+
+```bash
+npm run official-package
+```
+
+Current output:
+
+```text
+outputs/official_submission_candidate.zip
+outputs/official_submission_manifest.json
+```
+
+The zip contains `myalgorithm.py` at the archive root, matching the public organizer template shape. It has not been submitted yet.
+
 ## What It Does Not Claim
 
 - It does not solve the official OGC 2026 instance yet.
@@ -122,6 +138,7 @@ This uses the public OGC baseline example and the official feasibility checker. 
 - The official-example projection does not claim official feasibility or official objective value.
 - The official checker smoke proves format feasibility only; it does not claim competitive objective value.
 - The official portfolio smoke is measured on the public example only; it is not a leaderboard or training-instance result.
+- The official submission zip is a candidate package only; it has not been uploaded to the official OGC platform.
 
 ## Run
 
@@ -131,6 +148,7 @@ python3 scripts/run_benchmark.py
 python3 scripts/run_official_example_projection.py
 npm run official-checker
 npm run official-portfolio
+npm run official-package
 python3 scripts/verify_solver.py
 ```
 
@@ -150,6 +168,7 @@ open index.html
 - `scripts/run_official_example_projection.py` — download public OGC baseline example and run schema projection smoke test
 - `scripts/run_official_checker_smoke.py` — run official-format smoke solution and official checker via `uv`
 - `scripts/run_official_portfolio_smoke.py` — run official example through the candidate portfolio algorithm and checker
+- `scripts/build_official_submission_package.py` — package `official_submission/myalgorithm.py` as a candidate official zip
 - `scripts/verify_solver.py` — regression check
 - `official_submission/myalgorithm.py` — candidate official algorithm wrapper
 - `outputs/sample_solution.json` — generated baseline output
@@ -160,6 +179,8 @@ open index.html
 - `outputs/official_example_projection_report.md` — public OGC example projection smoke-test report
 - `outputs/official_checker_smoke_report.md` — official checker smoke-test report
 - `outputs/official_portfolio_report.md` — official example portfolio improvement report
+- `outputs/official_submission_candidate.zip` — candidate package for official platform readiness
+- `outputs/official_submission_manifest.json` — package hash and file manifest
 - `index.html` — lightweight dashboard
 
 ## Next Algorithm Steps

@@ -18,6 +18,8 @@ Reproducible optimization workbench for packing shipyard blocks.
 - Official example projection report: `outputs/official_example_projection_report.md`
 - Official checker smoke report: `outputs/official_checker_smoke_report.md`
 - Official portfolio smoke report: `outputs/official_portfolio_report.md`
+- Candidate official package: `outputs/official_submission_candidate.zip`
+- Candidate package manifest: `outputs/official_submission_manifest.json`
 - Screenshot: `media/shipyard-solver-lab-full.png`
 
 ## 250-500 Word Project Description
@@ -36,6 +38,8 @@ I also added an exact official-checker smoke test. It builds a conservative offi
 
 The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. It runs the public greedy baseline, then searches bay-assignment candidates and keeps the best official-checker-feasible solution. On the public `example_B2_b10` instance, the candidate improves the official checker objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. Because the public example has only 10 blocks and 2 bays, the smoke test enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a working, checker-validated optimization loop on the public example.
 
+The repository also builds `outputs/official_submission_candidate.zip`, a candidate package with `myalgorithm.py` at the archive root. This is not submitted yet; it is a readiness artifact for when the official platform opens.
+
 The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps.
 
 This is not claiming official OGC leaderboard performance. It is a contest-ready operating loop: solver, validator, scorer, benchmark archive, dashboard, and report generator. When the official schema and data are available, this repository is ready to swap in the official loader and continue improving the algorithm from a reproducible baseline.
@@ -49,6 +53,7 @@ This is not claiming official OGC leaderboard performance. It is a contest-ready
 - The official-example projection is not official feasibility or official objective scoring.
 - The official checker smoke proves format feasibility only; it is not competitive.
 - The official portfolio smoke is measured only on the public example, not on official training, preliminary, final, or leaderboard instances.
+- The official submission zip is a candidate package only and has not been uploaded to the official OGC platform.
 
 ## Verification
 
@@ -94,4 +99,13 @@ greedy_objective=1055.727896
 objective_improvement=33.029071
 assignment_candidates=1024
 portfolio_matches_static_bound=True
+```
+
+Official package:
+
+```bash
+npm run official-package
+official_submission_package_ok
+zip=outputs/official_submission_candidate.zip
+manifest=outputs/official_submission_manifest.json
 ```

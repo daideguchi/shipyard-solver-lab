@@ -67,6 +67,9 @@ if (!body.includes('Official Portfolio Candidate') || !body.includes('Candidate 
 if (!body.includes('1024 bay assignments') || !body.includes('matches the static bound')) {
   throw new Error('missing official portfolio static-bound proof');
 }
+if (!body.includes('Official Package') || !body.includes('outputs/official_submission_candidate.zip')) {
+  throw new Error('missing official submission package proof');
+}
 
 await page.screenshot({ path: path.join(root, 'media', 'shipyard-solver-lab-full.png'), fullPage: true });
 await browser.close();

@@ -1,5 +1,6 @@
 import json
 import subprocess
+import zipfile
 from pathlib import Path
 import sys
 
@@ -69,6 +70,18 @@ def main() -> None:
     if "not leaderboard evidence" not in portfolio_report_path.read_text():
         raise SystemExit("official portfolio report missing claim boundary")
 
+    package_path = ROOT / "outputs" / "official_submission_candidate.zip"
+    manifest_path = ROOT / "outputs" / "official_submission_manifest.json"
+    if not package_path.exists() or not manifest_path.exists():
+        raise SystemExit("official submission package missing; run npm run official-package")
+    with zipfile.ZipFile(package_path) as archive:
+        names = set(archive.namelist())
+        if names != {"myalgorithm.py"}:
+            raise SystemExit(f"unexpected official package contents: {sorted(names)}")
+    manifest = json.loads(manifest_path.read_text())
+    if manifest["files"][0]["archive_path"] != "myalgorithm.py":
+        raise SystemExit("official package manifest missing myalgorithm.py")
+
     report = (ROOT / "outputs" / "sample_report.md").read_text()
     required = [
         "Sample Technical Report",
@@ -88,6 +101,7 @@ def main() -> None:
     print(f"official_portfolio_objective={portfolio['official_portfolio']['objective']}")
     print(f"official_portfolio_improvement={portfolio['objective_improvement']}")
     print(f"official_portfolio_matches_static_bound={portfolio['assignment_search']['portfolio_matches_static_bound']}")
+    print(f"official_submission_zip={manifest['zip_path']}")
 
 
 if __name__ == "__main__":
