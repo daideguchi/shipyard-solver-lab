@@ -43,6 +43,7 @@ This repository builds that loop before the official data arrives.
 - Shows a scored improvement trail over the baseline.
 - Downloads the public OGC baseline package and ingests `example_B2_b10.json` as a projection smoke test.
 - Projects official polygon/layer blocks into rectangles for early schema-readiness testing.
+- Runs the public official feasibility checker through a conservative official-format smoke solution.
 
 ## Current Sample Result
 
@@ -73,6 +74,24 @@ delta=+9.02
 
 This is not official scoring. It is an ingestion-readiness test against the public OGC baseline example. See [Official OGC Readiness Notes](docs/OFFICIAL_READINESS.md).
 
+## Official Checker Smoke Test
+
+```bash
+npm run official-checker
+```
+
+Current result:
+
+```text
+official_checker_smoke_ok
+simple_feasible=True
+simple_objective=281320.786203
+greedy_feasible=True
+greedy_objective=1055.727896
+```
+
+The simple sequential solution is intentionally conservative and not competitive. Its purpose is to prove the exact official `operations` format and official feasibility checker integration. The next scoring step is to replace that safe placeholder with an optimized official-format algorithm while keeping the checker green.
+
 ## What It Does Not Claim
 
 - It does not solve the official OGC 2026 instance yet.
@@ -80,6 +99,7 @@ This is not official scoring. It is an ingestion-readiness test against the publ
 - It does not use private or unreleased problem data.
 - It does not claim eligibility or final submission readiness.
 - The official-example projection does not claim official feasibility or official objective value.
+- The official checker smoke proves format feasibility only; it does not claim competitive objective value.
 
 ## Run
 
@@ -87,6 +107,7 @@ This is not official scoring. It is an ingestion-readiness test against the publ
 python3 scripts/run_sample.py
 python3 scripts/run_benchmark.py
 python3 scripts/run_official_example_projection.py
+npm run official-checker
 python3 scripts/verify_solver.py
 ```
 
@@ -104,6 +125,7 @@ open index.html
 - `scripts/run_sample.py` — generate solution and report
 - `scripts/run_benchmark.py` — run multi-start solver candidates
 - `scripts/run_official_example_projection.py` — download public OGC baseline example and run schema projection smoke test
+- `scripts/run_official_checker_smoke.py` — run official-format smoke solution and official checker via `uv`
 - `scripts/verify_solver.py` — regression check
 - `outputs/sample_solution.json` — generated baseline output
 - `outputs/best_solution.json` — current best sample output
@@ -111,6 +133,7 @@ open index.html
 - `outputs/sample_report.md` — generated technical report
 - `outputs/best_report.md` — generated best-run report
 - `outputs/official_example_projection_report.md` — public OGC example projection smoke-test report
+- `outputs/official_checker_smoke_report.md` — official checker smoke-test report
 - `index.html` — lightweight dashboard
 
 ## Next Algorithm Steps

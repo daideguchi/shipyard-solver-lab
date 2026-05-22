@@ -55,6 +55,23 @@ beam_score=1204.76
 delta=+9.02
 ```
 
+It also includes an exact official-checker smoke test:
+
+```bash
+npm run official-checker
+```
+
+This creates a conservative official `operations` solution and checks it with the public OGC baseline package:
+
+```text
+simple_feasible=True
+simple_objective=281320.786203
+greedy_feasible=True
+greedy_objective=1055.727896
+```
+
+The simple sequential solution is deliberately not competitive. It proves format and checker integration only.
+
 ## Boundary
 
 This projection is not an official OGC solver result. It proves that the lab can ingest the official example schema and run the existing search pipeline over a simplified rectangle projection.

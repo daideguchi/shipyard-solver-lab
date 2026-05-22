@@ -36,9 +36,11 @@ The current solver intentionally stays schema-flexible because official OGC data
 
 After checking the official OGC site, I added a schema-ingestion smoke test against the public baseline package. The script downloads the official baseline zip, reads `example_B2_b10.json`, projects polygon/layer block geometry into this lab's rectangle model, and runs the beam solver. On that projection, the beam run scores 1204.76 versus a baseline projection score of 1195.74, a +9.02 point delta. This is not official scoring; it is a readiness proof that the pipeline can read the official-style example and produce a validated internal projection.
 
+I also added an exact official-checker smoke test. It creates a conservative official `operations` solution and runs the public OGC feasibility checker. The smoke solution passes (`feasible=True`, stage 5), but its objective is intentionally poor because only one block is present at a time. The point is to prove the submission format and checker integration before replacing the placeholder with a stronger official-format algorithm.
+
 ## Claim Boundary
 
-This is a preparation workbench. It does not claim official OGC 2026 leaderboard performance, official feasibility, official objective value, or final submission readiness.
+This is a preparation workbench. It does not claim official OGC 2026 leaderboard performance, competitive official objective value, or final submission readiness.
 
 ## What's Next
 

@@ -42,6 +42,18 @@ def main() -> None:
     if "not official feasibility" not in projection_report_path.read_text():
         raise SystemExit("official projection report missing claim boundary")
 
+    checker_result_path = ROOT / "outputs" / "official_checker_smoke_result.json"
+    checker_report_path = ROOT / "outputs" / "official_checker_smoke_report.md"
+    if not checker_result_path.exists() or not checker_report_path.exists():
+        raise SystemExit("official checker smoke outputs missing; run npm run official-checker")
+    checker = json.loads(checker_result_path.read_text())
+    if not checker["simple_sequential"]["feasible"]:
+        raise SystemExit("simple sequential official checker smoke is not feasible")
+    if not checker["official_greedy_reference"]["feasible"]:
+        raise SystemExit("official greedy reference is not feasible")
+    if "not competitive" not in checker_report_path.read_text():
+        raise SystemExit("official checker smoke report missing claim boundary")
+
     report = (ROOT / "outputs" / "sample_report.md").read_text()
     required = [
         "Sample Technical Report",
@@ -57,6 +69,7 @@ def main() -> None:
     print(f"placed_blocks={metrics['placed_blocks']}")
     print(f"benchmark_best={benchmark['best_score']}")
     print(f"official_projection_score={projection['metrics']['score']}")
+    print(f"official_checker_objective={checker['simple_sequential']['objective']}")
 
 
 if __name__ == "__main__":

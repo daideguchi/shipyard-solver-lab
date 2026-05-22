@@ -58,6 +58,9 @@ if (!body.includes('candidates validated')) {
 if (!body.includes('Official Example Projection') || !body.includes('Not official feasibility scoring')) {
   throw new Error('missing official example projection boundary');
 }
+if (!body.includes('Official Checker Smoke') || !body.includes('Exact official checker PASS')) {
+  throw new Error('missing official checker smoke proof');
+}
 
 await page.screenshot({ path: path.join(root, 'media', 'shipyard-solver-lab-full.png'), fullPage: true });
 await browser.close();

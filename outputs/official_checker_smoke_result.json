@@ -1,0 +1,40 @@
+{
+  "source": "https://www.optichallenge.com/assets/baseline-latest-BtM0fjcU.zip",
+  "example": "example_B2_b10",
+  "boundary": "official checker smoke only; simple sequential solution is not competitive",
+  "simple_sequential": {
+    "feasible": true,
+    "stage": 5,
+    "violations": [],
+    "objective": 281320.78620320855,
+    "obj1": 105.0,
+    "obj2": 183.68374331550805,
+    "obj3": 0.0
+  },
+  "official_greedy_reference": {
+    "feasible": true,
+    "stage": 5,
+    "violations": [],
+    "objective": 1055.7278963621302,
+    "obj1": 0.0,
+    "obj2": 19.3896994803043,
+    "obj3": 46.0
+  },
+  "objective_gap_vs_greedy": 280265.058307,
+  "greedy_log_head": [
+    "[Greedy] Instance : example_B2_b10",
+    "[Greedy] Bays     : 2  |  Blocks : 10  |  Timelimit : 10.0s",
+    "[Greedy] Weights  : w1=2667  w2=7  w3=20",
+    "[Greedy] --------------------------------------------------------",
+    "[Greedy]   bay[0]  85x20",
+    "[Greedy]   bay[1]  71x22",
+    "[Greedy] --------------------------------------------------------",
+    "[Greedy] Phase 1 : EDD greedy placement ...",
+    "[Greedy]      1/10  block2    -> bay0 (7,0) oi=2  t=[4,7)  loads=[b0=19 b1=0]  fallback=0  0.0s",
+    "[Greedy]      2/10  block1    -> bay0 (8,0) oi=0  t=[0,8)  loads=[b0=62 b1=0]  fallback=0  0.0s",
+    "[Greedy]      3/10  block0    -> bay0 (0,1) oi=0  t=[10,17)  loads=[b0=99 b1=0]  fallback=0  0.0s",
+    "[Greedy]      4/10  block4    -> bay1 (9,1) oi=2  t=[20,27)  loads=[b0=99 b1=19]  fallback=0  0.0s",
+    "[Greedy]      5/10  block7    -> bay1 (12,2) oi=7  t=[21,27)  loads=[b0=99 b1=101]  fallback=0  0.0s",
+    "[Greedy]      6/10  block3    -> bay1 (40,7) oi=4  t=[20,30)  loads=[b0=99 b1=224]  fallback=0  0.0s"
+  ]
+}

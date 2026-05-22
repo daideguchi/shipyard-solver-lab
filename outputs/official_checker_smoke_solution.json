@@ -1,0 +1,156 @@
+{
+  "operations": {
+    "4": [
+      {
+        "type": "ENTRY",
+        "block_id": 2,
+        "bay_id": 0,
+        "x": 0,
+        "y": 1,
+        "orient_idx": 0
+      }
+    ],
+    "7": [
+      {
+        "type": "EXIT",
+        "block_id": 2,
+        "bay_id": 0
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 1,
+        "bay_id": 0,
+        "x": 0,
+        "y": 0,
+        "orient_idx": 0
+      }
+    ],
+    "15": [
+      {
+        "type": "EXIT",
+        "block_id": 1,
+        "bay_id": 0
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 0,
+        "bay_id": 0,
+        "x": 0,
+        "y": 1,
+        "orient_idx": 0
+      }
+    ],
+    "22": [
+      {
+        "type": "EXIT",
+        "block_id": 0,
+        "bay_id": 0
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 4,
+        "bay_id": 1,
+        "x": 1,
+        "y": 1,
+        "orient_idx": 0
+      }
+    ],
+    "29": [
+      {
+        "type": "EXIT",
+        "block_id": 4,
+        "bay_id": 1
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 7,
+        "bay_id": 0,
+        "x": 4,
+        "y": 1,
+        "orient_idx": 0
+      }
+    ],
+    "35": [
+      {
+        "type": "EXIT",
+        "block_id": 7,
+        "bay_id": 0
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 3,
+        "bay_id": 1,
+        "x": 1,
+        "y": 1,
+        "orient_idx": 0
+      }
+    ],
+    "45": [
+      {
+        "type": "EXIT",
+        "block_id": 3,
+        "bay_id": 1
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 5,
+        "bay_id": 0,
+        "x": 0,
+        "y": 1,
+        "orient_idx": 0
+      }
+    ],
+    "53": [
+      {
+        "type": "EXIT",
+        "block_id": 5,
+        "bay_id": 0
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 8,
+        "bay_id": 0,
+        "x": 3,
+        "y": 1,
+        "orient_idx": 0
+      }
+    ],
+    "57": [
+      {
+        "type": "EXIT",
+        "block_id": 8,
+        "bay_id": 0
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 9,
+        "bay_id": 0,
+        "x": 1,
+        "y": 5,
+        "orient_idx": 0
+      }
+    ],
+    "64": [
+      {
+        "type": "EXIT",
+        "block_id": 9,
+        "bay_id": 0
+      },
+      {
+        "type": "ENTRY",
+        "block_id": 6,
+        "bay_id": 0,
+        "x": 0,
+        "y": 4,
+        "orient_idx": 0
+      }
+    ],
+    "70": [
+      {
+        "type": "EXIT",
+        "block_id": 6,
+        "bay_id": 0
+      }
+    ]
+  }
+}

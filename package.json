@@ -1,6 +1,7 @@
 {
   "scripts": {
     "benchmark": "python3 scripts/run_benchmark.py",
+    "official-checker": "uv run --with shapely python scripts/run_official_checker_smoke.py",
     "official-smoke": "python3 scripts/run_official_example_projection.py",
     "verify": "python3 scripts/verify_solver.py && python3 scripts/verify_no_secrets.py && node scripts/verify_app.mjs"
   },

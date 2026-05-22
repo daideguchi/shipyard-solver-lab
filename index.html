@@ -178,6 +178,10 @@
           <h3>Official Example Projection</h3>
           <p id="officialProjectionText">Loading official baseline example projection.</p>
         </div>
+        <div class="card">
+          <h3>Official Checker Smoke</h3>
+          <p id="officialCheckerText">Loading exact official checker result.</p>
+        </div>
       </div>
     </aside>
 
@@ -210,7 +214,7 @@
       </div>
     </section>
 
-    <p class="footer-note">Claim boundary: this lab demonstrates the solver pipeline on toy data and a public OGC baseline example projection. It does not claim official OGC 2026 feasibility, objective value, leaderboard rank, or final submission readiness.</p>
+    <p class="footer-note">Claim boundary: this lab demonstrates the solver pipeline on toy data, a public OGC baseline example projection, and an exact official-checker smoke test. It does not claim competitive official OGC 2026 objective value, leaderboard rank, or final submission readiness.</p>
   </main>
 
   <script>
@@ -222,7 +226,7 @@
       return response.json();
     }
 
-    function renderMetrics(solution, benchmark, officialProjection) {
+    function renderMetrics(solution, benchmark, officialProjection, officialChecker) {
       const metrics = solution.metrics;
       document.querySelector('#scoreMetric').textContent = metrics.score;
       document.querySelector('#placedMetric').textContent = metrics.placed_blocks;
@@ -237,6 +241,8 @@
       const projectionDelta = Number(officialProjection.metrics.score - officialProjection.baseline_projection_score).toFixed(2);
       document.querySelector('#officialProjectionText').textContent =
         `Public OGC example_B2_b10 projected into the lab model: ${officialProjection.metrics.placed_blocks} blocks placed, score ${officialProjection.metrics.score}, +${projectionDelta} over projection baseline. Not official feasibility scoring.`;
+      document.querySelector('#officialCheckerText').textContent =
+        `Exact official checker PASS on a conservative sequential solution: feasible=${officialChecker.simple_sequential.feasible}, stage ${officialChecker.simple_sequential.stage}. Greedy reference objective ${officialChecker.official_greedy_reference.objective.toFixed(2)}. This proves format integration, not competitiveness.`;
     }
 
     function renderYards(instance, solution) {
@@ -283,13 +289,14 @@
     }
 
     async function main() {
-      const [instance, solution, benchmark, officialProjection] = await Promise.all([
+      const [instance, solution, benchmark, officialProjection, officialChecker] = await Promise.all([
         loadJson('data/sample_blocks.json'),
         loadJson('outputs/best_solution.json'),
         loadJson('outputs/benchmark.json'),
         loadJson('outputs/official_example_projection_solution.json'),
+        loadJson('outputs/official_checker_smoke_result.json'),
       ]);
-      renderMetrics(solution, benchmark, officialProjection);
+      renderMetrics(solution, benchmark, officialProjection, officialChecker);
       renderYards(instance, solution);
       renderTable(solution);
     }
