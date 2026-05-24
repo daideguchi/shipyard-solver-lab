@@ -102,6 +102,17 @@
       display: grid;
       gap: 12px;
     }
+    .metric-caption {
+      grid-column: 1 / -1;
+      margin: 0 0 6px;
+      padding: 10px 14px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
     .pitch-line {
       margin-bottom: 0;
       color: var(--ink);
@@ -179,6 +190,7 @@
       <p class="tagline">A reproducible optimization workbench for packing shipyard blocks, validating placements, scoring runs, and generating the technical report trail.</p>
     </div>
     <div class="header-actions">
+      <span class="badge">Submission package ready</span>
       <span class="badge">OGC 2026 prep lane</span>
       <div class="lang-toggle" aria-label="Language">
         <button type="button" class="active" data-lang-button="en">EN</button>
@@ -188,6 +200,7 @@
   </header>
 
   <main>
+    <p class="metric-caption">Numbers below are sample-instance and public OGC example results. They prove the solve-validate-package loop. They are not OGC leaderboard scores.</p>
     <section class="hero" aria-label="solver metrics">
       <div class="metric"><strong id="scoreMetric">--</strong><span>best sample score</span></div>
       <div class="metric"><strong id="placedMetric">--</strong><span>placed blocks</span></div>
@@ -318,7 +331,9 @@
       ja: {
         'Shipyard Solver Lab': '造船所ソルバーラボ',
         'A reproducible optimization workbench for packing shipyard blocks, validating placements, scoring runs, and generating the technical report trail.': '造船ブロックの配置、検証、スコア計算、技術レポート作成を一つにした、再現可能な最適化ワークベンチです。',
+        'Submission package ready': '提出パッケージ完成',
         'OGC 2026 prep lane': 'OGC 2026準備レーン',
+        'Numbers below are sample-instance and public OGC example results. They prove the solve-validate-package loop. They are not OGC leaderboard scores.': '下の数字は、ローカルサンプルとOGC公開例での結果です。「解く・検証する・提出パッケージ化する」ループの証拠であり、OGCリーダーボードのスコアではありません。',
         'best sample score': 'サンプル最高スコア',
         'placed blocks': '配置済みブロック',
         'block coverage': 'ブロックカバー率',
