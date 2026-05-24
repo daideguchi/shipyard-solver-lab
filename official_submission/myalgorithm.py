@@ -16,6 +16,7 @@ import contextlib
 import copy
 import io
 import itertools
+import random
 import time
 
 import baseline_greedy
@@ -64,6 +65,158 @@ def _static_assignment_score(prob_info: dict, assignment: tuple[int, ...]) -> fl
     return w2 * imbalance + w3 * preference_penalty
 
 
+def _partial_assignment_score(
+    prob_info: dict,
+    loads: tuple[float, ...],
+    preference_penalty: float,
+) -> float:
+    bays = prob_info["bays"]
+    weights = prob_info.get("weights", {})
+    w2 = weights.get("w2", 1.0)
+    w3 = weights.get("w3", 1.0)
+    bay_areas = [bay["width"] * bay["height"] for bay in bays]
+    avg_area = sum(bay_areas) / len(bay_areas)
+    bay_weights = [avg_area / area for area in bay_areas]
+
+    if len(bays) >= 2:
+        imbalance = max(
+            abs(bay_weights[left] * loads[left] - bay_weights[right] * loads[right])
+            for left in range(len(bays))
+            for right in range(len(bays))
+            if left != right
+        )
+    else:
+        imbalance = 0.0
+    return w2 * imbalance + w3 * preference_penalty
+
+
+def _ordered_blocks_for_assignment(prob_info: dict) -> list[int]:
+    blocks = prob_info["blocks"]
+    return sorted(
+        range(len(blocks)),
+        key=lambda block_id: (
+            -blocks[block_id]["workload"],
+            blocks[block_id]["due_date"],
+            blocks[block_id]["release_time"],
+            block_id,
+        ),
+    )
+
+
+def _beam_assignment_candidates(
+    prob_info: dict,
+    beam_width: int = 160,
+    max_results: int = 1200,
+) -> list[tuple[int, ...]]:
+    """Return static-score candidates without enumerating bay_count**block_count."""
+    blocks = prob_info["blocks"]
+    bay_count = len(prob_info["bays"])
+    order = _ordered_blocks_for_assignment(prob_info)
+    states: list[tuple[float, tuple[int | None, ...], tuple[float, ...], float]] = [
+        (0.0, tuple([None] * len(blocks)), tuple([0.0] * bay_count), 0.0)
+    ]
+
+    for block_id in order:
+        block = blocks[block_id]
+        expanded = []
+        best_pref = max(block["bay_preferences"])
+        for _, partial, loads, pref_penalty in states:
+            for bay_id in range(bay_count):
+                next_partial = list(partial)
+                next_partial[block_id] = bay_id
+                next_loads = list(loads)
+                next_loads[bay_id] += block["workload"]
+                next_pref = pref_penalty + best_pref - block["bay_preferences"][bay_id]
+                score = _partial_assignment_score(prob_info, tuple(next_loads), next_pref)
+                expanded.append((score, tuple(next_partial), tuple(next_loads), next_pref))
+        expanded.sort(key=lambda item: item[0])
+        deduped = []
+        seen = set()
+        for item in expanded:
+            signature = item[1]
+            if signature in seen:
+                continue
+            seen.add(signature)
+            deduped.append(item)
+            if len(deduped) >= beam_width:
+                break
+        states = deduped
+
+    complete = [tuple(value for value in partial if value is not None) for _, partial, _, _ in states]
+    complete.sort(key=lambda assignment: _static_assignment_score(prob_info, assignment))
+    return complete[:max_results]
+
+
+def _improve_assignment_static(
+    prob_info: dict,
+    assignment: tuple[int, ...],
+    max_rounds: int = 4,
+) -> tuple[int, ...]:
+    bay_count = len(prob_info["bays"])
+    current = assignment
+    current_score = _static_assignment_score(prob_info, current)
+
+    for _ in range(max_rounds):
+        improved = False
+        best_assignment = current
+        best_score = current_score
+
+        for block_id in _ordered_blocks_for_assignment(prob_info):
+            for bay_id in range(bay_count):
+                if bay_id == current[block_id]:
+                    continue
+                candidate = list(current)
+                candidate[block_id] = bay_id
+                candidate = tuple(candidate)
+                score = _static_assignment_score(prob_info, candidate)
+                if score + 1e-9 < best_score:
+                    best_assignment = candidate
+                    best_score = score
+
+        if best_assignment == current:
+            for left in range(len(current)):
+                for right in range(left + 1, len(current)):
+                    if current[left] == current[right]:
+                        continue
+                    candidate = list(current)
+                    candidate[left], candidate[right] = candidate[right], candidate[left]
+                    candidate = tuple(candidate)
+                    score = _static_assignment_score(prob_info, candidate)
+                    if score + 1e-9 < best_score:
+                        best_assignment = candidate
+                        best_score = score
+
+        if best_assignment != current:
+            current = best_assignment
+            current_score = best_score
+            improved = True
+
+        if not improved:
+            break
+
+    return current
+
+
+def _random_assignment_candidates(
+    prob_info: dict,
+    count: int,
+    seed: int = 20260524,
+) -> list[tuple[int, ...]]:
+    rng = random.Random(seed)
+    blocks = prob_info["blocks"]
+    bay_count = len(prob_info["bays"])
+    candidates = []
+    for _ in range(count):
+        assignment = []
+        for block in blocks:
+            if rng.random() < 0.72:
+                assignment.append(max(range(bay_count), key=lambda bay_id: block["bay_preferences"][bay_id]))
+            else:
+                assignment.append(rng.randrange(bay_count))
+        candidates.append(tuple(assignment))
+    return candidates
+
+
 def _seed_assignments(prob_info: dict, greedy_solution: dict) -> set[tuple[int, ...]]:
     block_count = len(prob_info["blocks"])
     bay_count = len(prob_info["bays"])
@@ -102,22 +255,54 @@ def _candidate_assignments(prob_info: dict, greedy_solution: dict) -> list[tuple
     if bay_count ** block_count <= limit:
         candidates = itertools.product(range(bay_count), repeat=block_count)
     else:
-        candidates = _seed_assignments(prob_info, greedy_solution)
+        seeded = _seed_assignments(prob_info, greedy_solution)
+        beam = _beam_assignment_candidates(prob_info, beam_width=180, max_results=limit)
+        random_count = max(120, limit // 5)
+        random_candidates = _random_assignment_candidates(prob_info, count=random_count)
+        candidates = set(seeded)
+        candidates.update(beam)
+        candidates.update(random_candidates)
+        candidates.update(_improve_assignment_static(prob_info, item) for item in list(candidates)[: limit * 2])
 
     return sorted(candidates, key=lambda assignment: _static_assignment_score(prob_info, assignment))[:limit]
+
+
+def _placement_orders(prob_info: dict) -> list[list[int]]:
+    blocks = prob_info["blocks"]
+    order_specs = [
+        lambda idx: (blocks[idx]["due_date"], blocks[idx]["processing_time"], -blocks[idx]["workload"], idx),
+        lambda idx: (blocks[idx]["release_time"], blocks[idx]["due_date"], -blocks[idx]["workload"], idx),
+        lambda idx: (-blocks[idx]["workload"], blocks[idx]["due_date"], blocks[idx]["release_time"], idx),
+        lambda idx: (blocks[idx]["due_date"] - blocks[idx]["release_time"], -blocks[idx]["workload"], idx),
+    ]
+    orders = []
+    seen = set()
+    for key in order_specs:
+        order = tuple(sorted(range(len(blocks)), key=key))
+        if order in seen:
+            continue
+        seen.add(order)
+        orders.append(list(order))
+    return orders
 
 
 def _build_operations(assignments: dict[int, dict]) -> dict:
     return baseline_greedy._build_operations(list(assignments.values()))
 
 
-def _place_fixed_assignment(prob_info: dict, assignment: tuple[int, ...], deadline: float) -> dict | None:
+def _place_fixed_assignment(
+    prob_info: dict,
+    assignment: tuple[int, ...],
+    deadline: float,
+    order: list[int] | None = None,
+) -> dict | None:
     blocks = prob_info["blocks"]
     bays = [Bay.from_dict(item, idx) for idx, item in enumerate(prob_info["bays"])]
     bay_placed: list[list[Block]] = [[] for _ in bays]
     bay_schedule: list[list[tuple[int, int]]] = [[] for _ in bays]
     assignments: dict[int, dict] = {}
-    order = sorted(range(len(blocks)), key=lambda idx: (blocks[idx]["due_date"], blocks[idx]["processing_time"]))
+    if order is None:
+        order = sorted(range(len(blocks)), key=lambda idx: (blocks[idx]["due_date"], blocks[idx]["processing_time"]))
 
     for block_id in order:
         if time.time() > deadline:
@@ -154,7 +339,7 @@ def _place_fixed_assignment(prob_info: dict, assignment: tuple[int, ...], deadli
                     continue
 
                 tardiness = max(0, exit_time - block["due_date"])
-                score = (tardiness, exit_time, y + bbox[3], x + bbox[2], orient_idx)
+                score = (tardiness, exit_time, y + bbox[3], x + bbox[2], abs((x + bbox[2]) - bay.width), orient_idx)
                 if best is None or score < best[0]:
                     best = (score, new_block, x, y, orient_idx, entry, exit_time)
 
@@ -185,17 +370,21 @@ def algorithm(prob_info: dict, timelimit: float = 60) -> dict:
     best_result = check_feasibility(prob_info, best_solution)
 
     deadline = start + max(0.25, timelimit * 0.94)
+    orders = _placement_orders(prob_info)
     for assignment in _candidate_assignments(prob_info, best_solution):
         if time.time() > deadline:
             break
-        candidate = _place_fixed_assignment(prob_info, assignment, deadline)
-        if candidate is None:
-            continue
-        result = check_feasibility(prob_info, candidate)
-        if not result.get("feasible"):
-            continue
-        if not best_result.get("feasible") or result["objective"] < best_result["objective"]:
-            best_solution = copy.deepcopy(candidate)
-            best_result = result
+        for order in orders:
+            if time.time() > deadline:
+                break
+            candidate = _place_fixed_assignment(prob_info, assignment, deadline, order=order)
+            if candidate is None:
+                continue
+            result = check_feasibility(prob_info, candidate)
+            if not result.get("feasible"):
+                continue
+            if not best_result.get("feasible") or result["objective"] < best_result["objective"]:
+                best_solution = copy.deepcopy(candidate)
+                best_result = result
 
     return best_solution

@@ -99,6 +99,25 @@ portfolio_matches_static_bound=True
 
 This is measured only on the public `example_B2_b10` example. It is not leaderboard evidence, but it proves the exact official algorithm interface, `operations` format, checker integration, and a real objective improvement over the public greedy reference on the available example. For this small public example, all 1,024 bay assignments are enumerable; the candidate matches the static assignment lower bound while remaining official-checker feasible.
 
+To guard against a solution that only works on the tiny public example, the repository also includes a deterministic robustness smoke test:
+
+```bash
+npm run official-robustness
+```
+
+It creates three larger variants from public example data and checks the candidate through the public official checker:
+
+```text
+variants=3
+all_candidates_feasible=True
+all_candidates_improve_greedy=True
+synthetic_B2_b12 improvement=446.497179
+synthetic_B3_b14 improvement=1526.813252
+synthetic_B3_b16 improvement=846.290865
+```
+
+This is not official leaderboard evidence and it does not replace training, preliminary, or final instances. It is a regression guard showing that the candidate package stays checker-feasible and improves the public greedy reference on larger public-example-derived inputs.
+
 The repository can also build a candidate package for the official platform:
 
 ```bash
@@ -121,7 +140,7 @@ This projection is not an official OGC solver result. It proves that the lab can
 Still required for real competition work:
 
 1. Generalize the portfolio algorithm against official training and preliminary instances.
-2. Add larger-instance candidate generation that avoids full exponential bay assignment search.
+2. Expand the larger-instance candidate generation now covered by the robustness smoke test.
 3. Add relocate/swap/rotate local search on top of checker-feasible official solutions.
 4. Use official training/preliminary instances when released.
 5. Submit through the official OGC platform, not only Devpost.

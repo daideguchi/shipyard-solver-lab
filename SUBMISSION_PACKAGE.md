@@ -16,7 +16,7 @@ For optimization competitors who need proof before official data opens, Shipyard
 
 - Who: OGC builders who need solver progress, checker proof, benchmarks, reports, and package readiness in one loop.
 - Problem: an algorithm idea is not enough if the checker fails, outputs are not reproducible, or the submission package is shaped wrong.
-- How: the repo runs solver benchmarks, official-example projection, official checker smoke, public-example portfolio search, generated reports, screenshots, narrated demo assets, and a candidate official zip.
+- How: the repo runs solver benchmarks, official-example projection, official checker smoke, public-example portfolio search, deterministic robustness smoke variants, generated reports, screenshots, narrated demo assets, and a candidate official zip.
 
 ## Public Links
 
@@ -50,6 +50,8 @@ I also added an exact official-checker smoke test. It builds a conservative offi
 
 The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. It runs the public greedy baseline, then searches bay-assignment candidates and keeps the best official-checker-feasible solution. On the public `example_B2_b10` instance, the candidate improves the official checker objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. Because the public example has only 10 blocks and 2 bays, the smoke test enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a working, checker-validated optimization loop on the public example.
 
+To reduce the risk of overfitting the tiny public example, I added a deterministic robustness smoke test. It creates three larger variants from the public example, then compares the candidate algorithm with the public greedy reference through the official feasibility checker. The candidate stays feasible and improves greedy on all three variants: +446.50 on `synthetic_B2_b12`, +1526.81 on `synthetic_B3_b14`, and +846.29 on `synthetic_B3_b16`. These are still public-example-derived checks, not leaderboard evidence. The value is practical: the repository now has a regression guard for larger official-format inputs before official training instances are available.
+
 The repository also builds `outputs/official_submission_candidate.zip`, a candidate package with `myalgorithm.py` at the archive root. This is not submitted yet; it is a readiness artifact for when the official platform opens.
 
 The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps. For review, the repository includes a 118 second narrated demo video with video, audio, and subtitle streams. The demo walks through the dashboard, official-example projection, official checker smoke, official portfolio candidate, official package proof, yard layout, and solution table. It is a walkthrough of the reproducible workflow, not leaderboard evidence.
@@ -65,6 +67,7 @@ This is not claiming official OGC leaderboard performance. It is a contest-ready
 - The official-example projection is not official feasibility or official objective scoring.
 - The official checker smoke proves format feasibility only; it is not competitive.
 - The official portfolio smoke is measured only on the public example, not on official training, preliminary, final, or leaderboard instances.
+- The official robustness smoke uses deterministic variants derived from the public example only; it is not official training, preliminary, final, or leaderboard evidence.
 - The official submission zip is a candidate package only and has not been uploaded to the official OGC platform.
 - The narrated demo is a product walkthrough only; it does not add any leaderboard claim.
 
@@ -80,6 +83,7 @@ Expected markers:
 official_example_projection_ok
 official_checker_smoke_ok
 official_portfolio_smoke_ok
+official_robustness_smoke_ok
 official_submission_package_ok
 shipyard_solver_verify_ok
 shipyard_solver_no_secrets_ok
@@ -117,6 +121,19 @@ greedy_objective=1055.727896
 objective_improvement=33.029071
 assignment_candidates=1024
 portfolio_matches_static_bound=True
+```
+
+Official robustness smoke:
+
+```bash
+npm run official-robustness
+official_robustness_smoke_ok
+variants=3
+all_candidates_feasible=True
+all_candidates_improve_greedy=True
+synthetic_B2_b12: candidate=1366.056678 greedy=1812.553857 improvement=446.497179
+synthetic_B3_b14: candidate=1084.812759 greedy=2611.626011 improvement=1526.813252
+synthetic_B3_b16: candidate=901.905038 greedy=1748.195903 improvement=846.290865
 ```
 
 Official package:

@@ -1,0 +1,60 @@
+{
+  "source": "https://www.optichallenge.com/assets/baseline-latest-BtM0fjcU.zip",
+  "boundary": "deterministic public-example-derived robustness smoke only; not leaderboard evidence",
+  "variant_count": 3,
+  "all_candidates_feasible": true,
+  "all_candidates_improve_greedy": true,
+  "variants": [
+    {
+      "name": "synthetic_B2_b12",
+      "blocks": 12,
+      "bays": 2,
+      "candidate_feasible": true,
+      "candidate_stage": 5,
+      "candidate_objective": 1366.0566784665211,
+      "candidate_obj1": 0.0,
+      "candidate_obj2": 6.579525495217297,
+      "candidate_obj3": 66.0,
+      "greedy_objective": 1812.5538570460194,
+      "greedy_obj1": 0.0,
+      "greedy_obj2": 201.79340814943134,
+      "greedy_obj3": 20.0,
+      "objective_delta_vs_greedy": -446.497179,
+      "objective_improvement": 446.497179
+    },
+    {
+      "name": "synthetic_B3_b14",
+      "blocks": 14,
+      "bays": 3,
+      "candidate_feasible": true,
+      "candidate_stage": 5,
+      "candidate_objective": 1084.8127589063793,
+      "candidate_obj1": 0.0,
+      "candidate_obj2": 46.40182270091134,
+      "candidate_obj3": 38.0,
+      "greedy_objective": 2611.6260109217856,
+      "greedy_obj1": 0.0,
+      "greedy_obj2": 115.94657298882649,
+      "greedy_obj3": 90.0,
+      "objective_delta_vs_greedy": -1526.813252,
+      "objective_improvement": 1526.813252
+    },
+    {
+      "name": "synthetic_B3_b16",
+      "blocks": 16,
+      "bays": 3,
+      "candidate_feasible": true,
+      "candidate_stage": 5,
+      "candidate_objective": 901.9050381022214,
+      "candidate_obj1": 0.0,
+      "candidate_obj2": 31.70071972888877,
+      "candidate_obj3": 34.0,
+      "greedy_objective": 1748.1959026888603,
+      "greedy_obj1": 0.0,
+      "greedy_obj2": 98.31370038412288,
+      "greedy_obj3": 53.0,
+      "objective_delta_vs_greedy": -846.290865,
+      "objective_improvement": 846.290865
+    }
+  ]
+}

@@ -70,6 +70,20 @@ def main() -> None:
     if "not leaderboard evidence" not in portfolio_report_path.read_text():
         raise SystemExit("official portfolio report missing claim boundary")
 
+    robustness_result_path = ROOT / "outputs" / "official_robustness_result.json"
+    robustness_report_path = ROOT / "outputs" / "official_robustness_report.md"
+    if not robustness_result_path.exists() or not robustness_report_path.exists():
+        raise SystemExit("official robustness outputs missing; run npm run official-robustness")
+    robustness = json.loads(robustness_result_path.read_text())
+    if robustness["variant_count"] < 3:
+        raise SystemExit("official robustness smoke did not run enough variants")
+    if not robustness["all_candidates_feasible"]:
+        raise SystemExit("official robustness smoke found an infeasible candidate result")
+    if not robustness["all_candidates_improve_greedy"]:
+        raise SystemExit("official robustness smoke did not beat greedy on every variant")
+    if "not official leaderboard evidence" not in robustness_report_path.read_text():
+        raise SystemExit("official robustness report missing claim boundary")
+
     package_path = ROOT / "outputs" / "official_submission_candidate.zip"
     manifest_path = ROOT / "outputs" / "official_submission_manifest.json"
     if not package_path.exists() or not manifest_path.exists():
@@ -101,6 +115,8 @@ def main() -> None:
     print(f"official_portfolio_objective={portfolio['official_portfolio']['objective']}")
     print(f"official_portfolio_improvement={portfolio['objective_improvement']}")
     print(f"official_portfolio_matches_static_bound={portfolio['assignment_search']['portfolio_matches_static_bound']}")
+    print(f"official_robustness_variants={robustness['variant_count']}")
+    print(f"official_robustness_best_improvement={max(item['objective_improvement'] for item in robustness['variants'])}")
     print(f"official_submission_zip={manifest['zip_path']}")
 
 

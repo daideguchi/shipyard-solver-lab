@@ -16,7 +16,7 @@ The official challenge is "The Grand Shipyard Puzzle: Pack the Block, Beat the C
 - Demo thumbnail: `media/shipyard-solver-lab-demo-thumb.png`
 - Official problem statement and baseline package: publicly released on optichallenge.com
 - Official training instances: not released yet
-- Current solver: sample-instance beam search plus official-example projection smoke test plus a checker-validated official-format portfolio candidate
+- Current solver: sample-instance beam search plus official-example projection smoke test plus a checker-validated official-format portfolio candidate and deterministic robustness smoke variants
 
 ## Judge Quick Read
 
@@ -87,6 +87,7 @@ This repository builds that loop before the official data arrives.
 - Runs the public official feasibility checker through a conservative official-format smoke solution.
 - Includes `official_submission/myalgorithm.py`, a candidate official algorithm wrapper.
 - Runs an official-example portfolio smoke test that improves over the public greedy reference while staying checker-feasible.
+- Runs deterministic public-example-derived robustness smoke tests that keep the candidate checker-feasible and better than greedy on three expanded variants.
 - Builds an official-platform candidate zip containing `myalgorithm.py`.
 
 ## Current Sample Result
@@ -156,6 +157,26 @@ portfolio_matches_static_bound=True
 
 This uses the public OGC baseline example and the official feasibility checker. It is not leaderboard evidence, but it proves the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on `example_B2_b10`. Because this public example has only 10 blocks and 2 bays, the smoke test also enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound for the example.
 
+## Official Robustness Smoke Test
+
+```bash
+npm run official-robustness
+```
+
+Current result:
+
+```text
+official_robustness_smoke_ok
+variants=3
+all_candidates_feasible=True
+all_candidates_improve_greedy=True
+synthetic_B2_b12: improvement=446.497179
+synthetic_B3_b14: improvement=1526.813252
+synthetic_B3_b16: improvement=846.290865
+```
+
+This is a deterministic stress check built from the public OGC example. It is not official leaderboard evidence and it does not replace official training or final instances. Its value is regression safety: the candidate algorithm no longer only wins the tiny public example; it also stays official-checker feasible and beats the public greedy reference on three larger public-example-derived variants.
+
 ## Official Submission Package
 
 ```bash
@@ -196,6 +217,7 @@ npm run demo:narrated
 - The official-example projection does not claim official feasibility or official objective value.
 - The official checker smoke proves format feasibility only; it does not claim competitive objective value.
 - The official portfolio smoke is measured on the public example only; it is not a leaderboard or training-instance result.
+- The official robustness smoke uses deterministic variants derived from the public example only; it is not official training, preliminary, final, or leaderboard evidence.
 - The official submission zip is a candidate package only; it has not been uploaded to the official OGC platform.
 
 ## Run
@@ -206,6 +228,7 @@ python3 scripts/run_benchmark.py
 python3 scripts/run_official_example_projection.py
 npm run official-checker
 npm run official-portfolio
+npm run official-robustness
 npm run official-package
 npm run demo:narrated
 python3 scripts/verify_solver.py
@@ -228,6 +251,7 @@ open index.html
 - `scripts/run_official_example_projection.py` — download public OGC baseline example and run schema projection smoke test
 - `scripts/run_official_checker_smoke.py` — run official-format smoke solution and official checker via `uv`
 - `scripts/run_official_portfolio_smoke.py` — run official example through the candidate portfolio algorithm and checker
+- `scripts/run_official_robustness_smoke.py` — run deterministic public-example-derived variants through the candidate algorithm and official checker
 - `scripts/build_official_submission_package.py` — package `official_submission/myalgorithm.py` as a candidate official zip
 - `scripts/record_demo.mjs` — record the browser walkthrough video
 - `scripts/build_narrated_demo.sh` — build the narrated MP4 and thumbnail
@@ -242,6 +266,8 @@ open index.html
 - `outputs/official_example_projection_report.md` — public OGC example projection smoke-test report
 - `outputs/official_checker_smoke_report.md` — official checker smoke-test report
 - `outputs/official_portfolio_report.md` — official example portfolio improvement report
+- `outputs/official_robustness_report.md` — deterministic robustness smoke-test report
+- `outputs/official_robustness_result.json` — machine-readable robustness smoke-test result
 - `outputs/official_submission_candidate.zip` — candidate package for official platform readiness
 - `outputs/official_submission_manifest.json` — package hash and file manifest
 - `media/shipyard-solver-lab-demo-narrated.mp4` — narrated demo video

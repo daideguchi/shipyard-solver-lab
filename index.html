@@ -287,6 +287,10 @@
           <p id="officialPortfolioText">Loading official-format candidate algorithm result.</p>
         </div>
         <div class="card">
+          <h3>Official Robustness Smoke</h3>
+          <p id="officialRobustnessText">Loading deterministic robustness variants.</p>
+        </div>
+        <div class="card">
           <h3>Official Package</h3>
           <p>Candidate zip is generated at outputs/official_submission_candidate.zip with myalgorithm.py at the archive root. Not submitted yet.</p>
         </div>
@@ -322,7 +326,7 @@
       </div>
     </section>
 
-    <p class="footer-note">Claim boundary: this lab demonstrates the solver pipeline on toy data, a public OGC baseline example projection, an exact official-checker smoke test, and a checker-validated public-example portfolio candidate. It does not claim leaderboard rank, training-instance performance, or final submission readiness.</p>
+    <p class="footer-note">Claim boundary: this lab demonstrates the solver pipeline on toy data, a public OGC baseline example projection, an exact official-checker smoke test, a checker-validated public-example portfolio candidate, and deterministic public-example-derived robustness variants. It does not claim leaderboard rank, training-instance performance, or final submission readiness.</p>
   </main>
 
   <script>
@@ -376,6 +380,7 @@
         'Official Example Projection': '公式例の投影',
         'Official Checker Smoke': '公式チェッカー確認',
         'Official Portfolio Candidate': '公式形式の候補',
+        'Official Robustness Smoke': '公式ロバスト性確認',
         'Official Package': '公式パッケージ',
         'Yard Layout': 'ヤード配置',
         'valid placement proof': '有効配置の証拠',
@@ -394,8 +399,9 @@
         'Loading official baseline example projection.': '公式ベースライン例の投影を読み込み中。',
         'Loading exact official checker result.': '公式チェッカー結果を読み込み中。',
         'Loading official-format candidate algorithm result.': '公式形式の候補アルゴリズム結果を読み込み中。',
+        'Loading deterministic robustness variants.': '決定的な拡張スモークを読み込み中。',
         'Candidate zip is generated at outputs/official_submission_candidate.zip with myalgorithm.py at the archive root. Not submitted yet.': '候補zipは outputs/official_submission_candidate.zip に生成済みで、アーカイブ直下に myalgorithm.py を入れています。まだ提出はしていません。',
-        'Claim boundary: this lab demonstrates the solver pipeline on toy data, a public OGC baseline example projection, an exact official-checker smoke test, and a checker-validated public-example portfolio candidate. It does not claim leaderboard rank, training-instance performance, or final submission readiness.': '主張の境界: このラボは、トイデータ、公開OGCベースライン例の投影、公式チェッカー確認、チェッカーで検証した公開例候補でソルバーパイプラインを示します。リーダーボード順位、訓練インスタンス性能、最終提出準備完了は主張しません。'
+        'Claim boundary: this lab demonstrates the solver pipeline on toy data, a public OGC baseline example projection, an exact official-checker smoke test, a checker-validated public-example portfolio candidate, and deterministic public-example-derived robustness variants. It does not claim leaderboard rank, training-instance performance, or final submission readiness.': '主張の境界: このラボは、トイデータ、公開OGCベースライン例の投影、公式チェッカー確認、チェッカーで検証した公開例候補、公開例由来の決定的ロバスト性確認でソルバーパイプラインを示します。リーダーボード順位、訓練インスタンス性能、最終提出準備完了は主張しません。'
       }
     };
 
@@ -432,7 +438,7 @@
       return response.json();
     }
 
-    function renderMetrics(solution, benchmark, officialProjection, officialChecker, officialPortfolio) {
+    function renderMetrics(solution, benchmark, officialProjection, officialChecker, officialPortfolio, officialRobustness) {
       const metrics = solution.metrics;
       document.querySelector('#scoreMetric').textContent = metrics.score;
       document.querySelector('#placedMetric').textContent = metrics.placed_blocks;
@@ -457,6 +463,12 @@
       document.querySelector('#officialPortfolioText').textContent = currentLang === 'ja'
         ? `公式形式の候補アルゴリズムがPASSしました。目的値 ${officialPortfolio.official_portfolio.objective.toFixed(2)}、greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)} に対して、公開 example_B2_b10 で ${officialPortfolio.objective_improvement.toFixed(2)} 改善。${officialPortfolio.assignment_search.candidate_count} 件のベイ割当を列挙し、静的上限と一致します。リーダーボード証拠ではありません。`
         : `Candidate official algorithm PASS: objective ${officialPortfolio.official_portfolio.objective.toFixed(2)} vs greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}, an improvement of ${officialPortfolio.objective_improvement.toFixed(2)} on public example_B2_b10. It enumerates ${officialPortfolio.assignment_search.candidate_count} bay assignments and matches the static bound. Not leaderboard evidence.`;
+      const robustnessImprovements = officialRobustness.variants.map((item) => item.objective_improvement);
+      const bestRobustness = Math.max(...robustnessImprovements).toFixed(2);
+      const worstRobustness = Math.min(...robustnessImprovements).toFixed(2);
+      document.querySelector('#officialRobustnessText').textContent = currentLang === 'ja'
+        ? `公開例から作った ${officialRobustness.variant_count} 件の拡張ケースすべてで、候補が公式チェッカーに通り、greedyより良い結果でした。最大改善 ${bestRobustness}、最小改善 ${worstRobustness}。これはロバスト性確認であり、リーダーボード証拠ではありません。`
+        : `Candidate beats greedy on ${officialRobustness.variant_count} public-example-derived variants while staying official-checker feasible. Best improvement ${bestRobustness}, worst improvement ${worstRobustness}. This is robustness smoke, not leaderboard evidence.`;
     }
 
     function renderYards(instance, solution) {
@@ -504,23 +516,24 @@
 
     function renderAll() {
       if (!appState) return;
-      const { instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio } = appState;
-      renderMetrics(solution, benchmark, officialProjection, officialChecker, officialPortfolio);
+      const { instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio, officialRobustness } = appState;
+      renderMetrics(solution, benchmark, officialProjection, officialChecker, officialPortfolio, officialRobustness);
       renderYards(instance, solution);
       renderTable(solution);
       applyLanguage(currentLang);
     }
 
     async function main() {
-      const [instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio] = await Promise.all([
+      const [instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio, officialRobustness] = await Promise.all([
         loadJson('data/sample_blocks.json'),
         loadJson('outputs/best_solution.json'),
         loadJson('outputs/benchmark.json'),
         loadJson('outputs/official_example_projection_solution.json'),
         loadJson('outputs/official_checker_smoke_result.json'),
         loadJson('outputs/official_portfolio_result.json'),
+        loadJson('outputs/official_robustness_result.json'),
       ]);
-      appState = { instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio };
+      appState = { instance, solution, benchmark, officialProjection, officialChecker, officialPortfolio, officialRobustness };
       renderAll();
     }
 
