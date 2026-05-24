@@ -70,6 +70,12 @@ if (!body.includes('Official Portfolio Candidate') || !body.includes('Candidate 
 if (!body.includes('1024 bay assignments') || !body.includes('matches the static bound')) {
   throw new Error('missing official portfolio static-bound proof');
 }
+if (!body.includes('Official Robustness Smoke') || !body.includes('Candidate beats greedy on 3 public-example-derived variants')) {
+  throw new Error('missing official robustness smoke proof');
+}
+if (!body.includes('not leaderboard evidence')) {
+  throw new Error('missing robustness claim boundary');
+}
 if (!body.includes('Official Package') || !body.includes('outputs/official_submission_candidate.zip')) {
   throw new Error('missing official submission package proof');
 }
@@ -79,12 +85,12 @@ const japaneseBody = await page.locator('body').innerText();
 if (!japaneseBody.includes('造船所ソルバーラボ') || !japaneseBody.includes('解く・検証する・提出パッケージ化する')) {
   throw new Error('Japanese UI toggle failed');
 }
-for (const marker of ['最高実行はベースラインより', '公式チェッカーがPASSしました', '公式形式の候補アルゴリズムがPASSしました', 'いいえ']) {
+for (const marker of ['最高実行はベースラインより', '公式チェッカーがPASSしました', '公式形式の候補アルゴリズムがPASSしました', '公式チェッカーに通り、greedyより良い結果でした', 'いいえ']) {
   if (!japaneseBody.includes(marker)) {
     throw new Error(`Japanese dynamic UI missing marker: ${marker}`);
   }
 }
-for (const leaked of ['candidates validated', 'Exact official checker PASS', 'Candidate official algorithm PASS', '>yes<']) {
+for (const leaked of ['candidates validated', 'Exact official checker PASS', 'Candidate official algorithm PASS', 'Candidate beats greedy', '>yes<']) {
   if (japaneseBody.includes(leaked)) {
     throw new Error(`Japanese UI leaked English dynamic text: ${leaked}`);
   }
