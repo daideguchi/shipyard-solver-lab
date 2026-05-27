@@ -84,7 +84,7 @@ The candidate lives at:
 official_submission/myalgorithm.py
 ```
 
-It runs the public greedy baseline, then searches bay-assignment candidates and keeps the best solution that passes the official feasibility checker.
+It runs the public greedy baseline, searches bay-assignment candidates, and then uses any remaining time for a small relocate/swap neighborhood around the best checker-feasible assignment. A neighbor only replaces the incumbent when the official feasibility checker confirms a lower objective.
 
 Current public example result:
 
@@ -141,6 +141,6 @@ Still required for real competition work:
 
 1. Generalize the portfolio algorithm against official training and preliminary instances.
 2. Expand the larger-instance candidate generation now covered by the robustness smoke test.
-3. Add relocate/swap/rotate local search on top of checker-feasible official solutions.
+3. Add deeper placement-level rotate/local-search moves on top of the current assignment-level relocate/swap neighborhood.
 4. Use official training/preliminary instances when released.
 5. Submit through the official OGC platform, not only Devpost.

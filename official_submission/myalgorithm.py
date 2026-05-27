@@ -267,6 +267,63 @@ def _candidate_assignments(prob_info: dict, greedy_solution: dict) -> list[tuple
     return sorted(candidates, key=lambda assignment: _static_assignment_score(prob_info, assignment))[:limit]
 
 
+def _assignment_from_solution(prob_info: dict, solution: dict) -> tuple[int, ...] | None:
+    block_count = len(prob_info["blocks"])
+    assignment: list[int | None] = [None] * block_count
+
+    for ops in solution.get("operations", {}).values():
+        for op in ops:
+            if op.get("type") != "ENTRY":
+                continue
+            block_id = op.get("block_id")
+            bay_id = op.get("bay_id")
+            if not isinstance(block_id, int) or not isinstance(bay_id, int):
+                return None
+            if not (0 <= block_id < block_count):
+                return None
+            assignment[block_id] = bay_id
+
+    if any(item is None for item in assignment):
+        return None
+    return tuple(int(item) for item in assignment)
+
+
+def _neighbor_assignments(
+    prob_info: dict,
+    assignment: tuple[int, ...],
+    max_results: int = 420,
+) -> list[tuple[int, ...]]:
+    """Small objective-driven neighborhood around the current best assignment."""
+    bay_count = len(prob_info["bays"])
+    if bay_count <= 1:
+        return []
+
+    ordered_blocks = _ordered_blocks_for_assignment(prob_info)
+    candidates: set[tuple[int, ...]] = set()
+
+    for block_id in ordered_blocks:
+        for bay_id in range(bay_count):
+            if bay_id == assignment[block_id]:
+                continue
+            changed = list(assignment)
+            changed[block_id] = bay_id
+            candidates.add(tuple(changed))
+
+    for left_index, left in enumerate(ordered_blocks):
+        for right in ordered_blocks[left_index + 1 :]:
+            if assignment[left] == assignment[right]:
+                continue
+            swapped = list(assignment)
+            swapped[left], swapped[right] = swapped[right], swapped[left]
+            candidates.add(tuple(swapped))
+
+    improved = {_improve_assignment_static(prob_info, item, max_rounds=2) for item in candidates}
+    candidates.update(improved)
+    candidates.discard(assignment)
+
+    return sorted(candidates, key=lambda item: _static_assignment_score(prob_info, item))[:max_results]
+
+
 def _placement_orders(prob_info: dict) -> list[list[int]]:
     blocks = prob_info["blocks"]
     order_specs = [
@@ -371,7 +428,10 @@ def algorithm(prob_info: dict, timelimit: float = 60) -> dict:
 
     deadline = start + max(0.25, timelimit * 0.94)
     orders = _placement_orders(prob_info)
+    seen_assignments: set[tuple[int, ...]] = set()
+
     for assignment in _candidate_assignments(prob_info, best_solution):
+        seen_assignments.add(assignment)
         if time.time() > deadline:
             break
         for order in orders:
@@ -386,5 +446,39 @@ def algorithm(prob_info: dict, timelimit: float = 60) -> dict:
             if not best_result.get("feasible") or result["objective"] < best_result["objective"]:
                 best_solution = copy.deepcopy(candidate)
                 best_result = result
+
+    best_assignment = _assignment_from_solution(prob_info, best_solution)
+    if best_assignment is not None:
+        seen_assignments.add(best_assignment)
+
+    neighborhood_rounds = 0
+    while best_assignment is not None and time.time() <= deadline and neighborhood_rounds < 2:
+        neighborhood_rounds += 1
+        improved = False
+        for assignment in _neighbor_assignments(prob_info, best_assignment):
+            if time.time() > deadline:
+                break
+            if assignment in seen_assignments:
+                continue
+            seen_assignments.add(assignment)
+            for order in orders:
+                if time.time() > deadline:
+                    break
+                candidate = _place_fixed_assignment(prob_info, assignment, deadline, order=order)
+                if candidate is None:
+                    continue
+                result = check_feasibility(prob_info, candidate)
+                if not result.get("feasible"):
+                    continue
+                if result["objective"] < best_result["objective"]:
+                    best_solution = copy.deepcopy(candidate)
+                    best_result = result
+                    best_assignment = assignment
+                    improved = True
+                    break
+            if improved:
+                break
+        if not improved:
+            break
 
     return best_solution
