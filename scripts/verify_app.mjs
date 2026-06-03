@@ -5,6 +5,7 @@ import http from 'http';
 import fs from 'fs/promises';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const contentTypes = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -33,7 +34,9 @@ const server = http.createServer(async (req, res) => {
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const { port } = server.address();
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({
+  executablePath: chromePath,
+});
 const page = await browser.newPage({ viewport: { width: 1440, height: 1080 } });
 
 await page.goto(`http://127.0.0.1:${port}/`);
