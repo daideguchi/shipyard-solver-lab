@@ -105,15 +105,18 @@ To guard against a solution that only works on the tiny public example, the repo
 npm run official-robustness
 ```
 
-It creates three larger variants from public example data and checks the candidate through the public official checker:
+It creates six larger variants from public example data and checks the candidate through the public official checker:
 
 ```text
-variants=3
+variants=6
 all_candidates_feasible=True
 all_candidates_improve_greedy=True
 synthetic_B2_b12 improvement=446.497179
 synthetic_B3_b14 improvement=1526.813252
 synthetic_B3_b16 improvement=846.290865
+synthetic_B3_b18 improvement=2561.171751
+synthetic_B3_b20 improvement=2985.445935
+synthetic_B3_b24 improvement=1202.029680
 ```
 
 This is not official leaderboard evidence and it does not replace training, preliminary, or final instances. It is a regression guard showing that the candidate package stays checker-feasible and improves the public greedy reference on larger public-example-derived inputs.

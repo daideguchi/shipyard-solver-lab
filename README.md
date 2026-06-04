@@ -87,7 +87,7 @@ This repository builds that loop before the official data arrives.
 - Runs the public official feasibility checker through a conservative official-format smoke solution.
 - Includes `official_submission/myalgorithm.py`, a candidate official algorithm wrapper.
 - Runs an official-example portfolio smoke test that improves over the public greedy reference while staying checker-feasible.
-- Runs deterministic public-example-derived robustness smoke tests that keep the candidate checker-feasible and better than greedy on three expanded variants.
+- Runs deterministic public-example-derived robustness smoke tests that keep the candidate checker-feasible and better than greedy on six expanded variants.
 - Builds an official-platform candidate zip containing `myalgorithm.py`.
 
 ## Current Sample Result
@@ -169,15 +169,18 @@ Current result:
 
 ```text
 official_robustness_smoke_ok
-variants=3
+variants=6
 all_candidates_feasible=True
 all_candidates_improve_greedy=True
 synthetic_B2_b12: improvement=446.497179
 synthetic_B3_b14: improvement=1526.813252
 synthetic_B3_b16: improvement=846.290865
+synthetic_B3_b18: improvement=2561.171751
+synthetic_B3_b20: improvement=2985.445935
+synthetic_B3_b24: improvement=1202.029680
 ```
 
-This is a deterministic stress check built from the public OGC example. It is not official leaderboard evidence and it does not replace official training or final instances. Its value is regression safety: the candidate algorithm no longer only wins the tiny public example; it also stays official-checker feasible and beats the public greedy reference on three larger public-example-derived variants.
+This is a deterministic stress check built from the public OGC example. It is not official leaderboard evidence and it does not replace official training or final instances. Its value is regression safety: the candidate algorithm no longer only wins the tiny public example; it also stays official-checker feasible and beats the public greedy reference on six larger public-example-derived variants.
 
 ## Official Submission Package
 

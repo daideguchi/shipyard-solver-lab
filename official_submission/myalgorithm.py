@@ -244,6 +244,55 @@ def _seed_assignments(prob_info: dict, greedy_solution: dict) -> set[tuple[int, 
                 changed[block_id] = bay_id
                 seeds.add(tuple(changed))
 
+    seeds.update(_constructive_seed_assignments(prob_info))
+    return seeds
+
+
+def _constructive_seed_assignments(prob_info: dict) -> set[tuple[int, ...]]:
+    """Build deterministic static-score seeds for larger instances."""
+    blocks = prob_info["blocks"]
+    bay_count = len(prob_info["bays"])
+    if bay_count <= 1:
+        return {tuple([0] * len(blocks))}
+
+    order_specs = [
+        sorted(range(len(blocks)), key=lambda idx: (-blocks[idx]["workload"], blocks[idx]["due_date"], idx)),
+        sorted(range(len(blocks)), key=lambda idx: (blocks[idx]["due_date"], -blocks[idx]["workload"], idx)),
+        sorted(range(len(blocks)), key=lambda idx: (blocks[idx]["release_time"], blocks[idx]["due_date"], idx)),
+        sorted(
+            range(len(blocks)),
+            key=lambda idx: (
+                -(max(blocks[idx]["bay_preferences"]) - min(blocks[idx]["bay_preferences"])),
+                -blocks[idx]["workload"],
+                idx,
+            ),
+        ),
+    ]
+    seeds: set[tuple[int, ...]] = set()
+
+    for order in order_specs:
+        assignment: list[int | None] = [None] * len(blocks)
+        loads = [0.0] * bay_count
+        preference_penalty = 0.0
+        for block_id in order:
+            block = blocks[block_id]
+            best_pref = max(block["bay_preferences"])
+            best_choice = None
+            for bay_id in range(bay_count):
+                next_loads = list(loads)
+                next_loads[bay_id] += block["workload"]
+                next_pref = preference_penalty + best_pref - block["bay_preferences"][bay_id]
+                score = _partial_assignment_score(prob_info, tuple(next_loads), next_pref)
+                choice = (score, next_pref, -block["bay_preferences"][bay_id], bay_id)
+                if best_choice is None or choice < best_choice:
+                    best_choice = choice
+            chosen_bay = best_choice[-1]
+            assignment[block_id] = chosen_bay
+            loads[chosen_bay] += block["workload"]
+            preference_penalty += best_pref - block["bay_preferences"][chosen_bay]
+
+        seeds.add(tuple(int(item) for item in assignment if item is not None))
+
     return seeds
 
 
@@ -262,7 +311,8 @@ def _candidate_assignments(prob_info: dict, greedy_solution: dict) -> list[tuple
         candidates = set(seeded)
         candidates.update(beam)
         candidates.update(random_candidates)
-        candidates.update(_improve_assignment_static(prob_info, item) for item in list(candidates)[: limit * 2])
+        ordered = sorted(candidates, key=lambda item: _static_assignment_score(prob_info, item))
+        candidates.update(_improve_assignment_static(prob_info, item) for item in ordered[: limit * 2])
 
     return sorted(candidates, key=lambda assignment: _static_assignment_score(prob_info, assignment))[:limit]
 

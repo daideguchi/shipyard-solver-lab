@@ -1,7 +1,7 @@
 {
   "source": "https://www.optichallenge.com/assets/baseline-latest-BtM0fjcU.zip",
   "boundary": "deterministic public-example-derived robustness smoke only; not leaderboard evidence",
-  "variant_count": 3,
+  "variant_count": 6,
   "all_candidates_feasible": true,
   "all_candidates_improve_greedy": true,
   "variants": [
@@ -55,6 +55,57 @@
       "greedy_obj3": 53.0,
       "objective_delta_vs_greedy": -846.290865,
       "objective_improvement": 846.290865
+    },
+    {
+      "name": "synthetic_B3_b18",
+      "blocks": 18,
+      "bays": 3,
+      "candidate_feasible": true,
+      "candidate_stage": 5,
+      "candidate_objective": 1183.0735105822096,
+      "candidate_obj1": 0.0,
+      "candidate_obj2": 34.724787226029946,
+      "candidate_obj3": 47.0,
+      "greedy_objective": 3744.245261228691,
+      "greedy_obj1": 0.0,
+      "greedy_obj2": 203.46360874695588,
+      "greedy_obj3": 116.0,
+      "objective_delta_vs_greedy": -2561.171751,
+      "objective_improvement": 2561.171751
+    },
+    {
+      "name": "synthetic_B3_b20",
+      "blocks": 20,
+      "bays": 3,
+      "candidate_feasible": true,
+      "candidate_stage": 5,
+      "candidate_objective": 1487.465992536415,
+      "candidate_obj1": 0.0,
+      "candidate_obj2": 21.066570362344976,
+      "candidate_obj3": 67.0,
+      "greedy_objective": 4472.9119278953585,
+      "greedy_obj1": 0.0,
+      "greedy_obj2": 236.13027541362257,
+      "greedy_obj3": 141.0,
+      "objective_delta_vs_greedy": -2985.445935,
+      "objective_improvement": 2985.445935
+    },
+    {
+      "name": "synthetic_B3_b24",
+      "blocks": 24,
+      "bays": 3,
+      "candidate_feasible": true,
+      "candidate_stage": 5,
+      "candidate_objective": 1645.6786422635635,
+      "candidate_obj1": 0.0,
+      "candidate_obj2": 26.52552032336621,
+      "candidate_obj3": 73.0,
+      "greedy_objective": 2847.7083219336737,
+      "greedy_obj1": 0.0,
+      "greedy_obj2": 81.10118884766769,
+      "greedy_obj3": 114.0,
+      "objective_delta_vs_greedy": -1202.02968,
+      "objective_improvement": 1202.02968
     }
   ]
 }

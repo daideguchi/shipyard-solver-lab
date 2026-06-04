@@ -114,7 +114,7 @@ def main() -> None:
         module = load_myalgorithm()
         variants = []
 
-        for block_count, bay_count in [(12, 2), (14, 3), (16, 3)]:
+        for block_count, bay_count in [(12, 2), (14, 3), (16, 3), (18, 3), (20, 3), (24, 3)]:
             instance = make_variant(raw, block_count=block_count, bay_count=bay_count)
             greedy_log = io.StringIO()
             with contextlib.redirect_stdout(greedy_log):

@@ -5,7 +5,7 @@ import http from 'http';
 import fs from 'fs/promises';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const localChromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const contentTypes = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -34,9 +34,14 @@ const server = http.createServer(async (req, res) => {
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const { port } = server.address();
 
-const browser = await chromium.launch({
-  executablePath: chromePath,
-});
+const launchOptions = {};
+try {
+  await fs.access(localChromePath);
+  launchOptions.executablePath = localChromePath;
+} catch {
+  // Fall back to Playwright's bundled browser when available.
+}
+const browser = await chromium.launch(launchOptions);
 const page = await browser.newPage({ viewport: { width: 1440, height: 1080 } });
 
 await page.goto(`http://127.0.0.1:${port}/`);
@@ -73,7 +78,7 @@ if (!body.includes('Official Portfolio Candidate') || !body.includes('Candidate 
 if (!body.includes('1024 bay assignments') || !body.includes('matches the static bound')) {
   throw new Error('missing official portfolio static-bound proof');
 }
-if (!body.includes('Official Robustness Smoke') || !body.includes('Candidate beats greedy on 3 public-example-derived variants')) {
+if (!body.includes('Official Robustness Smoke') || !body.includes('Candidate beats greedy on 6 public-example-derived variants')) {
   throw new Error('missing official robustness smoke proof');
 }
 if (!body.includes('not leaderboard evidence')) {
