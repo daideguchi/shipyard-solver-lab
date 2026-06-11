@@ -143,7 +143,7 @@ This projection is not an official OGC solver result. It proves that the lab can
 Still required for real competition work:
 
 1. Generalize the portfolio algorithm against official training and preliminary instances.
-2. Expand the larger-instance candidate generation now covered by the robustness smoke test.
+2. Improve against official training/preliminary instances once they are released.
 3. Add deeper placement-level rotate/local-search moves on top of the current assignment-level relocate/swap neighborhood.
 4. Use official training/preliminary instances when released.
 5. Submit through the official OGC platform, not only Devpost.

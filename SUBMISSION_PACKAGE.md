@@ -48,9 +48,9 @@ After checking the official OGC site, I also added an official-example projectio
 
 I also added an exact official-checker smoke test. It builds a conservative official `operations` solution, runs the public OGC feasibility checker, and verifies `feasible=True` at stage 5. The objective is intentionally poor because only one block is present at a time. That is a feature, not a claim: it proves the submission format and checker integration before optimizing.
 
-The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. It runs the public greedy baseline, searches bay-assignment candidates, then uses remaining time for a small relocate/swap neighborhood around the best checker-feasible assignment. A neighbor is only accepted if the official checker confirms a lower objective, so the algorithm never has to trade feasibility for experimentation. On the public `example_B2_b10` instance, the candidate improves the official checker objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. Because the public example has only 10 blocks and 2 bays, the smoke test enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a working, checker-validated optimization loop on the public example.
+The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. It runs the public greedy baseline, searches bay-assignment candidates, then uses remaining time for a relocate/swap/dual-relocate neighborhood around the best checker-feasible assignment. A neighbor is only accepted if the official checker confirms a lower objective, so the algorithm never has to trade feasibility for experimentation. On the public `example_B2_b10` instance, the candidate improves the official checker objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. Because the public example has only 10 blocks and 2 bays, the smoke test enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a working, checker-validated optimization loop on the public example.
 
-To reduce the risk of overfitting the tiny public example, I added a deterministic robustness smoke test. It creates three larger variants from the public example, then compares the candidate algorithm with the public greedy reference through the official feasibility checker. The candidate stays feasible and improves greedy on all three variants: +446.50 on `synthetic_B2_b12`, +1526.81 on `synthetic_B3_b14`, and +846.29 on `synthetic_B3_b16`. These are still public-example-derived checks, not leaderboard evidence. The value is practical: the repository now has a regression guard for larger official-format inputs before official training instances are available.
+To reduce the risk of overfitting the tiny public example, I added a deterministic robustness smoke test. It creates six larger variants from the public example, then compares the candidate algorithm with the public greedy reference through the official feasibility checker. The candidate stays feasible and improves greedy on all six variants: +446.50 on `synthetic_B2_b12`, +1526.81 on `synthetic_B3_b14`, +846.29 on `synthetic_B3_b16`, +2561.17 on `synthetic_B3_b18`, +2985.45 on `synthetic_B3_b20`, and +1202.03 on `synthetic_B3_b24`. These are still public-example-derived checks, not leaderboard evidence. The value is practical: the repository now has a regression guard for larger official-format inputs before official training instances are available.
 
 The repository also builds `outputs/official_submission_candidate.zip`, a candidate package with `myalgorithm.py` at the archive root. This is not submitted yet; it is a readiness artifact for when the official platform opens.
 
@@ -128,12 +128,15 @@ Official robustness smoke:
 ```bash
 npm run official-robustness
 official_robustness_smoke_ok
-variants=3
+variants=6
 all_candidates_feasible=True
 all_candidates_improve_greedy=True
 synthetic_B2_b12: candidate=1366.056678 greedy=1812.553857 improvement=446.497179
 synthetic_B3_b14: candidate=1084.812759 greedy=2611.626011 improvement=1526.813252
 synthetic_B3_b16: candidate=901.905038 greedy=1748.195903 improvement=846.290865
+synthetic_B3_b18: candidate=1183.073511 greedy=3744.245261 improvement=2561.171751
+synthetic_B3_b20: candidate=1487.465993 greedy=4472.911928 improvement=2985.445935
+synthetic_B3_b24: candidate=1645.678642 greedy=2847.708322 improvement=1202.029680
 ```
 
 Official package:

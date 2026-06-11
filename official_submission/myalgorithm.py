@@ -31,6 +31,8 @@ def _bay_assignment_bound(prob_info: dict, bay_count: int) -> int:
         return bay_count ** block_count
     if block_count <= 16:
         return min(5000, bay_count ** block_count)
+    if block_count <= 24:
+        return 1800
     return 1200
 
 
@@ -186,6 +188,25 @@ def _improve_assignment_static(
                         best_assignment = candidate
                         best_score = score
 
+        if best_assignment == current:
+            ordered_blocks = _ordered_blocks_for_assignment(prob_info)
+            for left_index, left in enumerate(ordered_blocks):
+                for right in ordered_blocks[left_index + 1 :]:
+                    for left_bay in range(bay_count):
+                        if left_bay == current[left]:
+                            continue
+                        for right_bay in range(bay_count):
+                            if right_bay == current[right]:
+                                continue
+                            candidate = list(current)
+                            candidate[left] = left_bay
+                            candidate[right] = right_bay
+                            candidate = tuple(candidate)
+                            score = _static_assignment_score(prob_info, candidate)
+                            if score + 1e-9 < best_score:
+                                best_assignment = candidate
+                                best_score = score
+
         if best_assignment != current:
             current = best_assignment
             current_score = best_score
@@ -201,6 +222,7 @@ def _random_assignment_candidates(
     prob_info: dict,
     count: int,
     seed: int = 20260524,
+    best_pref_probability: float = 0.72,
 ) -> list[tuple[int, ...]]:
     rng = random.Random(seed)
     blocks = prob_info["blocks"]
@@ -209,7 +231,7 @@ def _random_assignment_candidates(
     for _ in range(count):
         assignment = []
         for block in blocks:
-            if rng.random() < 0.72:
+            if rng.random() < best_pref_probability:
                 assignment.append(max(range(bay_count), key=lambda bay_id: block["bay_preferences"][bay_id]))
             else:
                 assignment.append(rng.randrange(bay_count))
@@ -296,6 +318,47 @@ def _constructive_seed_assignments(prob_info: dict) -> set[tuple[int, ...]]:
     return seeds
 
 
+def _balanced_random_assignment_candidates(
+    prob_info: dict,
+    count: int,
+    seed: int = 20260611,
+) -> list[tuple[int, ...]]:
+    rng = random.Random(seed)
+    blocks = prob_info["blocks"]
+    bay_count = len(prob_info["bays"])
+    bay_areas = [bay["width"] * bay["height"] for bay in prob_info["bays"]]
+    avg_area = sum(bay_areas) / len(bay_areas)
+    bay_weights = [avg_area / area for area in bay_areas]
+    ordered = _ordered_blocks_for_assignment(prob_info)
+    candidates = []
+
+    for _ in range(count):
+        assignment = [0] * len(blocks)
+        loads = [0.0] * bay_count
+        for block_id in ordered:
+            block = blocks[block_id]
+            best_pref = max(block["bay_preferences"])
+            choices = []
+            for bay_id in range(bay_count):
+                next_loads = list(loads)
+                next_loads[bay_id] += block["workload"]
+                imbalance = max(
+                    abs(bay_weights[left] * next_loads[left] - bay_weights[right] * next_loads[right])
+                    for left in range(bay_count)
+                    for right in range(bay_count)
+                    if left != right
+                )
+                pref_penalty = best_pref - block["bay_preferences"][bay_id]
+                jitter = rng.random() * 0.01
+                choices.append((imbalance + pref_penalty * rng.uniform(0.35, 1.15) + jitter, bay_id))
+            chosen = min(choices)[1]
+            assignment[block_id] = chosen
+            loads[chosen] += block["workload"]
+        candidates.append(tuple(assignment))
+
+    return candidates
+
+
 def _candidate_assignments(prob_info: dict, greedy_solution: dict) -> list[tuple[int, ...]]:
     bay_count = len(prob_info["bays"])
     block_count = len(prob_info["blocks"])
@@ -305,9 +368,21 @@ def _candidate_assignments(prob_info: dict, greedy_solution: dict) -> list[tuple
         candidates = itertools.product(range(bay_count), repeat=block_count)
     else:
         seeded = _seed_assignments(prob_info, greedy_solution)
-        beam = _beam_assignment_candidates(prob_info, beam_width=180, max_results=limit)
-        random_count = max(120, limit // 5)
-        random_candidates = _random_assignment_candidates(prob_info, count=random_count)
+        beam = _beam_assignment_candidates(prob_info, beam_width=260, max_results=limit)
+        random_count = max(120, limit // 6)
+        random_candidates = []
+        for offset, probability in enumerate((0.50, 0.66, 0.82)):
+            random_candidates.extend(
+                _random_assignment_candidates(
+                    prob_info,
+                    count=random_count,
+                    seed=20260524 + offset * 97,
+                    best_pref_probability=probability,
+                )
+            )
+        random_candidates.extend(
+            _balanced_random_assignment_candidates(prob_info, count=random_count, seed=20260611)
+        )
         candidates = set(seeded)
         candidates.update(beam)
         candidates.update(random_candidates)

@@ -157,7 +157,7 @@ portfolio_matches_static_bound=True
 
 This uses the public OGC baseline example and the official feasibility checker. It is not leaderboard evidence, but it proves the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on `example_B2_b10`. Because this public example has only 10 blocks and 2 bays, the smoke test also enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound for the example.
 
-The candidate first runs the public greedy baseline, searches bay-assignment candidates, and then uses any remaining time for a small relocate/swap neighborhood around the best checker-feasible assignment. A neighbor is only kept if the official checker confirms a lower objective, so the fallback remains the best known feasible solution.
+The candidate first runs the public greedy baseline, searches bay-assignment candidates, and then uses any remaining time for a small relocate/swap/dual-relocate neighborhood around the best checker-feasible assignment. A neighbor is only kept if the official checker confirms a lower objective, so the fallback remains the best known feasible solution.
 
 ## Official Robustness Smoke Test
 
