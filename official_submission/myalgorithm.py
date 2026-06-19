@@ -15,6 +15,13 @@ def _ceil(value):
     return integer
 
 
+def _floor(value):
+    integer = int(value)
+    if value < integer:
+        return integer - 1
+    return integer
+
+
 def _shape_bounds(block, orient_idx):
     first = True
     min_x = min_y = max_x = max_y = 0
@@ -42,8 +49,12 @@ def _first_valid_orientation(block, bay):
     shapes = block.get("shape", [])
     for orient_idx in range(len(shapes)):
         min_x, min_y, max_x, max_y = _shape_bounds(block, orient_idx)
-        if max_x - min_x <= bay["width"] and max_y - min_y <= bay["height"]:
-            return orient_idx, _ceil(-min_x), _ceil(-min_y)
+        min_place_x = _ceil(-min_x)
+        max_place_x = _floor(bay["width"] - max_x)
+        min_place_y = _ceil(-min_y)
+        max_place_y = _floor(bay["height"] - max_y)
+        if min_place_x <= max_place_x and min_place_y <= max_place_y:
+            return orient_idx, min_place_x, min_place_y
     return None
 
 
@@ -91,8 +102,8 @@ def algorithm(prob_info, timelimit=60):
     for block_id in _block_order(prob_info):
         block = prob_info["blocks"][block_id]
         bay_id, orient_idx, x, y = _best_fit(block, bays)
-        release_time = int(block.get("release_time", 0))
-        processing_time = int(block.get("processing_time", 0))
+        release_time = _ceil(block.get("release_time", 0))
+        processing_time = max(1, _ceil(block.get("processing_time", 1)))
         entry_time = current_time
         if release_time > entry_time:
             entry_time = release_time
