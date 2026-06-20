@@ -84,20 +84,19 @@ The candidate lives at:
 official_submission/myalgorithm.py
 ```
 
-It runs the public greedy baseline, searches bay-assignment candidates, and then uses any remaining time for a small relocate/swap neighborhood around the best checker-feasible assignment. A neighbor only replaces the incumbent when the official feasibility checker confirms a lower objective.
+It is a standalone import-free official-format solver because the official platform extracts only `myalgorithm.py`. It builds conservative bounding-box placements, handles reference-offset coordinates, skips unsafe orientations, tries several deterministic block orders, and returns the best checker-feasible official-format solution it can construct.
 
 Current public example result:
 
 ```text
 portfolio_feasible=True
-portfolio_objective=1022.698826
+portfolio_objective=1055.727896
 greedy_objective=1055.727896
-objective_improvement=33.029071
-assignment_candidates=1024
-portfolio_matches_static_bound=True
+objective_delta_vs_greedy=0.000000
+matches_or_improves_greedy=True
 ```
 
-This is measured only on the public `example_B2_b10` example. It is not leaderboard evidence, but it proves the exact official algorithm interface, `operations` format, checker integration, and a real objective improvement over the public greedy reference on the available example. For this small public example, all 1,024 bay assignments are enumerable; the candidate matches the static assignment lower bound while remaining official-checker feasible.
+This is measured only on the public `example_B2_b10` example. It is not leaderboard evidence, but it proves the exact official algorithm interface, `operations` format, checker integration, and a submission-safe single-file candidate that is no worse than the public greedy reference on the available example.
 
 To guard against a solution that only works on the tiny public example, the repository also includes a deterministic robustness smoke test:
 
@@ -111,15 +110,15 @@ It creates six larger variants from public example data and checks the candidate
 variants=6
 all_candidates_feasible=True
 all_candidates_improve_greedy=True
-synthetic_B2_b12 improvement=446.497179
-synthetic_B3_b14 improvement=1526.813252
-synthetic_B3_b16 improvement=846.290865
-synthetic_B3_b18 improvement=2561.171751
-synthetic_B3_b20 improvement=2985.445935
-synthetic_B3_b24 improvement=1202.029680
+synthetic_B2_b12 candidate=1512.370044 greedy=1812.553857 delta_vs_greedy=-300.183813
+synthetic_B3_b14 candidate=1107.497693 greedy=2611.626011 delta_vs_greedy=-1504.128318
+synthetic_B3_b16 candidate=1360.556393 greedy=1748.195903 delta_vs_greedy=-387.639509
+synthetic_B3_b18 candidate=1887.910173 greedy=3744.245261 delta_vs_greedy=-1856.335089
+synthetic_B3_b20 candidate=1813.328413 greedy=4472.911928 delta_vs_greedy=-2659.583515
+synthetic_B3_b24 candidate=2529.572218 greedy=2847.708322 delta_vs_greedy=-318.136104
 ```
 
-This is not official leaderboard evidence and it does not replace training, preliminary, or final instances. It is a regression guard showing that the candidate package stays checker-feasible and improves the public greedy reference on larger public-example-derived inputs.
+This is not official leaderboard evidence and it does not replace training, preliminary, or final instances. It is a regression guard showing that the candidate package stays checker-feasible and is no worse than the public greedy reference on larger public-example-derived inputs.
 
 The repository can also build a candidate package for the official platform:
 
@@ -134,7 +133,7 @@ outputs/official_submission_candidate.zip
 outputs/official_submission_manifest.json
 ```
 
-The zip contains `myalgorithm.py` at the archive root. This is a readiness package only; it has not been uploaded to the official OGC platform.
+The zip contains `myalgorithm.py` at the archive root. This is a readiness package and must be sent only through an allowed official OGC submission window.
 
 ## Boundary
 
@@ -142,8 +141,8 @@ This projection is not an official OGC solver result. It proves that the lab can
 
 Still required for real competition work:
 
-1. Generalize the portfolio algorithm against official training and preliminary instances.
-2. Improve against official training/preliminary instances once they are released.
-3. Add deeper placement-level rotate/local-search moves on top of the current assignment-level relocate/swap neighborhood.
+1. Keep the standalone `myalgorithm.py` package self-contained and checker-feasible.
+2. Improve objective quality against official training/preliminary instances once they are released.
+3. Add deeper placement-level search inside the import-free official candidate without depending on repo-local helper modules.
 4. Use official training/preliminary instances when released.
-5. Submit through the official OGC platform, not only Devpost.
+5. Submit only through an allowed official OGC window and record the receipt.

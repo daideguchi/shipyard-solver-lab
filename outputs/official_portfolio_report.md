@@ -5,12 +5,12 @@ This report uses the public OGC 2026 baseline package and official feasibility c
 ## Candidate Algorithm
 
 - File: `official_submission/myalgorithm.py`
-- Method: run the public greedy baseline, then search bay-assignment candidates and keep the best feasible official solution.
+- Method: standalone import-free official-format solver with conservative bounding-box placement and official checker validation.
 - Feasible: True
 - Stage: 5
-- Objective: 1022.6988257889582
+- Objective: 1055.7278963621302
 - obj1 tardiness: 0.0
-- obj2 imbalance: 14.671260826994029
+- obj2 imbalance: 19.3896994803043
 - obj3 preference penalty: 46.0
 
 ## Public Greedy Reference
@@ -24,18 +24,11 @@ This report uses the public OGC 2026 baseline package and official feasibility c
 
 ## Delta
 
-- Objective delta vs greedy: -33.029071
-- Improvement: 33.029071
-
-## Assignment Search Proof
-
-- Candidate assignments evaluated: 1024
-- Exhaustive for this example: True
-- Best static assignment objective: 1022.698826
-- Portfolio matches static bound: True
+- Objective delta vs greedy: 0.0
+- Match or better than greedy: True
 
 ## Boundary
 
 This is an official-example smoke test, not leaderboard evidence.
-It proves that the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on example_B2_b10.
-The static-bound statement is only for this small public example, where all bay assignments are enumerable.
+It proves that the submitted single-file candidate is checker-feasible and no worse than the public greedy reference on example_B2_b10.
+The official platform extracts only myalgorithm.py, so this smoke test prioritizes import-free submission safety over local-only helper modules.

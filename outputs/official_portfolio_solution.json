@@ -5,8 +5,8 @@
         "type": "ENTRY",
         "block_id": 1,
         "bay_id": 0,
-        "x": 8,
-        "y": 0,
+        "x": 0,
+        "y": 8,
         "orient_idx": 0
       }
     ],
@@ -15,9 +15,9 @@
         "type": "ENTRY",
         "block_id": 2,
         "bay_id": 0,
-        "x": 7,
-        "y": 0,
-        "orient_idx": 2
+        "x": 0,
+        "y": 1,
+        "orient_idx": 0
       }
     ],
     "7": [
@@ -54,39 +54,39 @@
     "20": [
       {
         "type": "ENTRY",
-        "block_id": 3,
+        "block_id": 4,
         "bay_id": 1,
-        "x": 27,
-        "y": 7,
-        "orient_idx": 4
+        "x": 1,
+        "y": 1,
+        "orient_idx": 0
       },
       {
         "type": "ENTRY",
-        "block_id": 4,
+        "block_id": 3,
         "bay_id": 1,
-        "x": 9,
+        "x": 6,
         "y": 1,
-        "orient_idx": 2
+        "orient_idx": 0
       }
     ],
     "21": [
       {
         "type": "ENTRY",
         "block_id": 7,
-        "bay_id": 0,
-        "x": 3,
-        "y": 2,
-        "orient_idx": 7
+        "bay_id": 1,
+        "x": 4,
+        "y": 10,
+        "orient_idx": 0
       }
     ],
     "24": [
       {
         "type": "ENTRY",
         "block_id": 5,
-        "bay_id": 1,
-        "x": 37,
-        "y": 0,
-        "orient_idx": 2
+        "bay_id": 0,
+        "x": 0,
+        "y": 1,
+        "orient_idx": 0
       }
     ],
     "27": [
@@ -98,7 +98,7 @@
       {
         "type": "EXIT",
         "block_id": 7,
-        "bay_id": 0
+        "bay_id": 1
       }
     ],
     "30": [
@@ -113,16 +113,16 @@
         "type": "ENTRY",
         "block_id": 8,
         "bay_id": 0,
-        "x": 6,
-        "y": 6,
-        "orient_idx": 4
+        "x": 3,
+        "y": 11,
+        "orient_idx": 0
       }
     ],
     "32": [
       {
         "type": "EXIT",
         "block_id": 5,
-        "bay_id": 1
+        "bay_id": 0
       }
     ],
     "35": [
@@ -137,9 +137,9 @@
         "type": "ENTRY",
         "block_id": 9,
         "bay_id": 0,
-        "x": 9,
-        "y": 3,
-        "orient_idx": 3
+        "x": 1,
+        "y": 5,
+        "orient_idx": 0
       }
     ],
     "45": [
@@ -147,8 +147,8 @@
         "type": "ENTRY",
         "block_id": 6,
         "bay_id": 0,
-        "x": 13,
-        "y": 4,
+        "x": 0,
+        "y": 14,
         "orient_idx": 0
       }
     ],

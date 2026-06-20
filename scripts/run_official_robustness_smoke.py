@@ -66,22 +66,23 @@ def write_report(payload: dict) -> None:
         "",
         "This report uses deterministic synthetic variants derived from the public OGC baseline example.",
         "",
-        "It is not official leaderboard evidence. It checks whether the candidate algorithm stays feasible and improves the public greedy reference when the public example is expanded in size.",
+        "It is not official leaderboard evidence. It checks whether the standalone candidate stays feasible and matches or improves the public greedy reference when the public example is expanded in size.",
         "",
         "## Results",
         "",
-        "| Variant | Blocks | Bays | Greedy objective | Candidate objective | Improvement | Candidate feasible |",
-        "|---|---:|---:|---:|---:|---:|---|",
+        "| Variant | Blocks | Bays | Greedy objective | Candidate objective | Delta vs greedy | Match or better | Candidate feasible |",
+        "|---|---:|---:|---:|---:|---:|---|---|",
     ]
     for item in payload["variants"]:
         lines.append(
-            "| {name} | {blocks} | {bays} | {greedy:.6f} | {candidate:.6f} | {improvement:.6f} | {feasible} |".format(
+            "| {name} | {blocks} | {bays} | {greedy:.6f} | {candidate:.6f} | {delta:.6f} | {match_or_better} | {feasible} |".format(
                 name=item["name"],
                 blocks=item["blocks"],
                 bays=item["bays"],
                 greedy=item["greedy_objective"],
                 candidate=item["candidate_objective"],
-                improvement=item["objective_improvement"],
+                delta=item["objective_delta_vs_greedy"],
+                match_or_better=item["matches_or_improves_greedy"],
                 feasible=item["candidate_feasible"],
             )
         )
@@ -92,7 +93,7 @@ def write_report(payload: dict) -> None:
             "",
             "These variants are deterministic stress checks created from public example data.",
             "They do not replace official training, preliminary, final, or leaderboard instances.",
-            "The useful signal is regression safety: the candidate package remains official-checker feasible and beats the public greedy reference on all included variants.",
+            "The useful signal is regression safety: the single-file candidate remains official-checker feasible and is no worse than the public greedy reference on all included variants.",
             "",
         ]
     )
@@ -127,9 +128,10 @@ def main() -> None:
             candidate_result = check_feasibility(instance, candidate_solution)
             if not candidate_result.get("feasible"):
                 raise SystemExit(f"candidate infeasible on {instance['name']}: {candidate_result}")
-            if candidate_result["objective"] >= greedy_result["objective"]:
+            delta = candidate_result["objective"] - greedy_result["objective"]
+            if delta > 1e-6:
                 raise SystemExit(
-                    f"candidate did not improve greedy on {instance['name']}: "
+                    f"candidate is worse than greedy on {instance['name']}: "
                     f"candidate={candidate_result['objective']} greedy={greedy_result['objective']}"
                 )
 
@@ -148,8 +150,9 @@ def main() -> None:
                     "greedy_obj1": greedy_result["obj1"],
                     "greedy_obj2": greedy_result["obj2"],
                     "greedy_obj3": greedy_result["obj3"],
-                    "objective_delta_vs_greedy": round(candidate_result["objective"] - greedy_result["objective"], 6),
-                    "objective_improvement": round(greedy_result["objective"] - candidate_result["objective"], 6),
+                    "objective_delta_vs_greedy": round(delta, 6),
+                    "objective_improvement": round(-delta, 6),
+                    "matches_or_improves_greedy": delta <= 1e-6,
                 }
             )
 
@@ -159,6 +162,7 @@ def main() -> None:
         "variant_count": len(variants),
         "all_candidates_feasible": all(item["candidate_feasible"] for item in variants),
         "all_candidates_improve_greedy": all(item["objective_improvement"] > 0 for item in variants),
+        "all_candidates_match_or_improve_greedy": all(item["matches_or_improves_greedy"] for item in variants),
         "variants": variants,
     }
     RESULT_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
@@ -168,10 +172,11 @@ def main() -> None:
     print(f"variants={payload['variant_count']}")
     print(f"all_candidates_feasible={payload['all_candidates_feasible']}")
     print(f"all_candidates_improve_greedy={payload['all_candidates_improve_greedy']}")
+    print(f"all_candidates_match_or_improve_greedy={payload['all_candidates_match_or_improve_greedy']}")
     for item in variants:
         print(
             f"{item['name']}: candidate={item['candidate_objective']:.6f} "
-            f"greedy={item['greedy_objective']:.6f} improvement={item['objective_improvement']:.6f}"
+            f"greedy={item['greedy_objective']:.6f} delta={item['objective_delta_vs_greedy']:.6f}"
         )
     print(f"report={REPORT_PATH.relative_to(ROOT)}")
 

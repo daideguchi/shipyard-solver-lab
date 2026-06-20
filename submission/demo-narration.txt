@@ -8,9 +8,9 @@ The official example projection checks that the repository can ingest the public
 
 The official checker smoke test is more important than it looks. It proves the exact operations format and the public feasibility checker before any competitive claim is made.
 
-The strongest proof is the official portfolio candidate. The candidate algorithm wraps the public greedy baseline, searches bay assignments, keeps the best feasible official solution, and improves the public greedy reference on the example.
+The strongest proof is the standalone official candidate. The candidate algorithm is import-free, keeps the official checker green, and matches the public greedy reference on the example.
 
-For this small public example, the search enumerates one thousand twenty four bay assignments and matches the static assignment lower bound. That is not leaderboard evidence, but it is real checker-validated algorithm work.
+The robustness check expands the public example into six deterministic variants. The candidate stays feasible and is no worse than greedy on all of them. That is not leaderboard evidence, but it is real checker-validated algorithm work.
 
 The package panel shows the next submission artifact: an official candidate zip with myalgorithm.py at the archive root.
 

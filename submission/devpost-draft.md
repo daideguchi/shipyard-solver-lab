@@ -38,7 +38,7 @@ After checking the official OGC site, I added a schema-ingestion smoke test agai
 
 I also added an exact official-checker smoke test. It creates a conservative official `operations` solution and runs the public OGC feasibility checker. The smoke solution passes (`feasible=True`, stage 5), but its objective is intentionally poor because only one block is present at a time. The point is to prove the submission format and checker integration before replacing the placeholder with a stronger official-format algorithm.
 
-The newest build includes that stronger first step: `official_submission/myalgorithm.py`, a candidate official algorithm wrapper. It runs the public greedy reference, searches bay-assignment candidates, checks each candidate with the official feasibility checker, and keeps the best feasible solution. On the public `example_B2_b10` instance, it improves the objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. Because this public example is small, the smoke test enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound while staying official-checker feasible. This is still not leaderboard evidence, but it proves a real checker-validated optimization loop on the official public example.
+The newest build includes that stronger first step: `official_submission/myalgorithm.py`, a standalone candidate official algorithm. It is import-free because the official platform extracts only `myalgorithm.py`; it builds conservative bounding-box placements, handles reference-offset coordinates, skips unsafe orientations, tries several deterministic block orders, and keeps the best checker-feasible official-format solution it can construct. On the public `example_B2_b10` instance, it matches the public greedy reference at objective 1055.73 while staying official-checker feasible. On six larger public-example-derived robustness variants, it remains feasible and is no worse than greedy. This is still not leaderboard evidence, but it proves a real submission-shaped, checker-validated algorithm file.
 
 I also added a candidate official package builder. It creates `outputs/official_submission_candidate.zip` with `myalgorithm.py` at the archive root, plus a manifest with hashes, so the next step on the official platform is operational rather than manual.
 
@@ -49,7 +49,7 @@ This is a preparation workbench. It does not claim official OGC 2026 leaderboard
 ## What's Next
 
 - generalize the candidate official algorithm against official training instances
-- add relocate/swap/rotate local search on top of checker-feasible official solutions
+- add deeper placement-level search inside the import-free official candidate
 - add resource and time-window constraints once official rules are published
 - archive best runs by seed and score
 - write the final technical report from real benchmark evidence

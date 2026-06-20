@@ -27,7 +27,7 @@ def main() -> None:
         archive.write(SOURCE, arcname="myalgorithm.py")
 
     manifest = {
-        "boundary": "candidate package for official OGC platform readiness; not submitted yet",
+        "boundary": "candidate package for official OGC platform readiness; send only through an allowed official OGC window",
         "zip_path": str(ZIP_PATH.relative_to(ROOT)),
         "zip_size_bytes": ZIP_PATH.stat().st_size,
         "zip_sha256": sha256(ZIP_PATH),

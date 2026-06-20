@@ -39,7 +39,6 @@ def write_report(payload: dict) -> None:
     portfolio = payload["official_portfolio"]
     greedy = payload["official_greedy_reference"]
     delta = payload["objective_delta_vs_greedy"]
-    assignment = payload["assignment_search"]
     REPORT_PATH.write_text(
         "\n".join(
             [
@@ -50,7 +49,7 @@ def write_report(payload: dict) -> None:
                 "## Candidate Algorithm",
                 "",
                 "- File: `official_submission/myalgorithm.py`",
-                "- Method: run the public greedy baseline, then search bay-assignment candidates and keep the best feasible official solution.",
+                "- Method: standalone import-free official-format solver with conservative bounding-box placement and official checker validation.",
                 f"- Feasible: {portfolio['feasible']}",
                 f"- Stage: {portfolio['stage']}",
                 f"- Objective: {portfolio['objective']}",
@@ -70,20 +69,13 @@ def write_report(payload: dict) -> None:
                 "## Delta",
                 "",
                 f"- Objective delta vs greedy: {delta}",
-                f"- Improvement: {payload['objective_improvement']}",
-                "",
-                "## Assignment Search Proof",
-                "",
-                f"- Candidate assignments evaluated: {assignment['candidate_count']}",
-                f"- Exhaustive for this example: {assignment['exhaustive']}",
-                f"- Best static assignment objective: {assignment['best_static_objective']}",
-                f"- Portfolio matches static bound: {assignment['portfolio_matches_static_bound']}",
+                f"- Match or better than greedy: {payload['matches_or_improves_greedy']}",
                 "",
                 "## Boundary",
                 "",
                 "This is an official-example smoke test, not leaderboard evidence.",
-                "It proves that the repository now contains a checker-validated official-format algorithm candidate that improves over the public greedy reference on example_B2_b10.",
-                "The static-bound statement is only for this small public example, where all bay assignments are enumerable.",
+                "It proves that the submitted single-file candidate is checker-feasible and no worse than the public greedy reference on example_B2_b10.",
+                "The official platform extracts only myalgorithm.py, so this smoke test prioritizes import-free submission safety over local-only helper modules.",
                 "",
             ]
         ),
@@ -116,41 +108,33 @@ def main() -> None:
             raise SystemExit(json.dumps(greedy_result, indent=2))
 
         module = load_myalgorithm()
-        candidate_assignments = module._candidate_assignments(prob_info, greedy_solution)
-        static_scores = [module._static_assignment_score(prob_info, item) for item in candidate_assignments]
-        best_static = min(static_scores)
-        exhaustive_count = len(prob_info["bays"]) ** len(prob_info["blocks"])
-        exhaustive = len(candidate_assignments) == exhaustive_count
-
         candidate_solution = module.algorithm(prob_info, timelimit=10)
         candidate_result = check_feasibility(prob_info, candidate_solution)
         if not candidate_result.get("feasible"):
             raise SystemExit(json.dumps(candidate_result, indent=2))
 
         delta = candidate_result["objective"] - greedy_result["objective"]
-        if delta >= -1e-6:
+        if delta > 1e-6:
             raise SystemExit(
-                f"official portfolio did not improve greedy: candidate={candidate_result['objective']} greedy={greedy_result['objective']}"
+                f"official standalone candidate is worse than greedy: candidate={candidate_result['objective']} greedy={greedy_result['objective']}"
             )
 
         payload = {
             "source": BASELINE_URL,
             "example": prob_info.get("name"),
-            "boundary": "official example smoke only; not leaderboard evidence",
+            "boundary": "official example smoke only; standalone import-free candidate; not leaderboard evidence",
             "official_portfolio": candidate_result,
             "official_greedy_reference": greedy_result,
             "objective_delta_vs_greedy": round(delta, 6),
             "objective_improvement": round(-delta, 6),
+            "matches_or_improves_greedy": delta <= 1e-6,
             "assignment_search": {
-                "candidate_count": len(candidate_assignments),
-                "exhaustive": exhaustive,
-                "exhaustive_count": exhaustive_count,
-                "best_static_objective": round(best_static, 6),
-                "portfolio_matches_static_bound": (
-                    exhaustive
-                    and abs(candidate_result["objective"] - best_static) < 1e-6
-                    and candidate_result["obj1"] == 0
-                ),
+                "candidate_count": 0,
+                "exhaustive": False,
+                "exhaustive_count": None,
+                "best_static_objective": None,
+                "portfolio_matches_static_bound": False,
+                "note": "disabled for official single-file submission safety",
             },
             "greedy_log_head": normalized_log_head(greedy_log.getvalue()),
         }
@@ -163,9 +147,8 @@ def main() -> None:
     print(f"portfolio_feasible={candidate_result['feasible']}")
     print(f"portfolio_objective={candidate_result['objective']:.6f}")
     print(f"greedy_objective={greedy_result['objective']:.6f}")
-    print(f"objective_improvement={payload['objective_improvement']:.6f}")
-    print(f"assignment_candidates={payload['assignment_search']['candidate_count']}")
-    print(f"portfolio_matches_static_bound={payload['assignment_search']['portfolio_matches_static_bound']}")
+    print(f"objective_delta_vs_greedy={payload['objective_delta_vs_greedy']:.6f}")
+    print(f"matches_or_improves_greedy={payload['matches_or_improves_greedy']}")
     print(f"report={REPORT_PATH.relative_to(ROOT)}")
 
 

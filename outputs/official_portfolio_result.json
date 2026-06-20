@@ -1,14 +1,14 @@
 {
   "source": "https://www.optichallenge.com/assets/baseline-latest-BtM0fjcU.zip",
   "example": "example_B2_b10",
-  "boundary": "official example smoke only; not leaderboard evidence",
+  "boundary": "official example smoke only; standalone import-free candidate; not leaderboard evidence",
   "official_portfolio": {
     "feasible": true,
     "stage": 5,
     "violations": [],
-    "objective": 1022.6988257889582,
+    "objective": 1055.7278963621302,
     "obj1": 0.0,
-    "obj2": 14.671260826994029,
+    "obj2": 19.3896994803043,
     "obj3": 46.0
   },
   "official_greedy_reference": {
@@ -20,14 +20,16 @@
     "obj2": 19.3896994803043,
     "obj3": 46.0
   },
-  "objective_delta_vs_greedy": -33.029071,
-  "objective_improvement": 33.029071,
+  "objective_delta_vs_greedy": 0.0,
+  "objective_improvement": -0.0,
+  "matches_or_improves_greedy": true,
   "assignment_search": {
-    "candidate_count": 1024,
-    "exhaustive": true,
-    "exhaustive_count": 1024,
-    "best_static_objective": 1022.698826,
-    "portfolio_matches_static_bound": true
+    "candidate_count": 0,
+    "exhaustive": false,
+    "exhaustive_count": null,
+    "best_static_objective": null,
+    "portfolio_matches_static_bound": false,
+    "note": "disabled for official single-file submission safety"
   },
   "greedy_log_head": [
     "[Greedy] Instance : example_B2_b10",

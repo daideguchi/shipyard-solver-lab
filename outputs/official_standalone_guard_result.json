@@ -7,16 +7,26 @@
       "name": "example_B2_b10",
       "feasible": true,
       "stage": 5,
-      "objective": 281320.78620320855,
+      "objective": 1055.7278963621302,
       "entry": {
         "type": "ENTRY",
-        "block_id": 2,
+        "block_id": 1,
         "bay_id": 0,
         "x": 0,
-        "y": 1,
+        "y": 8,
         "orient_idx": 0
       },
       "operations": {
+        "0": [
+          {
+            "type": "ENTRY",
+            "block_id": 1,
+            "bay_id": 0,
+            "x": 0,
+            "y": 8,
+            "orient_idx": 0
+          }
+        ],
         "4": [
           {
             "type": "ENTRY",
@@ -32,22 +42,16 @@
             "type": "EXIT",
             "block_id": 2,
             "bay_id": 0
-          },
-          {
-            "type": "ENTRY",
-            "block_id": 1,
-            "bay_id": 0,
-            "x": 0,
-            "y": 0,
-            "orient_idx": 0
           }
         ],
-        "15": [
+        "8": [
           {
             "type": "EXIT",
             "block_id": 1,
             "bay_id": 0
-          },
+          }
+        ],
+        "10": [
           {
             "type": "ENTRY",
             "block_id": 0,
@@ -57,12 +61,14 @@
             "orient_idx": 0
           }
         ],
-        "22": [
+        "17": [
           {
             "type": "EXIT",
             "block_id": 0,
             "bay_id": 0
-          },
+          }
+        ],
+        "20": [
           {
             "type": "ENTRY",
             "block_id": 4,
@@ -70,44 +76,27 @@
             "x": 1,
             "y": 1,
             "orient_idx": 0
-          }
-        ],
-        "29": [
-          {
-            "type": "EXIT",
-            "block_id": 4,
-            "bay_id": 1
           },
           {
             "type": "ENTRY",
+            "block_id": 3,
+            "bay_id": 1,
+            "x": 6,
+            "y": 1,
+            "orient_idx": 0
+          }
+        ],
+        "21": [
+          {
+            "type": "ENTRY",
             "block_id": 7,
-            "bay_id": 0,
+            "bay_id": 1,
             "x": 4,
-            "y": 1,
+            "y": 10,
             "orient_idx": 0
           }
         ],
-        "35": [
-          {
-            "type": "EXIT",
-            "block_id": 7,
-            "bay_id": 0
-          },
-          {
-            "type": "ENTRY",
-            "block_id": 3,
-            "bay_id": 1,
-            "x": 1,
-            "y": 1,
-            "orient_idx": 0
-          }
-        ],
-        "45": [
-          {
-            "type": "EXIT",
-            "block_id": 3,
-            "bay_id": 1
-          },
+        "24": [
           {
             "type": "ENTRY",
             "block_id": 5,
@@ -117,27 +106,50 @@
             "orient_idx": 0
           }
         ],
-        "53": [
+        "27": [
           {
             "type": "EXIT",
-            "block_id": 5,
-            "bay_id": 0
+            "block_id": 4,
+            "bay_id": 1
           },
+          {
+            "type": "EXIT",
+            "block_id": 7,
+            "bay_id": 1
+          }
+        ],
+        "30": [
+          {
+            "type": "EXIT",
+            "block_id": 3,
+            "bay_id": 1
+          }
+        ],
+        "31": [
           {
             "type": "ENTRY",
             "block_id": 8,
             "bay_id": 0,
             "x": 3,
-            "y": 1,
+            "y": 11,
             "orient_idx": 0
           }
         ],
-        "57": [
+        "32": [
+          {
+            "type": "EXIT",
+            "block_id": 5,
+            "bay_id": 0
+          }
+        ],
+        "35": [
           {
             "type": "EXIT",
             "block_id": 8,
             "bay_id": 0
-          },
+          }
+        ],
+        "39": [
           {
             "type": "ENTRY",
             "block_id": 9,
@@ -147,22 +159,24 @@
             "orient_idx": 0
           }
         ],
-        "64": [
-          {
-            "type": "EXIT",
-            "block_id": 9,
-            "bay_id": 0
-          },
+        "45": [
           {
             "type": "ENTRY",
             "block_id": 6,
             "bay_id": 0,
             "x": 0,
-            "y": 4,
+            "y": 14,
             "orient_idx": 0
           }
         ],
-        "70": [
+        "46": [
+          {
+            "type": "EXIT",
+            "block_id": 9,
+            "bay_id": 0
+          }
+        ],
+        "51": [
           {
             "type": "EXIT",
             "block_id": 6,
@@ -206,6 +220,72 @@
     },
     {
       "name": "standalone_integer_position_guard",
+      "feasible": true,
+      "stage": 5,
+      "objective": 0.0,
+      "entry": {
+        "type": "ENTRY",
+        "block_id": 0,
+        "bay_id": 0,
+        "x": 0,
+        "y": 0,
+        "orient_idx": 1
+      },
+      "operations": {
+        "0": [
+          {
+            "type": "ENTRY",
+            "block_id": 0,
+            "bay_id": 0,
+            "x": 0,
+            "y": 0,
+            "orient_idx": 1
+          }
+        ],
+        "1": [
+          {
+            "type": "EXIT",
+            "block_id": 0,
+            "bay_id": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "standalone_reference_offset_guard",
+      "feasible": true,
+      "stage": 5,
+      "objective": 0.0,
+      "entry": {
+        "type": "ENTRY",
+        "block_id": 0,
+        "bay_id": 0,
+        "x": 0,
+        "y": 0,
+        "orient_idx": 0
+      },
+      "operations": {
+        "0": [
+          {
+            "type": "ENTRY",
+            "block_id": 0,
+            "bay_id": 0,
+            "x": 0,
+            "y": 0,
+            "orient_idx": 0
+          }
+        ],
+        "1": [
+          {
+            "type": "EXIT",
+            "block_id": 0,
+            "bay_id": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "standalone_cancellation_bound_guard",
       "feasible": true,
       "stage": 5,
       "objective": 0.0,

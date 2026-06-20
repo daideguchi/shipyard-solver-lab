@@ -219,7 +219,7 @@
       <div class="grid-3">
         <div class="card"><h3>Who</h3><p>Builders entering OGC who need a working algorithm pipeline before the official scoring window starts.</p></div>
         <div class="card"><h3>Pain</h3><p>Optimization entries fail when the solver, checker, benchmark, report, and submission zip are not reproducible.</p></div>
-        <div class="card"><h3>Judge Signal</h3><p>This project already runs the public official checker, improves the public greedy example, and builds the candidate package.</p></div>
+        <div class="card"><h3>Judge Signal</h3><p>This project runs the public official checker, matches the public greedy example with a single-file candidate, improves robustness variants, and builds the candidate package.</p></div>
       </div>
     </section>
 
@@ -264,7 +264,7 @@
         </div>
         <div class="card">
           <h3>Next Move</h3>
-          <p>Scale the checker-validated candidate algorithm from the public example to official training instances as soon as the official platform opens.</p>
+          <p>Scale the single-file checker-validated candidate from the public example to official training instances as soon as the official platform opens.</p>
         </div>
         <div class="card">
           <h3>Best Run</h3>
@@ -368,7 +368,7 @@
         'Pain': '困りごと',
         'Optimization entries fail when the solver, checker, benchmark, report, and submission zip are not reproducible.': 'ソルバー、チェッカー、ベンチマーク、レポート、提出zipが再現できないと、最適化コンテストの信頼を失います。',
         'Judge Signal': '勝ち筋',
-        'This project already runs the public official checker, improves the public greedy example, and builds the candidate package.': '公開公式チェッカーを実行し、公開greedy例を改善し、候補提出パッケージまで作っています。',
+        'This project runs the public official checker, matches the public greedy example with a single-file candidate, improves robustness variants, and builds the candidate package.': '公開公式チェッカーを実行し、単体候補で公開greedy例と同等になり、ロバスト性ケースで改善し、候補提出パッケージまで作っています。',
         'Run Boundary': '実行範囲',
         'not official data': '公式データではありません',
         'This dashboard shows the local toy instance only. It proves the solver loop: load, solve, validate, score, visualize, report.': 'この画面はローカルの小さな例だけを表示します。読み込み、解く、検証、採点、可視化、レポート化のループを証明します。',
@@ -393,7 +393,7 @@
         'Rotated': '回転',
         'Beam search plus multi-start constructive baselines. The solver keeps multiple partial layouts, then ranks them by placement coverage, lateness, compactness, and validation status.': 'ビームサーチと複数初期値の構成的ベースラインを使います。ソルバーは複数の途中配置を保持し、配置カバー率、遅れ、密度、検証状態で順位付けします。',
         'OGC rewards algorithm performance, report quality, and code quality. This workbench is built around those three judging surfaces.': 'OGCは、アルゴリズム性能、レポート品質、コード品質を評価します。このワークベンチは、その3つの審査面を中心に作っています。',
-        'Scale the checker-validated candidate algorithm from the public example to official training instances as soon as the official platform opens.': '公式プラットフォームが開いたら、チェッカーで検証済みの候補アルゴリズムを、公開例から公式訓練インスタンスへ広げます。',
+        'Scale the single-file checker-validated candidate from the public example to official training instances as soon as the official platform opens.': '公式プラットフォームが開いたら、チェッカーで検証済みの単体候補を、公開例から公式訓練インスタンスへ広げます。',
         'Loading benchmark archive.': 'ベンチマーク記録を読み込み中。',
         'Loading baseline comparison.': 'ベースライン比較を読み込み中。',
         'Loading official baseline example projection.': '公式ベースライン例の投影を読み込み中。',
@@ -461,14 +461,14 @@
         ? `保守的な順次解で公式チェッカーがPASSしました。feasible=${officialChecker.simple_sequential.feasible}、stage ${officialChecker.simple_sequential.stage}。greedy参照目的値は ${officialChecker.official_greedy_reference.objective.toFixed(2)}。これは形式統合の証拠であり、競争力の主張ではありません。`
         : `Exact official checker PASS on a conservative sequential solution: feasible=${officialChecker.simple_sequential.feasible}, stage ${officialChecker.simple_sequential.stage}. Greedy reference objective ${officialChecker.official_greedy_reference.objective.toFixed(2)}. This proves format integration, not competitiveness.`;
       document.querySelector('#officialPortfolioText').textContent = currentLang === 'ja'
-        ? `公式形式の候補アルゴリズムがPASSしました。目的値 ${officialPortfolio.official_portfolio.objective.toFixed(2)}、greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)} に対して、公開 example_B2_b10 で ${officialPortfolio.objective_improvement.toFixed(2)} 改善。${officialPortfolio.assignment_search.candidate_count} 件のベイ割当を列挙し、静的上限と一致します。リーダーボード証拠ではありません。`
-        : `Candidate official algorithm PASS: objective ${officialPortfolio.official_portfolio.objective.toFixed(2)} vs greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}, an improvement of ${officialPortfolio.objective_improvement.toFixed(2)} on public example_B2_b10. It enumerates ${officialPortfolio.assignment_search.candidate_count} bay assignments and matches the static bound. Not leaderboard evidence.`;
+        ? `公式形式の単体候補アルゴリズムがPASSしました。目的値 ${officialPortfolio.official_portfolio.objective.toFixed(2)}、greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}、差分 ${officialPortfolio.objective_delta_vs_greedy.toFixed(2)}。公開 example_B2_b10 で greedy 同等以上です。リーダーボード証拠ではありません。`
+        : `Standalone candidate official algorithm PASS: objective ${officialPortfolio.official_portfolio.objective.toFixed(2)} vs greedy ${officialPortfolio.official_greedy_reference.objective.toFixed(2)}, delta ${officialPortfolio.objective_delta_vs_greedy.toFixed(2)}. It matches or improves greedy on public example_B2_b10. Not leaderboard evidence.`;
       const robustnessImprovements = officialRobustness.variants.map((item) => item.objective_improvement);
       const bestRobustness = Math.max(...robustnessImprovements).toFixed(2);
       const worstRobustness = Math.min(...robustnessImprovements).toFixed(2);
       document.querySelector('#officialRobustnessText').textContent = currentLang === 'ja'
-        ? `公開例から作った ${officialRobustness.variant_count} 件の拡張ケースすべてで、候補が公式チェッカーに通り、greedyより良い結果でした。最大改善 ${bestRobustness}、最小改善 ${worstRobustness}。これはロバスト性確認であり、リーダーボード証拠ではありません。`
-        : `Candidate beats greedy on ${officialRobustness.variant_count} public-example-derived variants while staying official-checker feasible. Best improvement ${bestRobustness}, worst improvement ${worstRobustness}. This is robustness smoke, not leaderboard evidence.`;
+        ? `公開例から作った ${officialRobustness.variant_count} 件の拡張ケースすべてで、候補が公式チェッカーに通り、greedy同等以上でした。最大改善 ${bestRobustness}、最小改善 ${worstRobustness}。これはロバスト性確認であり、リーダーボード証拠ではありません。`
+        : `Candidate matches or improves greedy on ${officialRobustness.variant_count} public-example-derived variants while staying official-checker feasible. Best improvement ${bestRobustness}, worst improvement ${worstRobustness}. This is robustness smoke, not leaderboard evidence.`;
     }
 
     function renderYards(instance, solution) {

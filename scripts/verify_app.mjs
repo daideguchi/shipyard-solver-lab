@@ -72,13 +72,13 @@ if (!body.includes('Official Example Projection') || !body.includes('Not officia
 if (!body.includes('Official Checker Smoke') || !body.includes('Exact official checker PASS')) {
   throw new Error('missing official checker smoke proof');
 }
-if (!body.includes('Official Portfolio Candidate') || !body.includes('Candidate official algorithm PASS')) {
+if (!body.includes('Official Portfolio Candidate') || !body.includes('Standalone candidate official algorithm PASS')) {
   throw new Error('missing official portfolio candidate proof');
 }
-if (!body.includes('1024 bay assignments') || !body.includes('matches the static bound')) {
-  throw new Error('missing official portfolio static-bound proof');
+if (!body.includes('matches or improves greedy on public example_B2_b10')) {
+  throw new Error('missing official portfolio greedy-match proof');
 }
-if (!body.includes('Official Robustness Smoke') || !body.includes('Candidate beats greedy on 6 public-example-derived variants')) {
+if (!body.includes('Official Robustness Smoke') || !body.includes('Candidate matches or improves greedy on 6 public-example-derived variants')) {
   throw new Error('missing official robustness smoke proof');
 }
 if (!body.includes('not leaderboard evidence')) {
@@ -93,12 +93,12 @@ const japaneseBody = await page.locator('body').innerText();
 if (!japaneseBody.includes('造船所ソルバーラボ') || !japaneseBody.includes('解く・検証する・提出パッケージ化する')) {
   throw new Error('Japanese UI toggle failed');
 }
-for (const marker of ['最高実行はベースラインより', '公式チェッカーがPASSしました', '公式形式の候補アルゴリズムがPASSしました', '公式チェッカーに通り、greedyより良い結果でした', 'いいえ']) {
+for (const marker of ['最高実行はベースラインより', '公式チェッカーがPASSしました', '公式形式の単体候補アルゴリズムがPASSしました', '公式チェッカーに通り、greedy同等以上でした', 'いいえ']) {
   if (!japaneseBody.includes(marker)) {
     throw new Error(`Japanese dynamic UI missing marker: ${marker}`);
   }
 }
-for (const leaked of ['candidates validated', 'Exact official checker PASS', 'Candidate official algorithm PASS', 'Candidate beats greedy', '>yes<']) {
+for (const leaked of ['candidates validated', 'Exact official checker PASS', 'Standalone candidate official algorithm PASS', 'Candidate matches or improves greedy', '>yes<']) {
   if (japaneseBody.includes(leaked)) {
     throw new Error(`Japanese UI leaked English dynamic text: ${leaked}`);
   }

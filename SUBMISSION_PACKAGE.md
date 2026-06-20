@@ -16,7 +16,7 @@ For optimization competitors who need proof before official data opens, Shipyard
 
 - Who: OGC builders who need solver progress, checker proof, benchmarks, reports, and package readiness in one loop.
 - Problem: an algorithm idea is not enough if the checker fails, outputs are not reproducible, or the submission package is shaped wrong.
-- How: the repo runs solver benchmarks, official-example projection, official checker smoke, public-example portfolio search, deterministic robustness smoke variants, generated reports, screenshots, narrated demo assets, and a candidate official zip.
+- How: the repo runs solver benchmarks, official-example projection, official checker smoke, a standalone official candidate, deterministic robustness smoke variants, generated reports, screenshots, narrated demo assets, and a candidate official zip.
 
 ## Public Links
 
@@ -48,13 +48,13 @@ After checking the official OGC site, I also added an official-example projectio
 
 I also added an exact official-checker smoke test. It builds a conservative official `operations` solution, runs the public OGC feasibility checker, and verifies `feasible=True` at stage 5. The objective is intentionally poor because only one block is present at a time. That is a feature, not a claim: it proves the submission format and checker integration before optimizing.
 
-The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. It runs the public greedy baseline, searches bay-assignment candidates, then uses remaining time for a relocate/swap/dual-relocate neighborhood around the best checker-feasible assignment. A neighbor is only accepted if the official checker confirms a lower objective, so the algorithm never has to trade feasibility for experimentation. On the public `example_B2_b10` instance, the candidate improves the official checker objective from 1055.73 to 1022.70, a 33.03 point improvement over the public greedy reference. Because the public example has only 10 blocks and 2 bays, the smoke test enumerates all 1,024 bay assignments and verifies that the candidate matches the static assignment lower bound. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a working, checker-validated optimization loop on the public example.
+The latest step replaces that placeholder with a real candidate official algorithm in `official_submission/myalgorithm.py`. The candidate is standalone and import-free because the official platform extracts only `myalgorithm.py`. It builds conservative bounding-box placements, handles reference-offset coordinates, skips unsafe orientations, tries several deterministic block orders, and returns the best checker-feasible official-format solution it can construct. On the public `example_B2_b10` instance, the candidate matches the public greedy reference at objective 1055.73 while preserving official checker feasibility. This is not leaderboard evidence, but it is no longer just a format smoke test: it is a submission-shaped, checker-validated algorithm file.
 
-To reduce the risk of overfitting the tiny public example, I added a deterministic robustness smoke test. It creates six larger variants from the public example, then compares the candidate algorithm with the public greedy reference through the official feasibility checker. The candidate stays feasible and improves greedy on all six variants: +446.50 on `synthetic_B2_b12`, +1526.81 on `synthetic_B3_b14`, +846.29 on `synthetic_B3_b16`, +2561.17 on `synthetic_B3_b18`, +2985.45 on `synthetic_B3_b20`, and +1202.03 on `synthetic_B3_b24`. These are still public-example-derived checks, not leaderboard evidence. The value is practical: the repository now has a regression guard for larger official-format inputs before official training instances are available.
+To reduce the risk of overfitting the tiny public example, I added a deterministic robustness smoke test. It creates six larger variants from the public example, then compares the candidate algorithm with the public greedy reference through the official feasibility checker. The candidate stays feasible and is no worse than greedy on all six variants, with objective deltas of -300.18 on `synthetic_B2_b12`, -1504.13 on `synthetic_B3_b14`, -387.64 on `synthetic_B3_b16`, -1856.34 on `synthetic_B3_b18`, -2659.58 on `synthetic_B3_b20`, and -318.14 on `synthetic_B3_b24`. These are still public-example-derived checks, not leaderboard evidence. The value is practical: the repository now has a regression guard for larger official-format inputs before official training instances are available.
 
-The repository also builds `outputs/official_submission_candidate.zip`, a candidate package with `myalgorithm.py` at the archive root. This is not submitted yet; it is a readiness artifact for when the official platform opens.
+The repository also builds `outputs/official_submission_candidate.zip`, a candidate package with `myalgorithm.py` at the archive root. It must be sent only through an allowed official OGC submission window.
 
-The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps. For review, the repository includes a 118 second narrated demo video with video, audio, and subtitle streams. The demo walks through the dashboard, official-example projection, official checker smoke, official portfolio candidate, official package proof, yard layout, and solution table. It is a walkthrough of the reproducible workflow, not leaderboard evidence.
+The browser dashboard reads generated JSON artifacts and visualizes the best solution. It also displays the run boundary, benchmark count, baseline improvement, best solver name, and placement table. The generated technical report records the instance, solver parameters, metrics, placements, and next algorithm steps. For review, the repository includes a 118 second narrated demo video with video, audio, and subtitle streams. The demo walks through the dashboard, official-example projection, official checker smoke, official candidate, official package proof, yard layout, and solution table. It is a walkthrough of the reproducible workflow, not leaderboard evidence.
 
 This is not claiming official OGC leaderboard performance. It is a contest-ready operating loop: solver, validator, scorer, benchmark archive, dashboard, and report generator. When the official schema and data are available, this repository is ready to swap in the official loader and continue improving the algorithm from a reproducible baseline.
 
@@ -68,7 +68,7 @@ This is not claiming official OGC leaderboard performance. It is a contest-ready
 - The official checker smoke proves format feasibility only; it is not competitive.
 - The official portfolio smoke is measured only on the public example, not on official training, preliminary, final, or leaderboard instances.
 - The official robustness smoke uses deterministic variants derived from the public example only; it is not official training, preliminary, final, or leaderboard evidence.
-- The official submission zip is a candidate package only and has not been uploaded to the official OGC platform.
+- The official submission zip is a candidate package only and must be sent only through an allowed official OGC submission window.
 - The narrated demo is a product walkthrough only; it does not add any leaderboard claim.
 
 ## Verification
@@ -116,11 +116,10 @@ Official portfolio smoke:
 npm run official-portfolio
 official_portfolio_smoke_ok
 portfolio_feasible=True
-portfolio_objective=1022.698826
+portfolio_objective=1055.727896
 greedy_objective=1055.727896
-objective_improvement=33.029071
-assignment_candidates=1024
-portfolio_matches_static_bound=True
+objective_delta_vs_greedy=0.000000
+matches_or_improves_greedy=True
 ```
 
 Official robustness smoke:
@@ -131,12 +130,12 @@ official_robustness_smoke_ok
 variants=6
 all_candidates_feasible=True
 all_candidates_improve_greedy=True
-synthetic_B2_b12: candidate=1366.056678 greedy=1812.553857 improvement=446.497179
-synthetic_B3_b14: candidate=1084.812759 greedy=2611.626011 improvement=1526.813252
-synthetic_B3_b16: candidate=901.905038 greedy=1748.195903 improvement=846.290865
-synthetic_B3_b18: candidate=1183.073511 greedy=3744.245261 improvement=2561.171751
-synthetic_B3_b20: candidate=1487.465993 greedy=4472.911928 improvement=2985.445935
-synthetic_B3_b24: candidate=1645.678642 greedy=2847.708322 improvement=1202.029680
+synthetic_B2_b12: candidate=1512.370044 greedy=1812.553857 delta_vs_greedy=-300.183813
+synthetic_B3_b14: candidate=1107.497693 greedy=2611.626011 delta_vs_greedy=-1504.128318
+synthetic_B3_b16: candidate=1360.556393 greedy=1748.195903 delta_vs_greedy=-387.639509
+synthetic_B3_b18: candidate=1887.910173 greedy=3744.245261 delta_vs_greedy=-1856.335089
+synthetic_B3_b20: candidate=1813.328413 greedy=4472.911928 delta_vs_greedy=-2659.583515
+synthetic_B3_b24: candidate=2529.572218 greedy=2847.708322 delta_vs_greedy=-318.136104
 ```
 
 Official package:

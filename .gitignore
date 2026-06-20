@@ -3,3 +3,5 @@ __pycache__/
 node_modules/
 .DS_Store
 outputs/official_baseline_latest.zip
+media/shipyard-solver-lab-demo.webm
+media/demo-video-raw/

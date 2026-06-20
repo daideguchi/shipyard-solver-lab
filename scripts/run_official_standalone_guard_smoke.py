@@ -71,12 +71,59 @@ def integer_position_case() -> dict:
                 "workload": 1,
                 "bay_preferences": [1],
                 "shape": [
-                    {"orientation": 0, "layers": [rect(-0.2, 0, 9.2, 2)]},
+                    {"orientation": 0, "layers": [rect(-0.2, 0, 10.2, 2)]},
                     {"orientation": 1, "layers": [rect(0, 0, 9, 2)]},
                 ],
             }
         ],
     )
+
+
+def reference_offset_case() -> dict:
+    return base_instance(
+        "standalone_reference_offset_guard",
+        [
+            {
+                "release_time": 0,
+                "due_date": 10,
+                "processing_time": 1,
+                "workload": 1,
+                "bay_preferences": [1],
+                "shape": [{"orientation": 0, "layers": [rect(2, 3, 8, 7)]}],
+            }
+        ],
+    )
+
+
+def cancellation_bound_case() -> dict:
+    return {
+        "name": "standalone_cancellation_bound_guard",
+        "bays": [{"width": 7, "height": 7}],
+        "blocks": [
+            {
+                "release_time": 0,
+                "due_date": 10,
+                "processing_time": 1,
+                "workload": 1,
+                "bay_preferences": [1],
+                "shape": [
+                    {
+                        "orientation": 0,
+                        "layers": [
+                            rect(
+                                5.79860219333748,
+                                5.546684832689908,
+                                6.79860219333748,
+                                12.546684832689909,
+                            )
+                        ],
+                    },
+                    {"orientation": 1, "layers": [rect(0, 0, 1, 6)]},
+                ],
+            }
+        ],
+        "weights": {"w1": 1.0, "w2": 1.0, "w3": 1.0},
+    }
 
 
 def first_entry(solution: dict) -> dict:
@@ -142,12 +189,18 @@ def main() -> None:
             run_case(module, check_feasibility, public_example),
             run_case(module, check_feasibility, fractional_time_case()),
             run_case(module, check_feasibility, integer_position_case()),
+            run_case(module, check_feasibility, reference_offset_case()),
+            run_case(module, check_feasibility, cancellation_bound_case()),
         ]
 
     if cases[1]["entry"]["orient_idx"] != 0:
         raise SystemExit(f"fractional timing guard selected unexpected orientation: {cases[1]['entry']}")
     if cases[2]["entry"]["orient_idx"] != 1:
         raise SystemExit(f"integer position guard did not skip invalid orientation: {cases[2]['entry']}")
+    if cases[3]["entry"]["x"] != 0 or cases[3]["entry"]["y"] != 0:
+        raise SystemExit(f"reference offset guard selected unexpected position: {cases[3]['entry']}")
+    if cases[4]["entry"]["orient_idx"] != 1:
+        raise SystemExit(f"cancellation bound guard did not skip invalid orientation: {cases[4]['entry']}")
 
     payload = {
         "source": BASELINE_URL,

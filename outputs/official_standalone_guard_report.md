@@ -4,9 +4,11 @@ This report targets hidden-instance risk in the single-file fallback algorithm.
 
 ## Guards
 
-- `example_B2_b10`: feasible=True stage=5 entry={'type': 'ENTRY', 'block_id': 2, 'bay_id': 0, 'x': 0, 'y': 1, 'orient_idx': 0}
+- `example_B2_b10`: feasible=True stage=5 entry={'type': 'ENTRY', 'block_id': 1, 'bay_id': 0, 'x': 0, 'y': 8, 'orient_idx': 0}
 - `standalone_fractional_time_guard`: feasible=True stage=5 entry={'type': 'ENTRY', 'block_id': 0, 'bay_id': 0, 'x': 0, 'y': 0, 'orient_idx': 0}
 - `standalone_integer_position_guard`: feasible=True stage=5 entry={'type': 'ENTRY', 'block_id': 0, 'bay_id': 0, 'x': 0, 'y': 0, 'orient_idx': 1}
+- `standalone_reference_offset_guard`: feasible=True stage=5 entry={'type': 'ENTRY', 'block_id': 0, 'bay_id': 0, 'x': 0, 'y': 0, 'orient_idx': 0}
+- `standalone_cancellation_bound_guard`: feasible=True stage=5 entry={'type': 'ENTRY', 'block_id': 0, 'bay_id': 0, 'x': 0, 'y': 0, 'orient_idx': 1}
 
 ## Boundary
 

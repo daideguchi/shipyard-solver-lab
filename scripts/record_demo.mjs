@@ -7,6 +7,7 @@ import http from 'http';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const videoDir = path.join(root, 'media', 'demo-video-raw');
 const finalVideo = path.join(root, 'media', 'shipyard-solver-lab-demo.webm');
+const localChromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const contentTypes = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -38,7 +39,14 @@ const server = http.createServer(async (req, res) => {
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const { port } = server.address();
 
-const browser = await chromium.launch();
+const launchOptions = {};
+try {
+  await fs.access(localChromePath);
+  launchOptions.executablePath = localChromePath;
+} catch {
+  // Fall back to Playwright's bundled browser when available.
+}
+const browser = await chromium.launch(launchOptions);
 const context = await browser.newContext({
   viewport: { width: 1440, height: 1080 },
   recordVideo: {

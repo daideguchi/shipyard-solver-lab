@@ -20,11 +20,11 @@ The official checker smoke test proves exact operations format and public feasib
 
 6
 00:01:05,000 --> 00:01:22,000
-The portfolio candidate wraps the public greedy baseline, searches bay assignments, and keeps the best feasible solution.
+The standalone official candidate is import-free, checker-feasible, and matches greedy on the public example.
 
 7
 00:01:22,000 --> 00:01:39,000
-On the public example, it improves the greedy reference and matches the static assignment lower bound after 1,024 assignments.
+The robustness check expands the public example into six variants where the candidate is no worse than greedy.
 
 8
 00:01:39,000 --> 00:01:51,000
