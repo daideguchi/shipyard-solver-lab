@@ -153,6 +153,30 @@ def _candidate_orders(prob_info):
                 idx,
             ),
         ),
+        sorted(
+            range(len(blocks)),
+            key=lambda idx: (
+                -blocks[idx].get("processing_time", 0),
+                blocks[idx].get("due_date", 0),
+                idx,
+            ),
+        ),
+        sorted(
+            range(len(blocks)),
+            key=lambda idx: (
+                blocks[idx].get("due_date", 0),
+                -blocks[idx].get("workload", 0),
+                idx,
+            ),
+        ),
+        sorted(
+            range(len(blocks)),
+            key=lambda idx: (
+                blocks[idx].get("release_time", 0) + blocks[idx].get("processing_time", 0),
+                blocks[idx].get("due_date", 0),
+                idx,
+            ),
+        ),
     ]
     unique = []
     seen = set()
@@ -241,15 +265,19 @@ def _candidate_positions(block, orient_idx, bay, active):
     left, bottom, right, top = _bbox_offsets(block, orient_idx)
     xs = {min_x}
     ys = {min_y}
+    xs.add(max_x)
+    ys.add(max_y)
     for placement in active:
         bbox = placement["bbox"]
+        xs.add(_floor(bbox[0] - right))
         xs.add(_ceil(bbox[2] - left))
         xs.add(_ceil(bbox[2] - left + 0.000001))
+        ys.add(_floor(bbox[1] - top))
         ys.add(_ceil(bbox[3] - bottom))
         ys.add(_ceil(bbox[3] - bottom + 0.000001))
     valid_xs = [x for x in sorted(xs) if min_x <= x <= max_x]
     valid_ys = [y for y in sorted(ys) if min_y <= y <= max_y]
-    return valid_xs[:40], valid_ys[:40]
+    return valid_xs[:60], valid_ys[:60]
 
 
 def _best_fit(block, bays, placements_by_bay, bay_loads, weights):
