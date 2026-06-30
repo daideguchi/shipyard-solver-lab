@@ -6,6 +6,7 @@
     "official-checker": "uv run --with shapely python scripts/run_official_checker_smoke.py",
     "official-package": "python3 scripts/build_official_submission_package.py",
     "official-portfolio": "uv run --with shapely python scripts/run_official_portfolio_smoke.py",
+    "official-deep-robustness": "uv run --with shapely python scripts/run_official_deep_robustness_probe.py",
     "official-robustness": "uv run --with shapely python scripts/run_official_robustness_smoke.py",
     "official-standalone-guard": "uv run --with shapely python scripts/run_official_standalone_guard_smoke.py",
     "official-smoke": "python3 scripts/run_official_example_projection.py",

@@ -174,12 +174,32 @@ all_candidates_improve_greedy=True
 synthetic_B2_b12: candidate=1512.370044 greedy=1812.553857 delta_vs_greedy=-300.183813
 synthetic_B3_b14: candidate=1107.497693 greedy=2611.626011 delta_vs_greedy=-1504.128318
 synthetic_B3_b16: candidate=1360.556393 greedy=1748.195903 delta_vs_greedy=-387.639509
-synthetic_B3_b18: candidate=1887.910173 greedy=3744.245261 delta_vs_greedy=-1856.335089
-synthetic_B3_b20: candidate=1813.328413 greedy=4472.911928 delta_vs_greedy=-2659.583515
-synthetic_B3_b24: candidate=2529.572218 greedy=2847.708322 delta_vs_greedy=-318.136104
+synthetic_B3_b18: candidate=1183.073511 greedy=3744.245261 delta_vs_greedy=-2561.171751
+synthetic_B3_b20: candidate=1532.799001 greedy=4472.911928 delta_vs_greedy=-2940.112927
+synthetic_B3_b24: candidate=2215.626445 greedy=2847.708322 delta_vs_greedy=-632.081876
 ```
 
 This is a deterministic stress check built from the public OGC example. It is not official leaderboard evidence and it does not replace official training or final instances. Its value is regression safety: the single-file candidate stays official-checker feasible and is no worse than the public greedy reference on six larger public-example-derived variants.
+
+For a broader regression probe:
+
+```bash
+npm run official-deep-robustness
+```
+
+Current result:
+
+```text
+official_deep_robustness_probe_ok
+variants=40
+all_candidates_feasible=True
+all_candidates_match_or_improve_greedy=True
+improved_count=38
+worst_delta_vs_greedy=0.000000
+best_improvement_vs_greedy=4052.616781
+```
+
+This uses only public-example-derived variants. It is still not leaderboard evidence, but it gives a wider no-worse regression check before sending another official package.
 
 ## Official Submission Package
 

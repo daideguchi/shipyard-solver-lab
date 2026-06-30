@@ -208,6 +208,34 @@ def _bay_weights(bays):
     return [avg_area / area if area else 1 for area in areas]
 
 
+def _candidate_weight_profiles(prob_info):
+    weights = prob_info.get("weights", {})
+    base = {
+        "w1": weights.get("w1", 1),
+        "w2": weights.get("w2", 1),
+        "w3": weights.get("w3", 1),
+    }
+    profiles = [
+        base,
+        {"w1": base["w1"], "w2": base["w2"] * 2, "w3": base["w3"]},
+        {"w1": base["w1"], "w2": base["w2"], "w3": base["w3"] * 2},
+        {"w1": base["w1"], "w2": base["w2"] // 2 if base["w2"] > 1 else base["w2"], "w3": base["w3"]},
+        {"w1": base["w1"], "w2": base["w2"], "w3": base["w3"] // 2 if base["w3"] > 1 else base["w3"]},
+    ]
+    if len(prob_info.get("blocks", [])) > 80:
+        profiles = profiles[:2]
+
+    unique = []
+    seen = set()
+    for profile in profiles:
+        signature = (profile["w1"], profile["w2"], profile["w3"])
+        if signature in seen:
+            continue
+        seen.add(signature)
+        unique.append(profile)
+    return unique
+
+
 def _imbalance_after(bay_loads, bay_weights, bay_id, workload):
     if len(bay_loads) < 2:
         return 0
@@ -260,7 +288,33 @@ def _candidate_entries(placements, release_time):
     return sorted(entries)
 
 
-def _candidate_positions(block, orient_idx, bay, active):
+def _bounded_candidates(values, limit=60):
+    ordered = sorted(values)
+    if len(ordered) <= limit:
+        return ordered
+
+    edge_count = limit // 4
+    picked = []
+    for value in ordered[:edge_count]:
+        picked.append(value)
+    for value in ordered[-edge_count:]:
+        picked.append(value)
+
+    remaining = limit - len(picked)
+    middle_start = edge_count
+    middle_end = len(ordered) - edge_count
+    span = middle_end - middle_start
+    if remaining > 0 and span > 0:
+        for offset in range(remaining):
+            index = middle_start + int((offset + 0.5) * span / remaining)
+            if index >= middle_end:
+                index = middle_end - 1
+            picked.append(ordered[index])
+
+    return sorted(set(picked))
+
+
+def _candidate_positions(block, orient_idx, bay, active, mode):
     min_x, max_x, min_y, max_y = _placement_bounds(block, orient_idx, bay)
     left, bottom, right, top = _bbox_offsets(block, orient_idx)
     xs = {min_x}
@@ -277,10 +331,12 @@ def _candidate_positions(block, orient_idx, bay, active):
         ys.add(_ceil(bbox[3] - bottom + 0.000001))
     valid_xs = [x for x in sorted(xs) if min_x <= x <= max_x]
     valid_ys = [y for y in sorted(ys) if min_y <= y <= max_y]
-    return valid_xs[:60], valid_ys[:60]
+    if mode == "legacy":
+        return valid_xs[:60], valid_ys[:60]
+    return _bounded_candidates(valid_xs), _bounded_candidates(valid_ys)
 
 
-def _best_fit(block, bays, placements_by_bay, bay_loads, weights):
+def _best_fit(block, bays, placements_by_bay, bay_loads, weights, position_mode):
     best = None
     preferences = block.get("bay_preferences", [])
     max_preference = max(preferences) if preferences else 0
@@ -312,7 +368,7 @@ def _best_fit(block, bays, placements_by_bay, bay_loads, weights):
             for entry_time in _candidate_entries(placements, release_time):
                 exit_time = entry_time + processing_time
                 active = _active_placements(placements, entry_time, exit_time)
-                xs, ys = _candidate_positions(block, orient_idx, bay, active)
+                xs, ys = _candidate_positions(block, orient_idx, bay, active, position_mode)
                 for x in xs:
                     for y in ys:
                         bbox = _bbox_at(block, orient_idx, x, y)
@@ -396,18 +452,17 @@ def _ordered_operations(operations):
     return ordered
 
 
-def _build_for_order(prob_info, order):
+def _build_for_order(prob_info, order, placement_weights, position_mode):
     operations = {}
     bays = prob_info["bays"]
     placements_by_bay = [[] for _ in bays]
     bay_loads = [0 for _ in bays]
-    weights = prob_info.get("weights", {})
     assignments = []
 
     for block_id in order:
         block = prob_info["blocks"][block_id]
         bay_id, orient_idx, x, y, entry_time, exit_time, bbox = _best_fit(
-            block, bays, placements_by_bay, bay_loads, weights
+            block, bays, placements_by_bay, bay_loads, placement_weights, position_mode
         )
 
         entry_key = str(entry_time)
@@ -459,9 +514,14 @@ def _build_for_order(prob_info, order):
 def algorithm(prob_info, timelimit=60):
     best_operations = None
     best_score = None
-    for order in _candidate_orders(prob_info):
-        operations, score = _build_for_order(prob_info, order)
-        if best_score is None or score < best_score:
-            best_score = score
-            best_operations = operations
+    profiles = _candidate_weight_profiles(prob_info)
+    searches = [("legacy", profiles[0])]
+    for weights in profiles:
+        searches.append(("balanced", weights))
+    for position_mode, weights in searches:
+        for order in _candidate_orders(prob_info):
+            operations, score = _build_for_order(prob_info, order, weights, position_mode)
+            if best_score is None or score < best_score:
+                best_score = score
+                best_operations = operations
     return {"operations": best_operations if best_operations is not None else {}}
